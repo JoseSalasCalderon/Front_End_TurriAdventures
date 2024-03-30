@@ -8,7 +8,6 @@ import { ReserveComponent } from './reservacion/reserve.component';
 export const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'home', component: HomeComponent },
-    { path: 'home', component: HomeComponent },
     { path: 'rates', component: RatesComponent },
     { path: 'reserve', component: ReserveComponent },
     { path: '**', component: HomeComponent}
