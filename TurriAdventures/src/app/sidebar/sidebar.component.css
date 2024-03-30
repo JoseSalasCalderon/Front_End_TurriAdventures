@@ -1,9 +1,30 @@
+.nav {
+    padding-top: 0.5em;
+}
+
 .nav-item {
-    border-bottom: 1px solid #ccc; /* Agrega un borde inferior de 1 píxel sólido con color gris claro */
     padding-bottom: 5px; /* Añade un espacio entre cada fila */
 }
   
 .nav-link {
     padding-top: 5px; /* Añade un espacio en la parte superior de cada enlace */
     padding-bottom: 5px; /* Añade un espacio en la parte inferior de cada enlace */
+}
+
+.nav a {
+    color: #FFF;
+    background-color: #343a40;
+    font-weight: bold;
+}
+
+.nav a:hover{
+    color: #343a40;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+
+img {
+    width: 50%;
+    height: 10em;
+    margin-top: 30%;
 }

@@ -13,5 +13,5 @@ footer {
 
 /* Opcional: Estilos para el contenido del footer */
 .container p {
-  margin: 0;
+  text-align: end;
 }

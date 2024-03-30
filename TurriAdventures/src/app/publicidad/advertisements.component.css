@@ -1,19 +1,29 @@
-.advertisements {
-  display: contents;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  
-
+/* publicidad.component.css */
+.carousel {
+  width: 100%;
 }
 
-.advertisement {
-  width: 200px;
-  margin-bottom: 10px;
-  cursor: pointer;
-  position: absolute;
+.carousel-inner {
+  border-radius: 5px;
 }
 
-.advertisement img {
-  width: 90%;
-  height: auto;
+.carousel-item img {
+  border-radius: 5px;
+}
+
+.carousel-control-prev, .carousel-control-next {
+  width: auto;
+}
+
+.carousel-indicators {
+  bottom: -40px;
+}
+
+.carousel-indicators li {
+  background-color: #fff;
+  border: 2px solid #000;
+}
+
+.carousel-indicators .active {
+  background-color: #000;
 }
