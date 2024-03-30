@@ -3,30 +3,9 @@ header {
     padding: 10px 20px;
     background-color: #f2f2f2;
   }
-  
+    
   .logo {
     max-width: 100px;
-  }
-  
-  h1 {
-    margin: 0;
-  }
-  
-  /* Estilos para el contenido principal */
-  .container {
-    max-width: 100%;
-  }
-  
-  /* Estilos para la imagen en el cuerpo */
-  .image-container img {
-    max-width: 100%;
-    height: auto;
-    max-height: 200px;
-  }
-  
-  /* Estilos para la tabla */
-  .table-bordered td {
-    border: 1px solid #dee2e6;
   }
   
   /* Estilos para la publicidad y texto */
@@ -34,21 +13,18 @@ header {
   .texto p {
     max-width: 100%;
   }
-  
-/* Estilos para alinear imagen y texto */
-.row {
-    display: flex;
-    align-items: flex-start; /* Alinear elementos al principio del contenedor */
-  }
-  
-  .image-container {
-    flex: 0 0 auto; /* Evitar que la imagen se expanda */
-    margin-right: 20px; /* Espacio entre la imagen y el texto */
-    align-self: flex-start; /* Alinear la imagen al principio del contenedor */
-  }
-  
-  .texto {
-    flex: 1; /* Que ocupe el espacio restante */
-  }
-  
-  
+
+/* Estilos para el menú fijo en la parte izquierda */
+.menu {
+  position: absolute;
+  width: 200px; /* Ancho del menú */
+  height: 50%; /* Para que ocupe toda la altura */
+  overflow-y: auto; /* Para agregar una barra de desplazamiento vertical si el menú es demasiado largo */
+  margin-top: 80px;
+  border: 1px solid #dee2e6;
+}
+
+/* Estilos para ajustar el contenido principal al lado del menú */
+main {
+  margin-left: 200px; /* Ajusta el margen izquierdo para que el contenido no se superponga con el menú */
+}

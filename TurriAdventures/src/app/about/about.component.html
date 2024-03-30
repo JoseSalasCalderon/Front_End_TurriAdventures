@@ -1,0 +1,19 @@
+<div class="about-container">
+  <div class="description">
+    <h2>Descripción del Hotel</h2>
+    <p>Lorem ipsum dolor sit amet, maiores ornare ac fermentum, imperdiet ut
+      vivamus a, nam lectus at nunc. Cum quam euismod sem, semper ut potenti
+      pellentesque quisque. In eget sapien sed, sit duis vestibulum ultricies, placerat
+      morbi amet vel, nullam in in lorem vel. In molestie elit dui dictum, praesent
+      nascetur pulvinar sed, in dolor pede in aliquam, risus nec error quis pharetra.</p>
+  </div>
+  
+  <div class="selected-image" *ngIf="selectedImage">
+    <img [src]="selectedImage">
+  </div>
+  <div class="gallery">
+    <div class="image" *ngFor="let image of images" (click)="showImage(image)">
+      <img src="{{ image }}">
+    </div>
+  </div>
+</div>
