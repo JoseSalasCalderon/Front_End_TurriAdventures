@@ -11,6 +11,6 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'rates', component: RatesComponent },
     { path: 'reserve', component: ReserveComponent },
-    { path: '**', redirectTo: '', pathMatch: 'full' }
+    { path: '**', component: HomeComponent}
 
 ];

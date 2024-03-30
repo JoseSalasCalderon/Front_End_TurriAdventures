@@ -1,5 +1,12 @@
-
 header {
   padding: 10px 20px;
   background-color: #f2f2f2;
+}
+
+#titleGeneral {
+  display: flex;
+}
+
+#titleGeneral h1{
+  margin-left: 1em;
 }

@@ -1,17 +1,16 @@
 /* Estilos para el header */
-  .logo {
-    max-width: 100px;
-  }
-  
-  /* Estilos para la publicidad y texto */
-  .publicidad img,
-  .texto p {
-    max-width: 100%;
-  }
+.logo {
+  max-width: 100px;
+}
 
+/* Estilos para la publicidad y texto */
+.publicidad img,
+.texto p {
+  max-width: 100%;
+}
 
 /* Estilos para ajustar el contenido principal al lado del menú */
 main {
-  margin-left: 230px; /* Ajusta el margen izquierdo para que el contenido no se superponga con el menú */
+  min-height: 94vh;
 }
 

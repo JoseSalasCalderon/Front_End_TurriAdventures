@@ -1,8 +1,9 @@
-.menu {
-    position: absolute;
-    width: 200px; /* Ancho del menú */
-    height: 50%; /* Para que ocupe toda la altura */
-    overflow-y: auto; /* Para agregar una barra de desplazamiento vertical si el menú es demasiado largo */
-    margin-top: 80px;
-    border: 1px solid #dee2e6;
-  }
+.nav-item {
+    border-bottom: 1px solid #ccc; /* Agrega un borde inferior de 1 píxel sólido con color gris claro */
+    padding-bottom: 5px; /* Añade un espacio entre cada fila */
+}
+  
+.nav-link {
+    padding-top: 5px; /* Añade un espacio en la parte superior de cada enlace */
+    padding-bottom: 5px; /* Añade un espacio en la parte inferior de cada enlace */
+}

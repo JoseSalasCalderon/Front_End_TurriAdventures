@@ -1,7 +1,17 @@
 footer {
-  padding: 10px 20px;
-  background-color: #f2f2f2;  
-  color: black;
+  background-color: #343a40;
+  color: white;
+  padding: 20px 0;
+  margin-top: auto; /* Permite que el footer se ajuste automáticamente en la parte inferior */
+}
+
+.container {
   width: 100%;
-  text-align: right;
+  max-width: 1200px; /* O el ancho deseado para el contenido del footer */
+  margin: 0 auto;
+}
+
+/* Opcional: Estilos para el contenido del footer */
+.container p {
+  margin: 0;
 }
