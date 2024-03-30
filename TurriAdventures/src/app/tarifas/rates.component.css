@@ -1,0 +1,58 @@
+#homeImage {
+    width: 80%;
+    max-width: 400px; /* Tamaño máximo de la imagen */
+    height: auto; /* Para mantener la proporción de aspecto */
+    margin-left: 10%;
+}
+
+.content {
+    width: 90%;
+    padding: 20px;
+}
+
+.article {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+}
+
+.sections {
+    width: 100%;
+    margin-bottom: 10px; /* Reduzca el margen inferior para que los elementos se junten más */
+}
+
+@media (min-width: 768px) {
+    .sections {
+        width: 50%; /* Para que cada sección ocupe la mitad del ancho en pantallas medianas y grandes */
+    }
+}
+
+/* Estilos para las habitaciones */
+.room-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .room-image {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+  
+  .room-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  .room-price {
+    font-size: 16px;
+    color: #007bff; /* Azul para el precio */
+  }
+
+  .room-image {
+    width: 100%;
+    max-width: 300px; /* Ancho máximo para las imágenes */
+    height: auto; /* Mantener la proporción de aspecto */
+  }
