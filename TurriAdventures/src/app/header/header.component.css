@@ -1,0 +1,19 @@
+header {
+  padding: 10px 20px;
+  color: #f2f2f2;
+  background-color: #343a40;
+}
+
+#titleGeneral {
+  display: flex;
+}
+
+#titleGeneral h1{
+  margin-left: 0.5em;
+
+}
+
+#titleGeneral img{
+  width: 8em;
+  height: 3.3em;
+}
