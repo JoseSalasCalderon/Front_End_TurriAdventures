@@ -1,0 +1,8 @@
+<div class="advertisement-container">
+  <div class="advertisement" *ngFor="let advertisement of advertisements; let i = index" [hidden]="i !== currentAdvertisementIndex">
+    <a (click)="openPage(advertisement.pageUrl)">
+      <img [src]="advertisement.imageUrl" alt="Advertisement">
+    </a>
+  </div>
+</div>
+  

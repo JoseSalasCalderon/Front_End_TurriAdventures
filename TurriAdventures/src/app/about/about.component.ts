@@ -12,8 +12,8 @@ import { CommonModule } from '@angular/common';
 export class AboutComponent {
   images: string[] = [
     
-    'assets\Facilidades\Hotel.jpg',
-    'assets\Facilidades\actividades-mercantiles-1.webp',
+    'assets/Facilidades/Hotel.jpg',
+    'assets/Facilidades/actividades-mercantiles-1.webp',
  'assets/Facilidades/interioe-hotel.webp',
   'assets/Facilidades/OIP (1).jpg',
 'assets/Facilidades/OIP.jpg',

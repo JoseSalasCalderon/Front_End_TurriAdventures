@@ -1,9 +1,4 @@
 /* Estilos para el header */
-header {
-    padding: 10px 20px;
-    background-color: #f2f2f2;
-  }
-    
   .logo {
     max-width: 100px;
   }
@@ -14,17 +9,9 @@ header {
     max-width: 100%;
   }
 
-/* Estilos para el menú fijo en la parte izquierda */
-.menu {
-  position: absolute;
-  width: 200px; /* Ancho del menú */
-  height: 50%; /* Para que ocupe toda la altura */
-  overflow-y: auto; /* Para agregar una barra de desplazamiento vertical si el menú es demasiado largo */
-  margin-top: 80px;
-  border: 1px solid #dee2e6;
-}
 
 /* Estilos para ajustar el contenido principal al lado del menú */
 main {
-  margin-left: 200px; /* Ajusta el margen izquierdo para que el contenido no se superponga con el menú */
+  margin-left: 230px; /* Ajusta el margen izquierdo para que el contenido no se superponga con el menú */
 }
+

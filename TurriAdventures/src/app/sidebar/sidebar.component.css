@@ -1,0 +1,8 @@
+.menu {
+    position: absolute;
+    width: 200px; /* Ancho del menú */
+    height: 50%; /* Para que ocupe toda la altura */
+    overflow-y: auto; /* Para agregar una barra de desplazamiento vertical si el menú es demasiado largo */
+    margin-top: 80px;
+    border: 1px solid #dee2e6;
+  }
