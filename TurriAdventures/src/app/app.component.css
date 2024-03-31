@@ -1,16 +1,10 @@
-/* Estilos para el header */
-.logo {
-  max-width: 100px;
+.main-content {
+  margin-left: 200px; /* Ajusta el margen izquierdo para dejar espacio para la barra lateral */
+  padding: 10px; /* Añade un espacio alrededor del contenido */
 }
 
-/* Estilos para la publicidad y texto */
-.publicidad img,
-.texto p {
-  max-width: 100%;
+.advertisement-container {
+  position: absolute;
+  top: 350px; /* Altura del encabezado */
+  /* Otros estilos según sea necesario */
 }
-
-/* Estilos para ajustar el contenido principal al lado del menú */
-main {
-  min-height: 94vh;
-}
-
