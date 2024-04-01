@@ -1,5 +1,7 @@
 import { Component, ViewChild, HostListener } from '@angular/core';
 import { AdvertisementsComponent } from '../publicidad/advertisements.component';
+
+
 @Component({
     selector: 'app-sidebar',
     standalone: true,
