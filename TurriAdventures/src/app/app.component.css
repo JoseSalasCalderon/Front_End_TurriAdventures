@@ -1,9 +1,10 @@
 .main-content {
-  padding: 10px; /* Añade un espacio alrededor del contenido */
+  padding: 10px; 
+  min-height: 81.5vh;
 }
 
 .advertisement-container {
   position: absolute;
-  top: 350px; /* Altura del encabezado */
-  /* Otros estilos según sea necesario */
+  top: 350px; 
 }
+
