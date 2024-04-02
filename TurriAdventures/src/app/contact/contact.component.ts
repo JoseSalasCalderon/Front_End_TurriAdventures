@@ -3,12 +3,12 @@ import { SidebarComponent } from "../sidebar/sidebar.component";
 import { HeaderComponent } from "../header/header.component";
 
 @Component({
-    selector: 'app-reserve',
+    selector: 'app-contact',
     standalone: true,
-    templateUrl: './reserve.component.html',
-    styleUrl: './reserve.component.css',
+    templateUrl: './contact.component.html',
+    styleUrl: './contact.component.css',
     imports: [SidebarComponent, HeaderComponent]
 })
-export class ReserveComponent {
+export class ContactComponent {
 
 }

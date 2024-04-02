@@ -12,6 +12,7 @@ export class AdvertisementsComponent {
   currentAdvertisementIndex: number = 0;
   intervalId: any;
 
-  images = ['assets/Facilidades/Hotel1.jpg', 'assets/Facilidades/Hotel2.jpg', 'assets/Facilidades/Hotel3.jpg'];
+  images = ['assets/Anuncios/Hotel2.png', 'assets/Anuncios/gama.jpg'];
+  urls = ['https://totaltripviajes.com/hoteles-de-lujo/', 'https://galletasgama.com/'];
 
 }

@@ -53,9 +53,7 @@ export class AboutComponent {
 'assets/Facilidades/standard.jpg',
 'assets/Facilidades/Hotel.jpg',
 'assets/Facilidades/actividades-mercantiles-1.webp',
-'assets/Facilidades/interioe-hotel.webp',
-'assets/Facilidades/OIP (1).jpg',
-'assets/Facilidades/OIP.jpg'
+'assets/Facilidades/interioe-hotel.webp'
 ];  
 selectedImage: string = this.images[0];
 

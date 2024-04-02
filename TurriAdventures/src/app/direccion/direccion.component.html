@@ -1,3 +1,4 @@
+<p>direccion works!</p>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -12,7 +13,10 @@
   
   <div class="container-fluid">
     <div class="row">
-
+      <!-- Header -->
+      <div class="col-12">
+        <app-header></app-header>
+      </div>
       
       <div class="col-lg-3 col-md-4">
         <app-sidebar></app-sidebar>
@@ -20,27 +24,7 @@
 
       <!-- Contenido principal -->
       <div class="col-lg-9 col-md-8">
-        <div class="about-container">
-          <div class="description">
-            <h2>Descripción del Hotel</h2>
-            <p>Lorem ipsum dolor sit amet, maiores ornare ac fermentum, imperdiet ut
-              vivamus a, nam lectus at nunc. Cum quam euismod sem, semper ut potenti
-              pellentesque quisque. In eget sapien sed, sit duis vestibulum ultricies, placerat
-              morbi amet vel, nullam in in lorem vel. In molestie elit dui dictum, praesent
-              nascetur pulvinar sed, in dolor pede in aliquam, risus nec error quis pharetra.</p>
-          </div>
-
-          <div class="selected-image" *ngIf="selectedImage">
-            <img [src]="selectedImage" alt="Imagen seleccionada">
-          </div>
-
-          <div class="gallery">
-            <div class="image" *ngFor="let image of images" (click)="showImage(image)">
-              <img [src]="image" alt="Imagen de la galería">
-            </div>
-          </div>
-        </div>
-
+        <h2>Direccion</h2>
         <!-- Aquí puedes agregar más contenido si es necesario -->
       </div>
     </div>
