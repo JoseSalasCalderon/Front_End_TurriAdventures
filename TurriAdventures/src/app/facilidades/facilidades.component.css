@@ -1,0 +1,29 @@
+img {
+    width: 25%;
+    min-width: 100px;
+    height: 9em;
+}
+.facilities {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.facilities img {
+    margin: 1%;
+}
+
+.facilities p {
+    margin: 1% 3%;
+}
+
+/*Responsive*/
+@media screen and (max-width: 768px) {
+    img {
+        height: 7em;
+    }
+
+    .facilities p {
+        margin: 1% 5%;
+    }
+}
