@@ -1,0 +1,39 @@
+#direction-container {
+    padding: 10px;
+}
+
+#direction-container h2, #direction-container p{
+    width: 80%;
+    margin-bottom: 0.7em;
+}
+
+#map-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2em;
+}
+
+#map-container iframe {
+    width: 50%;
+    height: 25em;
+    border: 0.2em solid #000;
+}
+
+/*Responsive*/
+@media screen and (max-width: 768px) {
+    
+    #direction-container h2, #direction-container p{
+        width: 100%;
+    }
+    
+    #map-container {
+        width: 100%;
+    }
+
+    #map-container iframe {
+        width: 90%;
+    }
+}
