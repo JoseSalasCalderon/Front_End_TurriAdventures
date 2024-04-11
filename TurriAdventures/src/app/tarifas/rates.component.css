@@ -56,3 +56,14 @@
     max-width: 300px; /* Ancho máximo para las imágenes */
     height: auto; /* Mantener la proporción de aspecto */
   }
+
+  .custom-btn {
+    color: #f2f2f2;
+    background-color: #343a40;
+    border: none;
+  }
+  
+  .custom-btn:hover {
+    background-color: #555b61;
+  }
+  

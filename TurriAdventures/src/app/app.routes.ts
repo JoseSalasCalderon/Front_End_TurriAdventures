@@ -6,6 +6,7 @@ import { ReserveComponent } from './reservacion/reserve.component';
 import { ContactComponent } from './contact/contact.component';
 import { FacilidadesComponent } from './facilidades/facilidades.component';
 import { DireccionComponent } from './direccion/direccion.component';
+import { VistaHabitacionesComponent } from './vista-habitaciones/vista-habitaciones.component';
 export const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'home', component: HomeComponent },
@@ -14,7 +15,7 @@ export const routes: Routes = [
     { path: 'contact', component: ContactComponent },
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
-
+    { path: 'vista/:id', component:VistaHabitacionesComponent},
     { path: '**', component: HomeComponent}
 
 ];
