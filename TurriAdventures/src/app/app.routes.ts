@@ -19,7 +19,7 @@ export const routes: Routes = [
     { path: 'contact', component: ContactComponent },
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
-
+    { path: 'vista/:id', component:VistaHabitacionesComponent},
     { path: '**', component: HomeComponent}
 
 ];
