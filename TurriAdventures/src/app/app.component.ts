@@ -5,7 +5,7 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { AboutComponent } from "./about/about.component";
-import { ReserveComponent } from "./reservacion/reserve.component";
+import { ReserveComponent } from "./reserve/reservaHabitacion/reserve.component";
 import { AdvertisementsComponent } from './publicidad/advertisements.component';
 
 @Component({
