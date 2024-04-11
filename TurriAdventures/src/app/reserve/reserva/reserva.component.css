@@ -1,0 +1,20 @@
+.container {
+    max-width: 800px;
+}
+
+.btn {
+    background-color: #445464;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 200px;
+
+}
+
+img {
+    width: 100px;
+    margin: 2px;
+}
+.habitacion-disponible {
+    display: flex;
+}

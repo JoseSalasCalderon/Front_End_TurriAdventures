@@ -1,0 +1,76 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Turri Adventure</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="reserva.component.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4">
+                <app-sidebar></app-sidebar>
+            </div>
+
+            <div class="container">
+                <h1>Reservar en Línea</h1>
+                <h5>Habitación Disponible</h5>
+                <div class="habitacion-disponible">
+                    <img src="assets/Facilidades/interioe-hotel.webp" alt="">
+                    <p>Lorem ipsum dolor sit amet, maiores ornare ac fermentum, imperdiet ut vivamus a, nam lectus at
+                        nunc. Cum quam euismod sem, semper ut potenti pellentesque quisque. In eget sapien sed, sit duis
+                        vestibulum ultricies, placerat morbi amet vel, nullam in in lorem vel.</p>
+                </div>
+
+                <div class="formulario-reserva">
+                    <form action="/confirmReserve">
+                        <div class="monto-reservacion">
+                            <h2>Monto de su reservacion: $</h2>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input type="text" class="form-control" formControlName="nombre" id="nombre">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellidos">Apellidos:</label>
+                            <input type="text" class="form-control" formControlName="apellidos" id="apellidos">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" class="form-control" formControlName="email" id="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tarjetaCredito">Tarjeta de Crédito:</label>
+                            <input type="text" class="form-control" formControlName="tarjetaCredito"
+                                id="tarjetaCredito">
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                        <button type="button" class="btn btn-secondary">Cancelar</button>
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- Scripts al final del cuerpo del documento -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- Agrega aquí tus scripts específicos para este archivo HTML -->
+</body>
+
+</html>
