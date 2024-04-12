@@ -16,41 +16,42 @@
         <app-sidebar></app-sidebar>
       </div>
 
-<div class="container">
-  <h1>Reservar en Línea</h1>
-
-  <form action="/reserva">
-    <div class="row">
-      <div class="col-md-6">
-        <label for="fechaLlegada">Fecha de Llegada:</label>
-        <input type="date" id="fechaLlegada" formControlName="fechaLlegada" class="form-control">
+  <div class="container">
+    <h1>Reservar en Línea</h1>
+  
+    <form action="/reserva">
+      <div class="row">
+        <div class="col-md-6">
+          <label for="fechaLlegada">Fecha de Llegada:</label>
+          <input type="date" id="fechaLlegada" formControlName="fechaLlegada" class="form-control">
+        </div>
+        <div class="col-md-6">
+          <label for="fechaSalida">Fecha de Salida:</label>
+          <input type="date" id="fechaSalida" formControlName="fechaSalida" class="form-control">
+        </div>
       </div>
-      <div class="col-md-6">
-        <label for="fechaSalida">Fecha de Salida:</label>
-        <input type="date" id="fechaSalida" formControlName="fechaSalida" class="form-control">
+  
+      <div class="row mt-3">
+        <div class="col-md-6">
+          <label for="tipoHabitacion">Tipo de Habitación:</label>
+          <select id="tipoHabitacion" formControlName="tipoHabitacion" class="form-control">
+            <option value="">Tipo de Habitacion</option>
+            <option value="individual">Individual</option>
+            <option value="doble">Doble</option>
+            <option value="triple">Triple</option>
+            <option value="familiar">Familiar</option>
+          </select>
+        </div>
       </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-md-6">
-        <label for="tipoHabitacion">Tipo de Habitación:</label>
-        <select id="tipoHabitacion" formControlName="tipoHabitacion" class="form-control">
-          <option value="">Tipo de Habitacion</option>
-          <option value="individual">Individual</option>
-          <option value="doble">Doble</option>
-          <option value="triple">Triple</option>
-          <option value="familiar">Familiar</option>
-        </select>
+  
+      <div class="row mt-3">
+        <div class="col-md-12 d-flex justify-content-end"> <!-- Modificado aquí -->
+          <button type="submit" class="btn btn-primary">Aceptar</button>
+        </div>
       </div>
-    </div>
-
-    <div class="row mt-3">
-      <div class="col-md-12">
-        <button type="submit" class="btn btn-primary">Aceptar</button>
-      </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
+      
 
 
 </div>
