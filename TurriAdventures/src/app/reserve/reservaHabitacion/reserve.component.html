@@ -19,34 +19,34 @@
 <div class="container">
   <h1>Reservar en Línea</h1>
 
-  <form action="/reserva">
+  <form action="/reserva" >
     <div class="row">
       <div class="col-md-6">
         <label for="fechaLlegada">Fecha de Llegada:</label>
-        <input type="date" id="fechaLlegada" formControlName="fechaLlegada" class="form-control">
+        <input #fechaLlegadaInput (input)="onInputChange('fechaLlegada', fechaLlegadaInput.value)" required type="date" id="fechaLlegada" formControlName="fechaLlegada" class="form-control">
       </div>
       <div class="col-md-6">
         <label for="fechaSalida">Fecha de Salida:</label>
-        <input type="date" id="fechaSalida" formControlName="fechaSalida" class="form-control">
+        <input #fechaSalidaInput (input)="onInputChange('fechaSalida', fechaSalidaInput.value)"required type="date" id="fechaSalida" formControlName="fechaSalida" class="form-control">
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-md-6">
         <label for="tipoHabitacion">Tipo de Habitación:</label>
-        <select id="tipoHabitacion" formControlName="tipoHabitacion" class="form-control">
+        <select #tipoHabitacionInput (input)="onInputChange('tipoHabitacion', tipoHabitacionInput.value)" required id="tipoHabitacion" formControlName="tipoHabitacion" class="form-control">
           <option value="">Tipo de Habitacion</option>
-          <option value="individual">Individual</option>
-          <option value="doble">Doble</option>
-          <option value="triple">Triple</option>
-          <option value="familiar">Familiar</option>
+          <option value="estandar">Habitación Estándar</option>
+          <option value="doble">Habitación Doble</option>
+          <option value="ejecutiva">Suite Ejecutiva</option>
         </select>
       </div>
     </div>
 
     <div class="row mt-3">
       <div class="col-md-12">
-        <button type="submit" class="btn btn-primary">Aceptar</button>
+        <button type="submit" (click)="onSubmit()" class="btn btn-primary">Aceptar </button>
+      
       </div>
     </div>
   </form>

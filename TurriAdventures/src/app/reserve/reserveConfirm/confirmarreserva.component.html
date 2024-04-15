@@ -20,9 +20,9 @@
   <h1>Reservar en Línea</h1>
   <div class="informacion-reserva">
     <p>Reservacion realizada!</p>
-    <p>Gracias NOMBRE_CLIENTE!! Su reservacion fue realizada exitosamente.    </p>
+    <p>Gracias {{ datosReserva.nombre }} {{ datosReserva.apellidos }}! Su reservacion fue realizada exitosamente.    </p>
     <p>Numero de reservacion: WERJFDSF123124AS    </p>
-    <p>Acabamos de enviar esta informacion a la direccion EMAIL_CLIENTE para mayor facilidad.    </p>
+    <p>Acabamos de enviar esta informacion a la direccion {{ datosReserva.email }} para mayor facilidad.    </p>
     <p>Gracias por preferirnos!</p>
   </div>
 </div>

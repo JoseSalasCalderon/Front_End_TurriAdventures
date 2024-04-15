@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from "../../sidebar/sidebar.component";
+import { DatosCompartidosService } from '../DatosCompartidosService';
 
 @Component({
     selector: 'app-confirmarreserva',
@@ -8,6 +9,12 @@ import { SidebarComponent } from "../../sidebar/sidebar.component";
     styleUrl: './confirmarreserva.component.css',
     imports: [SidebarComponent]
 })
-export class ConfirmarreservaComponent {
-
-}
+export class ConfirmarreservaComponent implements OnInit {
+    datosReserva: { nombre: string, apellidos: string, email: string } = { nombre: '', apellidos: '', email: '' };
+  
+    constructor(private datosCompartidosService: DatosCompartidosService) { }
+  
+    ngOnInit(): void {
+      this.datosReserva = this.datosCompartidosService.getDatosReserva();
+    }
+  }

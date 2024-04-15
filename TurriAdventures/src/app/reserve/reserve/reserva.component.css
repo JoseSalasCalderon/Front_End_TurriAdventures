@@ -1,0 +1,37 @@
+.container {
+    max-width: 800px;
+}
+
+.btn {
+    background-color: #445464;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+img {
+    width: 20%; 
+    height: auto;
+    object-fit: cover;
+    margin-right: 2%;
+}
+
+.habitacion-disponible {
+    display: flex;
+}
+
+@media (max-width: 868px) {
+    .container {
+        max-width: 100%; 
+    }
+
+    img {
+        width: 50%; /* Cambiado a 100% para que sea responsivo */
+
+        margin-bottom: 10px; /* Agrega un espacio entre imágenes en pantallas pequeñas */
+    }
+    
+    .habitacion-disponible {
+        flex-wrap: wrap; 
+    }
+}
