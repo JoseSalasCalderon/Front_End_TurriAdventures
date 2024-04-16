@@ -1,0 +1,88 @@
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Turri Adventure</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="reserva.component.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4">
+                <app-sidebar></app-sidebar>
+            </div>
+
+            <div class="container">
+                <h1>Reservar en Línea</h1>
+                <h5>Habitación Disponible</h5>
+                <div class="habitacion-disponible">
+                    <img src="assets/Habitaciones/{{ datosReserve.tipoHabitacion }}.jpg" alt="">
+                    <p>Usted esta reservando en nuestro hotel el tipo de habitacion {{ datosReserve.tipoHabitacion }} para las fechas entre {{ datosReserve.fechaLlegada }} a {{ datosReserve.fechaSalida }} </p>
+                </div>
+
+                <div class="formulario-reserva" id="paymentForm">
+                    <form  >
+                        <div class="monto-reservacion">
+                            <h2>Monto de la reservacion: $ {{monto()}}</h2>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idCliente">Cedula:</label>
+                            <input #idClienteInput (input)="onInputChange('idCliente', idClienteInput.value)" required type="text" class="form-control" formControlName="idCliente" id="idCliente">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nombre">Nombre:</label>
+                            <input #nombreInput (input)="onInputChange('nombre', nombreInput.value)" required type="text" class="form-control" formControlName="nombre" id="nombre">
+                        
+                        </div>
+
+                        <div class="form-group">
+                            <label for="apellidos">Apellidos:</label>
+                            <input #apellidosInput (input)="onInputChange('apellidos', apellidosInput.value)" required type="text" class="form-control" formControlName="apellidos" id="apellidos">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input #emailInput (input)="onInputChange('email', emailInput.value)" required type="email" class="form-control" formControlName="email" id="email">
+                        </div>
+                                               <div class="form-group">
+                            <label for="tarjetaCredito">Tarjeta de Crédito:</label>
+                            <input #tarjetaCreditoInput (input)="onInputChange('tarjetaCredito', tarjetaCreditoInput.value)" required type="text" class="form-control" id="tarjetaCredito">
+                        </div>
+                        <div class="form-row"> 
+                        <div class="form-group">
+                            <label for="expiryDate">Fecha de vencimiento</label>
+                            <input  #vencimientoInput (input)="isValidExpiryDate('vencimiento',vencimientoInput.value)" required type="text" class="form-control" formControlName="vencimiento" id="vencimiento" placeholder="Formato MM/YY">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cvv">Código de seguridad (CVV)</label>
+                            <input type="text" class="form-control" id="cvv" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button type="button" (click)="onSubmit()" class="btn btn-primary"  >Aceptar</button>
+                        <button type="button" (click)="cancel()"class="btn btn-secondary">Cancelar</button>
+                    </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

@@ -3,7 +3,7 @@ import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { RatesComponent } from './tarifas/rates.component';
 import { ReserveComponent } from './reserve/reservaHabitacion/reserve.component';
-import { ReservaComponent } from './reserve/reserva/reserva.component';
+import { ReservaComponent } from './reserve/reserve/reserva.component';
 import { ConfirmarreservaComponent } from './reserve/reserveConfirm/confirmarreserva.component';
 import { ContactComponent } from './contact/contact.component';
 import { FacilidadesComponent } from './facilidades/facilidades.component';
