@@ -1,0 +1,64 @@
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Turri Adventure</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+  
+  <div class="container-fluid">
+    <div class="row">
+      
+      <div class="col-lg-3 col-md-4">
+        <app-sidebar></app-sidebar>
+      </div>
+
+<div class="container">
+  <h1>Reservar en Línea</h1>
+
+  <form >
+    <div class="row">
+      <div class="col-md-6">
+        <label for="fechaLlegada">Fecha de Llegada:</label>
+        <input #fechaLlegadaInput (input)="onInputChange('fechaLlegada', fechaLlegadaInput.value)" required type="date" id="fechaLlegada" formControlName="fechaLlegada" class="form-control" [min]="obtenerFechaActual()">
+      </div>
+      <div class="col-md-6">
+        <label for="fechaSalida">Fecha de Salida:</label>
+        <input #fechaSalidaInput (input)="onInputChange('fechaSalida', fechaSalidaInput.value)"required type="date" id="fechaSalida" formControlName="fechaSalida" class="form-control" [min]="datos.fechaLlegada">
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-6">
+        <label for="tipoHabitacion">Tipo de Habitación:</label>
+        <select #tipoHabitacionInput (input)="onInputChange('tipoHabitacion', tipoHabitacionInput.value)" required id="tipoHabitacion" formControlName="tipoHabitacion" class="form-control">
+          <option value="">Tipo de Habitacion</option>
+          <option value="estandar">Habitación Estándar</option>
+          <option value="doble">Habitación Doble</option>
+          <option value="ejecutiva">Suite Ejecutiva</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-md-12">
+        <button type="button" (click)="onSubmit()" class="btn btn-primary">Aceptar </button>
+      
+      </div>
+    </div>
+  </form>
+</div>
+
+
+</div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+</html>
