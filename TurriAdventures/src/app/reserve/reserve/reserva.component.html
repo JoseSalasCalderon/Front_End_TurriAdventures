@@ -27,14 +27,14 @@
                 </div>
 
                 <div class="formulario-reserva" id="paymentForm">
-                    <form action="/confirmReserve" >
+                    <form  >
                         <div class="monto-reservacion">
                             <h2>Monto de la reservacion: $ {{monto()}}</h2>
                         </div>
 
                         <div class="form-group">
                             <label for="idCliente">Cedula:</label>
-                            <input required type="text" class="form-control" formControlName="idCliente" id="idCliente">
+                            <input #idClienteInput (input)="onInputChange('idCliente', idClienteInput.value)" required type="text" class="form-control" formControlName="idCliente" id="idCliente">
                         </div>
 
                         <div class="form-group">
@@ -52,14 +52,25 @@
                             <label for="email">Email:</label>
                             <input #emailInput (input)="onInputChange('email', emailInput.value)" required type="email" class="form-control" formControlName="email" id="email">
                         </div>
-
-                        <div class="form-group">
+                                               <div class="form-group">
                             <label for="tarjetaCredito">Tarjeta de Crédito:</label>
-                            <input required type="text" class="form-control" id="tarjetaCredito" >
+                            <input #tarjetaCreditoInput (input)="onInputChange('tarjetaCredito', tarjetaCreditoInput.value)" required type="text" class="form-control" id="tarjetaCredito">
+                        </div>
+                        <div class="form-row"> 
+                        <div class="form-group">
+                            <label for="expiryDate">Fecha de vencimiento</label>
+                            <input  #vencimientoInput (input)="isValidExpiryDate('vencimiento',vencimientoInput.value)" required type="text" class="form-control" formControlName="vencimiento" id="vencimiento" placeholder="Formato MM/YY">
                         </div>
 
-                        <button type="submit" (click)="onSubmit()" class="btn btn-primary"  >Aceptar</button>
-                        <button type="button" (click)="prueba()"class="btn btn-secondary">Cancelar</button>
+                        <div class="form-group">
+                            <label for="cvv">Código de seguridad (CVV)</label>
+                            <input type="text" class="form-control" id="cvv" placeholder="123" maxlength="3">
+                        </div>
+                    </div>
+                    <div class="buttons">
+                        <button type="button" (click)="onSubmit()" class="btn btn-primary"  >Aceptar</button>
+                        <button type="button" (click)="cancel()"class="btn btn-secondary">Cancelar</button>
+                    </div>
                     </form>
                 </div>
 
@@ -68,7 +79,6 @@
         </div>
     </div>
 
-    <!-- Scripts al final del cuerpo del documento -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

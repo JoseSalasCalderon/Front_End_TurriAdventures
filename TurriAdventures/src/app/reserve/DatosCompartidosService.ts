@@ -21,7 +21,7 @@ export class DatosCompartidosService {
     return this.datosReserva;
   }
 
-  setDatosReservaConfirm(datos: { idCliente: string, tarjetaCredito: string }) {
+  setDatosReservaConfirm(datos: { idCliente: string, tarjetaCredito: string , vencimiento: string}) {
     this.datosReservaClient = datos;
     this.datosReservaClientActualizados.emit(datos);
   }

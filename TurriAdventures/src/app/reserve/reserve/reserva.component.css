@@ -2,11 +2,18 @@
     max-width: 800px;
 }
 
+.buttons{
+    width: 100%;
+    display: flex;
+    justify-content: left;
+}
+
 .btn {
     background-color: #445464;
     color: white;
     border: none;
     cursor: pointer;
+    margin: 0 1em;
 }
 
 img {
@@ -26,9 +33,9 @@ img {
     }
 
     img {
-        width: 50%; /* Cambiado a 100% para que sea responsivo */
+        width: 50%;
 
-        margin-bottom: 10px; /* Agrega un espacio entre imágenes en pantallas pequeñas */
+        margin-bottom: 10px;
     }
     
     .habitacion-disponible {

@@ -17,4 +17,19 @@ export class ConfirmarreservaComponent implements OnInit {
     ngOnInit(): void {
       this.datosReserva = this.datosCompartidosService.getDatosReserva();
     }
+
+     generarCodigo(): string {
+      const caracteres = '123';
+      const longitud = 1;
+      let codigo = '';
+    
+      for (let i = 0; i < longitud; i++) {
+        const indice = Math.floor(Math.random() * caracteres.length);
+        codigo += caracteres.charAt(indice);
+      }
+      console.log(codigo);
+
+      return codigo;
+    }
+     numeroReservacion = this.generarCodigo();
   }
