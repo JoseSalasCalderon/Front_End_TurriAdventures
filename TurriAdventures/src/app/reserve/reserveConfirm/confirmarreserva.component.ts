@@ -11,25 +11,13 @@ import { DatosCompartidosService } from '../DatosCompartidosService';
 })
 export class ConfirmarreservaComponent implements OnInit {
     datosReserva: { nombre: string, apellidos: string, email: string } = { nombre: '', apellidos: '', email: '' };
-  
+    numeroReservacion: string='';
+
     constructor(private datosCompartidosService: DatosCompartidosService) { }
   
     ngOnInit(): void {
       this.datosReserva = this.datosCompartidosService.getDatosReserva();
+      this.numeroReservacion = localStorage.getItem('contadorReservas') || '1';
     }
 
-     generarCodigo(): string {
-      const caracteres = '123';
-      const longitud = 1;
-      let codigo = '';
-    
-      for (let i = 0; i < longitud; i++) {
-        const indice = Math.floor(Math.random() * caracteres.length);
-        codigo += caracteres.charAt(indice);
-      }
-      console.log(codigo);
-
-      return codigo;
-    }
-     numeroReservacion = this.generarCodigo();
   }

@@ -1,0 +1,18 @@
+.container {
+    max-width: 800px;
+}
+
+.informacion-reserva {
+    margin-top: 5%;
+}
+
+.btn {
+    background-color: #3c434b;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}

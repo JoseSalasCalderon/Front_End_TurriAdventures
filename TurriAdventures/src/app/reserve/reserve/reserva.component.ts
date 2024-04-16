@@ -60,6 +60,7 @@ export class ReservaComponent implements OnInit {
 
     onSubmit() {
         if (this.camposValidos() && this.tarjetaValida&& this.isValidExpiryDate('vencimiento', this.datos.vencimiento)) {
+            this.datosCompartidosService.incrementarReservacion();
             this.router.navigate(['/confirmReserve']);
         }
         else {

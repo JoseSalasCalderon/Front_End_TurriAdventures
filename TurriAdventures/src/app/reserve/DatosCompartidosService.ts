@@ -7,6 +7,7 @@ export class DatosCompartidosService {
   private datosReserva: { nombre: string, apellidos: string, email: string } = { nombre: '', apellidos: '', email: '' };
   private datosReservaClient: { idCliente: string, tarjetaCredito: string } = { idCliente: '', tarjetaCredito: '' };
   private datosReserve: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: string } = { fechaLlegada: '', fechaSalida: '', tipoHabitacion: '' };
+  private contadorReservaciones: number = 0;
 
   datosReservaActualizados: EventEmitter<{ nombre: string, apellidos: string, email: string }> = new EventEmitter<{ nombre: string, apellidos: string, email: string }>();
   datosReservaClientActualizados: EventEmitter<{ idCliente: string, tarjetaCredito: string }> = new EventEmitter<{ idCliente: string, tarjetaCredito: string }>();
@@ -37,5 +38,13 @@ export class DatosCompartidosService {
 
   getDatosReserve() {
     return this.datosReserve;
+  }
+
+  getNumeroReservacion(): number {
+    return this.contadorReservaciones;
+  }
+
+  incrementarReservacion(): void {
+    this.contadorReservaciones++;
   }
 }
