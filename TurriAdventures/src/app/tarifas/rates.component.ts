@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
@@ -13,7 +13,10 @@ import { RouterModule} from '@angular/router';
   templateUrl: './rates.component.html',
   styleUrl: './rates.component.css'
 })
-export class RatesComponent {
+export class RatesComponent implements OnInit {
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
 
   prices: { roomType: string, priceLowSeason: number, priceHighSeason: number }[] = [
     { roomType: 'Habitación Deluxe', priceLowSeason: 120, priceHighSeason: 150 },

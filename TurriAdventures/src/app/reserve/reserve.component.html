@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Turri Adventure</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="reserve.component.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col-lg-3 col-md-4">
+                <!-- Agrega el código del sidebar aquí -->
+                <div class="sidebar">
+                    <app-sidebar></app-sidebar>
+                </div>
+            </div>
+
+            <div class="container">
+                <h1>Reservar en Línea</h1>
+
+                <div class="formulario-reserva" id="paymentForm">
+                    <form>
+                        <div class="form-group">
+                            <label for="fechaEntrada">Fecha de Entrada:</label>
+                            <input type="date" class="form-control" id="fechaEntrada" name="fechaEntrada">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fechaSalida">Fecha de Salida:</label>
+                            <input type="date" class="form-control" id="fechaSalida" name="fechaSalida">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="estadoReservacion">Estado de la Reservación:</label>
+                            <input type="text" class="form-control" id="estadoReservacion" name="estadoReservacion">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="numeroHabitacion">Número de Habitación:</label>
+                            <input type="number" class="form-control" id="numeroHabitacion" name="numeroHabitacion">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="idCliente">Cédula:</label>
+                            <input type="text" class="form-control" id="idCliente" name="idCliente" maxlength="8">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tarjeta">Número tarjeta:</label>
+                            <input type="password" class="form-control" id="tarjeta" name="tarjeta" >
+                        </div>
+
+                        <div class="form-group">
+                            <label for="seguridad">Código de seguridad:</label>
+                            <input type="password" class="form-control" id="seguridad" name="seguridad" >
+                        </div>
+
+                        <div class="buttons">
+                            <button type="button" class="btn btn-primary" (click)="mostrarAlerta()">Aceptar</button>
+                            <button type="button" class="btn btn-secondary">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

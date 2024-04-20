@@ -5,13 +5,13 @@ import { HeaderComponent } from "./header/header.component";
 import { FooterComponent } from "./footer/footer.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { AboutComponent } from "./about/about.component";
-import { ReserveComponent } from "./reserve/reservaHabitacion/reserve.component";
+import { ReserveComponent } from './reserve/reserve.component';
 import { AdvertisementsComponent } from './publicidad/advertisements.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AdvertisementsComponent, RouterOutlet, HomeComponent, HeaderComponent, FooterComponent, SidebarComponent, AboutComponent, ReserveComponent],
+  imports: [AdvertisementsComponent, RouterOutlet, HomeComponent, HeaderComponent, FooterComponent, SidebarComponent, AboutComponent,ReserveComponent  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
