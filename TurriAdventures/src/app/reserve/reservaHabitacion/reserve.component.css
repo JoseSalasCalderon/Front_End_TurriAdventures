@@ -1,0 +1,15 @@
+.container {
+  max-width: 800px;
+}
+
+.btn {
+  background-color: #3c434b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-right: 25%;
+}
+
+.btn:hover {
+  background-color: #0056b3;
+}
