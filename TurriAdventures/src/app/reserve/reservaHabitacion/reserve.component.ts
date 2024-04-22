@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from "../../sidebar/sidebar.component";
 import { HeaderComponent } from "../../header/header.component";
 import { DatosCompartidosService } from '../DatosCompartidosService';
-
+import { ReservationService } from '../../../Core/ReservaService';
+import { Reserva } from '../../../Model/Reserva';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,11 +14,13 @@ import { Router } from '@angular/router';
   imports: [SidebarComponent, HeaderComponent]
 })
 export class ReserveComponent implements OnInit {
+  listaEstados:Reserva[]=[];
   datos: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: string } = { fechaLlegada: '', fechaSalida: '', tipoHabitacion: '' };
   reservas: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: string }[] = [];
 
   constructor(
     private datosCompartidosService: DatosCompartidosService,
+    private ReservationService: ReservationService,
     private router: Router
   ) { }
 
@@ -31,6 +34,9 @@ export class ReserveComponent implements OnInit {
         this.reservas = JSON.parse(reservasGuardadas);
       }
     }
+
+    this.obtenerEstados();
+    console.log("Steven");
   }
 
   onInputChange(field: 'fechaLlegada' | 'fechaSalida' | 'tipoHabitacion', value: string) {
@@ -93,4 +99,12 @@ export class ReserveComponent implements OnInit {
 
     return [year, month, day].join('-');
   }
+
+
+  obtenerEstados() {
+    return this.ReservationService.getList().subscribe((data: Reserva[]) => {
+      console.log(data);
+      this.listaEstados = data;
+    })
+  };
 }
