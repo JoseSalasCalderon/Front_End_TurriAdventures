@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { FacilidadService } from '../../Core/FacilidadService'; 
@@ -19,8 +19,7 @@ export class FacilidadesComponent implements OnInit{
     listaFacilidades: Facilidad[] = [];
 
     constructor(
-        private FacilidadesService: FacilidadService,
-        private cdr: ChangeDetectorRef // Inyecta ChangeDetectorRef
+        private FacilidadesService: FacilidadService
     ) { }
 
     ngOnInit(): void {
@@ -41,8 +40,7 @@ export class FacilidadesComponent implements OnInit{
                         </div>
                     `;
                 }
-                // Llama a detectChanges después de agregar elementos dinámicamente
-                this.cdr.detectChanges();
+                
             }
             console.log(data);
             this.listaFacilidades = data;
