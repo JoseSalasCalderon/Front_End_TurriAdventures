@@ -3,12 +3,15 @@ import { HeaderComponent } from "../header/header.component";
 import { SidebarComponent } from "../sidebar/sidebar.component";
 import { FacilidadService } from '../../Core/FacilidadService'; 
 import { Facilidad } from '../../Model/Facilidad';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'app-facilidades',
     standalone: true,
     templateUrl: './facilidades.component.html',
     styleUrl: './facilidades.component.css',
+    //Esto es necesario para que se aplique el css con html dinámico
+    encapsulation: ViewEncapsulation.None,
     imports: [HeaderComponent, SidebarComponent]
 })
 export class FacilidadesComponent implements OnInit{
