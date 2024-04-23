@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { About } from '../Model/About'; 
+import { Contact } from '../Model/Contact'; 
 
 @Injectable({
   providedIn: 'root'
 })
-export class AboutService {
+export class ContactService {
 
   private url: string = ""
 
@@ -16,8 +16,8 @@ export class AboutService {
  
   }
 
-  ListarContactos():Observable<About[]>{
-    return this.http.get<About[]>(this.url+"ListarContactos");
+  ListarContactos():Observable<Contact[]>{
+    return this.http.get<Contact[]>(this.url+"ListarContactos");
   }
 
 }
