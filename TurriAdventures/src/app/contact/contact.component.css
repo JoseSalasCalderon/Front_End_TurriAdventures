@@ -1,9 +1,4 @@
-.container {
-    max-width: 800px;
-
-}
-
 .informacion {
-    margin-top: 5%;
+    max-width: 800px;
     font-size: 20px;
 }

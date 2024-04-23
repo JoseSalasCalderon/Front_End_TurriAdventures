@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from "../../sidebar/sidebar.component";
 import { HeaderComponent } from "../../header/header.component";
 import { DatosCompartidosService } from '../DatosCompartidosService';
-
+import { ReservationService } from '../../../Core/ReservaService';
+import { Reserva } from '../../../Model/Reserva';
+import { TipoHabitacionService } from '../../../Core/TipoHabitacionService';
+import { TipoHabitacion } from '../../../Model/TipoHabitacion';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,11 +16,15 @@ import { Router } from '@angular/router';
   imports: [SidebarComponent, HeaderComponent]
 })
 export class ReserveComponent implements OnInit {
+  listaEstados:Reserva[]=[];
+  listaTiposHabitacion:TipoHabitacion[]=[];
   datos: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: string } = { fechaLlegada: '', fechaSalida: '', tipoHabitacion: '' };
   reservas: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: string }[] = [];
 
   constructor(
     private datosCompartidosService: DatosCompartidosService,
+    private ReservationService: ReservationService,
+    private TipoHabitacionService: TipoHabitacionService,
     private router: Router
   ) { }
 
@@ -31,6 +38,10 @@ export class ReserveComponent implements OnInit {
         this.reservas = JSON.parse(reservasGuardadas);
       }
     }
+
+    this.obtenerEstados();
+    this.obtenerTiposHabitacion();
+    console.log("Steven");
   }
 
   onInputChange(field: 'fechaLlegada' | 'fechaSalida' | 'tipoHabitacion', value: string) {
@@ -92,5 +103,31 @@ export class ReserveComponent implements OnInit {
     if (day.length < 2) day = '0' + day;
 
     return [year, month, day].join('-');
+  }
+
+
+  obtenerEstados() {
+    return this.ReservationService.getList().subscribe((data: Reserva[]) => {
+      console.log(data);
+      this.listaEstados = data;
+    })
+  };
+
+  obtenerTiposHabitacion() {
+    return this.TipoHabitacionService.ListarHabitaciones().subscribe((data: TipoHabitacion[]) => {
+      const formTiposHabitaciones = document.getElementById("tipoHabitacion");
+      //Se valida para saber si existe y se genera este select
+      if (formTiposHabitaciones) {
+        formTiposHabitaciones.innerHTML = '';
+        for (let index = 0; index < data.length; index++) {
+          formTiposHabitaciones.innerHTML += `
+            <option value="${data[index].idTipoHabitacion}">${data[index].nombreTipoHabitacion}</option>
+          `;
+          
+        }
+      }
+      console.log(data);
+      this.listaTiposHabitacion = data;
+    })
   }
 }
