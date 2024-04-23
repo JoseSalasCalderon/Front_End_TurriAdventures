@@ -1,64 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
+import { ViewEncapsulation } from '@angular/core';
+import { AboutService } from '../../Core/AboutService';
+import { About } from '../../Model/About';
+
 @Component({
   selector: 'app-about',
   standalone: true,
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
-  imports: [CommonModule, SidebarComponent, HeaderComponent, FooterComponent]
+  encapsulation: ViewEncapsulation.None,
+  imports: [CommonModule, SidebarComponent, HeaderComponent]
 
 })
-export class AboutComponent {
-  images: string[] = [
 
-    'assets/Facilidades/Hotel.jpg',
-    'assets/Facilidades/actividades-mercantiles-1.webp',
-    'assets/Facilidades/interioe-hotel.webp',
-    'assets/Facilidades/OIP (1).jpg',
-    'assets/Facilidades/OIP.jpg',
-    'assets/Facilidades/R (1).jpg',
-    'assets/Facilidades/R.jpg',
-    'assets/Facilidades/servicios-hotel-1024x320.jpg',
-    'assets/Facilidades/standard.jpg',
-    'assets/Facilidades/Hotel.jpg',
-    'assets/Facilidades/actividades-mercantiles-1.webp',
-    'assets/Facilidades/interioe-hotel.webp',
-    'assets/Facilidades/OIP (1).jpg',
-    'assets/Facilidades/OIP.jpg',
-    'assets/Habitaciones/doble.jpg',
-    'assets/Habitaciones/estandar.jpg',
-    'assets/Habitaciones/ejecutiva.jpg',
+export class AboutComponent implements OnInit {
+  description: string = '';
+  images: string[] = [];
+  selectedImage: string = '';
 
-    'assets/Facilidades/Hotel.jpg',
-    'assets/Facilidades/OIP.jpg',
-    'assets/Facilidades/R (1).jpg',
-    'assets/Facilidades/R.jpg',
-    'assets/Facilidades/servicios-hotel-1024x320.jpg',
-    'assets/Facilidades/standard.jpg',
-    'assets/Facilidades/Hotel.jpg',
-    'assets/Facilidades/actividades-mercantiles-1.webp',
-    'assets/Facilidades/interioe-hotel.webp',
-    'assets/Facilidades/OIP (1).jpg',
-    'assets/Habitaciones/doble.jpg',
-    'assets/Habitaciones/estandar.jpg',
-    'assets/Facilidades/Hotel.jpg',
-    'assets/Habitaciones/ejecutiva.jpg',
-    'assets/Facilidades/OIP.jpg',
-    'assets/Facilidades/R (1).jpg',
-    'assets/Facilidades/R.jpg',
-    'assets/Facilidades/servicios-hotel-1024x320.jpg',
-    'assets/Facilidades/standard.jpg',
-    'assets/Habitaciones/doble.jpg',
-    'assets/Habitaciones/estandar.jpg',
-    'assets/Habitaciones/ejecutiva.jpg',
-    'assets/Facilidades/interioe-hotel.webp'
-  ];
-  selectedImage: string = this.images[0];
+  constructor(private aboutService: AboutService) {}
 
-  showImage(imageUrl: string) {
+  ngOnInit(): void {
+    this.obtenerNosotros();
+  }
+
+  obtenerNosotros(): void {
+    this.aboutService.ListarNosotros().subscribe((data: About[]) => {
+      if (data.length > 0) {
+        this.description = data[0].descripcionNosotros;
+        this.images = data.map(item => 'assets/Facilidades/' + item.imagenNosotros);
+        this.selectedImage = this.images[0];
+      }
+    });
+  }
+
+  showImage(imageUrl: string): void {
     this.selectedImage = imageUrl;
   }
 }

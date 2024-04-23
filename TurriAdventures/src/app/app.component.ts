@@ -11,7 +11,7 @@ import { AdvertisementsComponent } from './publicidad/advertisements.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [AdvertisementsComponent, RouterOutlet, HomeComponent, HeaderComponent, FooterComponent, SidebarComponent, AboutComponent, ReserveComponent],
+  imports: [AdvertisementsComponent, RouterOutlet, HomeComponent, HeaderComponent, FooterComponent, SidebarComponent, ReserveComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
