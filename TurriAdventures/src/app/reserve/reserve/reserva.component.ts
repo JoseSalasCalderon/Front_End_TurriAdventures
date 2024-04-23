@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from "../../sidebar/sidebar.component";
 import { DatosCompartidosService } from '../DatosCompartidosService';
-
 import { Router } from '@angular/router';
+import { ClienteService } from '../../../Core/ClienteService';
+import { Cliente } from '../../../Model/Cliente';
 
 
 @Component({
@@ -16,9 +17,12 @@ export class ReservaComponent implements OnInit {
     datos: { idCliente: string, nombre: string, apellidos: string, email: string, tarjetaCredito: string ,vencimiento: string } = { idCliente: '', nombre: '', apellidos: '', email: '', tarjetaCredito: '', vencimiento:'' };
     datosReserve: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: string } = { fechaLlegada: '', fechaSalida: '', tipoHabitacion: '' };
     tarjetaValida: boolean = true;
+    cliente: Cliente = new Cliente(0, "", "", "");
+
 
     constructor(
         private datosCompartidosService: DatosCompartidosService,
+        private ClienteService: ClienteService,
         private router: Router
     ) { }
 
@@ -54,7 +58,11 @@ export class ReservaComponent implements OnInit {
         this.datos[field] = value;
         if (field === 'tarjetaCredito') {
             this.validarTarjeta();
+        } else if (field === 'idCliente'){
+            //Agregar el campo de Cedula para que se cargue todo automáticamente
+            this.obtenerDatosCliente(value.trim());
         }
+        
         this.datosCompartidosService.setDatosReserva(this.datos);
     }
 
@@ -117,4 +125,46 @@ export class ReservaComponent implements OnInit {
         return fechaVencimiento >= fechaActual;
     }
     
+    obtenerDatosCliente(idCliente: String) {
+        
+        this.limpiarCamposCliente();
+
+        if (idCliente != '') {
+            this.ClienteService.BuscarCliente(idCliente).subscribe((data: Cliente) => {
+                if (data != null) {
+                    this.cargarCamposCliente(data);
+                }
+            });
+        };
+    }
+
+    limpiarCamposCliente() {
+        const nombre = document.getElementById("nombre") as HTMLInputElement;
+        const apellidos = document.getElementById("apellidos") as HTMLInputElement;
+        const email = document.getElementById("email") as HTMLInputElement;
+        const tarjetaCredito = document.getElementById("tarjetaCredito") as HTMLInputElement;
+        const vencimiento = document.getElementById("vencimiento") as HTMLInputElement;
+        const cvv = document.getElementById("cvv") as HTMLInputElement;
+
+        if (nombre && apellidos && email && tarjetaCredito && vencimiento && cvv) {
+            nombre.value = '';
+            apellidos.value = '';
+            email.value = '';
+            tarjetaCredito.value = '';
+            vencimiento.value = '';
+            cvv.value = '';              
+        }
+    }
+
+    cargarCamposCliente(cliente: Cliente) {
+        const nombre = document.getElementById("nombre") as HTMLInputElement;
+        const apellidos = document.getElementById("apellidos") as HTMLInputElement;
+        const email = document.getElementById("email") as HTMLInputElement;
+
+        if (nombre && apellidos && email) {
+            nombre.value = cliente.nombre;
+            apellidos.value = cliente.apellidos;
+            email.value = cliente.email;            
+        }
+    }
 }
