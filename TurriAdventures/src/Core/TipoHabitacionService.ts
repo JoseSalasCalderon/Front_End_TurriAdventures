@@ -15,7 +15,7 @@ export class TipoHabitacionService {
   }
 
 
-  ListarHabitaciones():Observable<TipoHabitacion[]>{
+  ListarTiposHabitaciones():Observable<TipoHabitacion[]>{
     return this.http.get<TipoHabitacion[]>(this.url+"ListarTipoHabitaciones");
   }
 

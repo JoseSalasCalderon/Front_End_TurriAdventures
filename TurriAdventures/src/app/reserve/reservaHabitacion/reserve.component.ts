@@ -114,7 +114,7 @@ export class ReserveComponent implements OnInit {
   };
 
   obtenerTiposHabitacion() {
-    return this.TipoHabitacionService.ListarHabitaciones().subscribe((data: TipoHabitacion[]) => {
+    return this.TipoHabitacionService.ListarTiposHabitaciones().subscribe((data: TipoHabitacion[]) => {
       const formTiposHabitaciones = document.getElementById("tipoHabitacion");
       //Se valida para saber si existe y se genera este select
       if (formTiposHabitaciones) {
@@ -123,7 +123,6 @@ export class ReserveComponent implements OnInit {
           formTiposHabitaciones.innerHTML += `
             <option value="${data[index].idTipoHabitacion}">${data[index].nombreTipoHabitacion}</option>
           `;
-          
         }
       }
       console.log(data);
