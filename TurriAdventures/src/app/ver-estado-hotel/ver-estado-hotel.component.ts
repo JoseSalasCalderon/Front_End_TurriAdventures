@@ -18,9 +18,15 @@ import { TipoHabitacion } from '../../Model/TipoHabitacion';
 })
 export class VerEstadoHotelComponent implements OnInit {
 
-  //habitaciones: Habitacion[] = [];
   habitacionesPorPagina: number = 6;
   paginaActual: number = 1;
+  fechaActual: Date = new Date();
+  //Con el padStart se asegura que sean siempre dos dígitos, y si es un se ponde un 0 al principio
+  fechaFormateada = `
+    ${String(this.fechaActual.getDate()).padStart(2, '0')}/
+    ${String(this.fechaActual.getMonth() + 1).padStart(2, '0')}/
+    ${this.fechaActual.getFullYear().toString()}
+  `;
 
   //Es necesario decirle que la key sea de tipo number para que admita dicho parámetro
   estadoHabitacion: { [key: number]: string } = {
@@ -31,7 +37,7 @@ export class VerEstadoHotelComponent implements OnInit {
 
   constructor(
     private HabitacionService: HabitacionService,
-    private TiposHabitacionService: TipoHabitacionService
+    private TiposHabitacionService: TipoHabitacionService,
   ){}
 
   ngOnInit(): void {
@@ -48,8 +54,6 @@ export class VerEstadoHotelComponent implements OnInit {
         //Se asignan los valores de las páginas a los botones
         this.actualizarPaginacion(habitaciones.length);
       });
-      
-      console.log(habitaciones);
     })
   }
 
@@ -95,6 +99,87 @@ export class VerEstadoHotelComponent implements OnInit {
           }
         }//for tiposHabitaciones
       }//For habitaciones
+      const botonImprimir = document.getElementById("imprimir-estado-hotel");
+      botonImprimir?.addEventListener("click", () =>{
+        this.printString(habitaciones, tiposHabitaciones);
+      });
     }
   }
+
+  printString(habitaciones: Habitacion[], tiposHabitaciones: TipoHabitacion[]) {
+    const printWindow = window.open('_blank','', '_blank');
+    if (printWindow) {
+      printWindow.document.open();
+      printWindow.document.write(`${this.formatoInforme(habitaciones, tiposHabitaciones)}`);
+      printWindow.document.close();
+
+      //Le dice a la nueva ventana que se cierre se imprima o no
+      printWindow.onafterprint = () => {
+        printWindow.close();
+      };
+    
+      printWindow.print();
+    }
+  }
+
+  formatoInforme(habitaciones: Habitacion[], tiposHabitaciones: TipoHabitacion[]): string{
+    let datosHabitaciones = '';
+    for (let i = 0; i < habitaciones.length; i++) {
+      for (let j = 0; j < tiposHabitaciones.length; j++) {
+        if (habitaciones[i].idTipoHabitacion === tiposHabitaciones[j].idTipoHabitacion) {
+          datosHabitaciones += `
+            <tr>
+                <td>${habitaciones[i].numeroHabitacion}</td>
+                <td>${tiposHabitaciones[j].nombreTipoHabitacion}</td>
+                <td>${this.estadoHabitacion[habitaciones[i].estadoHabitacion]}</td>
+            </tr>
+          `;
+          break;
+        }
+      }//for tiposHabitaciones
+    }//For habitaciones
+
+    return `
+      <style>
+        .container {
+          max-width: 800px;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .titulo {
+          font-size: 24px;
+          font-weight: bold;
+          margin-bottom: 20px;
+        }
+        .fecha {
+          font-size: 16px;
+          margin-bottom: 20px;
+        }
+        .table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        .table th, .table td {
+          padding: 8px;
+          border: 1px solid #ddd;
+        }
+      </style>
+      <div class="container">
+        <h1 class="titulo">Estado del Hotel</h1>
+        <p class="fecha">Fecha: ${this.fechaFormateada}</p>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Número de Habitación</th>
+              <th>Tipo</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-body">${datosHabitaciones}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
 }
+
