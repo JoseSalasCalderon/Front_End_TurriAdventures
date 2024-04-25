@@ -1,0 +1,6 @@
+<form #loginForm="ngForm" (ngSubmit)="iniciarSesion()">
+    <input type="text" name="usuario" [(ngModel)]="usuario" placeholder="Usuario" required>
+    <input type="password" name="contrasena" [(ngModel)]="contrasena" placeholder="Contraseña" required>
+    <button type="submit">Iniciar Sesión</button>
+  </form>
+  
