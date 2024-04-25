@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="rates.component.css" type="text/css" rel="stylesheet">
 </head>
+
 <body>
   <div class="container-fluid">
     <!-- Header -->
@@ -20,31 +22,35 @@
           <app-sidebar></app-sidebar>
         </div>
       </div>
-      <div class="container">
-        <div>
-          <h2>Tarifas</h2>
-        </div>
-      
-        
-        <div class="row room-row" *ngFor="let price of prices">
-          <div class="col-12 room-card">
-            <a [routerLink]="['/room', price.roomType]"></a>
-            <img src="" alt="{{ price.roomType }}" class="room-image">
-            <div class="room-details">
-              <h2 class="room-title">{{ price.roomType }}</h2>
-              <p class="room-price">Promoción: ${{ isHighSeason() ? price.priceHighSeason : price.priceLowSeason }} por noche en temporada de {{ isHighSeason() ? 'Temporada Alta' : 'Temporada Baja' }}!</p>
-              <button class="btn custom-btn" [routerLink]="['/vista', price.roomType]">Reservar ahora</button>
+      <div class="col-lg-9 col-md-8">
+        <div class="container">
+          <div>
+            <h2>Tarifas</h2>
+          </div>
+
+          <div class="row room-row" *ngFor="let price of prices">
+            <div class="col-12 room-card">
+              <a [routerLink]="['/room', price.roomType]"></a>
+              <img src="" alt="{{ price.roomType }}" class="room-image">
+              <div class="room-details">
+                <h2 class="room-title">{{ price.roomType }}</h2>
+                <p class="room-price">Promoción: ${{ isHighSeason() ? price.priceHighSeason : price.priceLowSeason }}
+                  por
+                  noche en temporada de {{ isHighSeason() ? 'Temporada Alta' : 'Temporada Baja' }}!</p>
+                <button class="btn custom-btn" [routerLink]="['/vista', price.roomType]">Reservar ahora</button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>      
     </div>
-  
+  </div>
+
 
   <!-- Scripts de Bootstrap y jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

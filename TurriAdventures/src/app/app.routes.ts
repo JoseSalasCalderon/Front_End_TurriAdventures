@@ -10,6 +10,8 @@ import { ContactComponent } from './contact/contact.component';
 import { FacilidadesComponent } from './facilidades/facilidades.component';
 import { DireccionComponent } from './direccion/direccion.component';
 import { VistaHabitacionesComponent } from './vista-habitaciones/vista-habitaciones.component';
+import { AdministradorComponent } from './administrador/administrador.component';
+
 export const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'home', component: HomeComponent },
@@ -22,7 +24,10 @@ export const routes: Routes = [
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
     { path: 'vista/:id', component:VistaHabitacionesComponent},
-    { path: '**', component: HomeComponent}
+    { path: 'administrador', component: AdministradorComponent },
+        { path: '**', component: HomeComponent}
+
+
 
 ];
 
