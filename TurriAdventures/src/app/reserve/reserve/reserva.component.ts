@@ -132,7 +132,7 @@ export class ReservaComponent implements OnInit {
         if (idCliente != '') {
             this.ClienteService.BuscarCliente(idCliente).subscribe((data: Cliente) => {
                 if (data != null) {
-                    this.cargarCamposCliente(data);
+                    this.cliente = data;
                 }
             });
         };
@@ -156,15 +156,4 @@ export class ReservaComponent implements OnInit {
         }
     }
 
-    cargarCamposCliente(cliente: Cliente) {
-        const nombre = document.getElementById("nombre") as HTMLInputElement;
-        const apellidos = document.getElementById("apellidos") as HTMLInputElement;
-        const email = document.getElementById("email") as HTMLInputElement;
-
-        if (nombre && apellidos && email) {
-            nombre.value = cliente.nombre;
-            apellidos.value = cliente.apellidos;
-            email.value = cliente.email;            
-        }
-    }
 }
