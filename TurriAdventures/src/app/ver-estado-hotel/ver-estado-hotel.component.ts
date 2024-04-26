@@ -101,12 +101,12 @@ export class VerEstadoHotelComponent implements OnInit {
       }//For habitaciones
       const botonImprimir = document.getElementById("imprimir-estado-hotel");
       botonImprimir?.addEventListener("click", () =>{
-        this.printString(habitaciones, tiposHabitaciones);
+        this.imprimirInforme(habitaciones, tiposHabitaciones);
       });
     }
   }
 
-  printString(habitaciones: Habitacion[], tiposHabitaciones: TipoHabitacion[]) {
+  imprimirInforme(habitaciones: Habitacion[], tiposHabitaciones: TipoHabitacion[]) {
     const printWindow = window.open('_blank','', '_blank');
     if (printWindow) {
       printWindow.document.open();

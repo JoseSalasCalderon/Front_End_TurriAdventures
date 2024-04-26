@@ -26,9 +26,10 @@ export const routes: Routes = [
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
     { path: 'vista/:id', component:VistaHabitacionesComponent},
+    { path: 'administrador', component: AdministradorComponent },
     { path: 'verEstadoHotel', component:VerEstadoHotelComponent},
     { path: 'login', component: LoginComponent},
-    { path: 'administrador', component: AdministradorComponent },
+        { path: 'administrador', component: AdministradorComponent },
         { path: '**', component: HomeComponent}
 
 
