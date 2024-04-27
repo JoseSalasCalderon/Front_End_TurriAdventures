@@ -26,7 +26,7 @@ export class ReserveComponent implements OnInit {
     private datosCompartidosService: DatosCompartidosService,
     private ReservationService: ReservationService,
     private TipoHabitacionService: TipoHabitacionService,
-    private habitacionService: HabitacionService, // Agrega el servicio de HabitacionService
+    private habitacionService: HabitacionService,
     private router: Router
   ) { }
 
@@ -76,10 +76,6 @@ export class ReserveComponent implements OnInit {
             fechaSalida: fechaSalida
           }
         });
-        
-        console.log('Fechas disponibles dentro de los próximos 15 días', fechaLlegada, fechaSalida);
-      } else {
-        console.log('No hay fechas disponibles dentro de los próximos 15 días');
       }
     }
   }
@@ -92,12 +88,8 @@ export class ReserveComponent implements OnInit {
     const habitacionDisponible = await this.habitacionService.ConsultarDisponibilidadHabitaciones(this.datos.fechaLlegada, this.datos.fechaSalida, this.datos.tipoHabitacion).toPromise();
 
     if (habitacionDisponible) {
-      // Habitación disponible
-      console.log('Habitación disponible');
       return true;
     } else {
-      // Habitación no disponible
-      console.log('Habitación no disponible');
       this.buscarRangoFechasDisponible();
       return false;
     }
@@ -108,7 +100,7 @@ export class ReserveComponent implements OnInit {
     let nuevaFechaSalida = new Date(this.datos.fechaSalida);
     let diasRecorridos = 0;
 
-    while (diasRecorridos <= 15) {
+    while (diasRecorridos <= 15) {//cambiarlo
       //Incrementar la fecha de llegada y salida
       nuevaFechaLlegada.setDate(nuevaFechaLlegada.getDate() + diasRecorridos);
       nuevaFechaSalida.setDate(nuevaFechaSalida.getDate() + diasRecorridos);

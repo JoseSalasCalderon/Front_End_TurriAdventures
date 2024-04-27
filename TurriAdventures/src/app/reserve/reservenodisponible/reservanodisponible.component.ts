@@ -14,14 +14,12 @@ export class ReservanodisponibleComponent implements OnInit {
     fechaLlegada: string = '';
     fechaSalida: string = '';
 
-    constructor(private route: ActivatedRoute) {}
+    constructor(private route: ActivatedRoute) { }
 
-ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-         this.fechaLlegada = params['fechaLlegada'];
-         this.fechaSalida = params['fechaSalida'];
-
-        console.log('Fechas recibidas:', this.fechaLlegada, this.fechaSalida);
-    });
-}
+    ngOnInit(): void {
+        this.route.queryParams.subscribe(params => {
+            this.fechaLlegada = params['fechaLlegada'];
+            this.fechaSalida = params['fechaSalida'];
+        });
+    }
 }

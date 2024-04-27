@@ -10,8 +10,8 @@ describe('ReservanodisponibleComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ReservanodisponibleComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ReservanodisponibleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
