@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { SidebarComponent } from "../sidebar/sidebar.component";
 import { CommonModule } from '@angular/common';
 import { AdministradorService } from '../../Core/AdministradorService';
 import { Administrador } from '../../Model/Administrador';
+import { SidebarAdministradorComponent } from "../sidebar-administrador/sidebar-administrador.component";
 
 @Component({
     selector: 'app-administrador',
     standalone: true,
     templateUrl: './administrador.component.html',
     styleUrl: './administrador.component.css',
-    imports: [CommonModule, SidebarComponent]
+    imports: [CommonModule, SidebarAdministradorComponent]
 })
 
 export class AdministradorComponent implements OnInit {
