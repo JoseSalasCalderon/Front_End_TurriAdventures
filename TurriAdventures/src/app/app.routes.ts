@@ -12,6 +12,8 @@ import { DireccionComponent } from './direccion/direccion.component';
 import { VistaHabitacionesComponent } from './vista-habitaciones/vista-habitaciones.component';
 import { VerEstadoHotelComponent } from './ver-estado-hotel/ver-estado-hotel.component';
 import { LoginComponent } from './login/login.component';
+import { AdministradorComponent } from './administrador/administrador.component';
+
 export const routes: Routes = [
     { path: 'about', component: AboutComponent },
     { path: 'home', component: HomeComponent },
@@ -24,9 +26,13 @@ export const routes: Routes = [
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
     { path: 'vista/:id', component:VistaHabitacionesComponent},
+    { path: 'administrador', component: AdministradorComponent },
     { path: 'verEstadoHotel', component:VerEstadoHotelComponent},
     { path: 'login', component: LoginComponent},
-    { path: '**', component: HomeComponent}
+        { path: 'administrador', component: AdministradorComponent },
+        { path: '**', component: HomeComponent}
+
+
 
 ];
 

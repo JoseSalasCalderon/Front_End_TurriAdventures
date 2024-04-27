@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { Habitacion } from '../Model/Horario';
+import { Habitacion } from '../Model/Habitacion';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,16 @@ export class HabitacionService {
 
   ListarHabitaciones():Observable<Habitacion[]>{
     return this.http.get<Habitacion[]>(this.url+"ListarHabitaciones");
+  }
+
+  ConsultarDisponibilidadHabitaciones(fechaLlegada: string, fechaSalida: string, tipo_habitacion_id: number): Observable<Habitacion[]> {
+    // Se configuran los parámetros para la solicitud HTTP
+    const params = new HttpParams()
+      .set('fechaLlegada', fechaLlegada)
+      .set('fechaSalida', fechaSalida)
+      .set('tipo_habitacion_id', tipo_habitacion_id.toString());
+console.log('service consultar',this.http.get<Habitacion[]>(this.url + "ConsultarDisponibilidadHabitaciones", { params }));
+    return this.http.get<Habitacion[]>(this.url + "ConsultarDisponibilidadHabitaciones", { params });
   }
 
 }

@@ -29,28 +29,28 @@
                 <div class="formulario-reserva" id="paymentForm">
                     <form  >
                         <div class="monto-reservacion">
-                            <h2>Monto de la reservacion: $ {{monto()}}</h2>
+                            <h2>Monto de la reservación: $ {{monto()}}</h2>
                         </div>
 
                         <div class="form-group">
-                            <label for="idCliente">Cedula:</label>
+                            <label for="idCliente">Cédula:</label>
                             <input #idClienteInput (input)="onInputChange('idCliente', idClienteInput.value)" required type="text" class="form-control" formControlName="idCliente" id="cedula" maxlength="8">
                         </div>
 
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
-                            <input #nombreInput (input)="onInputChange('nombre', nombreInput.value)" required type="text" class="form-control" formControlName="nombre" id="nombre">
+                            <input #nombreInput (input)="onInputChange('nombre', nombreInput.value)" required type="text" class="form-control" formControlName="nombre" id="nombre" value="{{cliente.nombre}}">
                         
                         </div>
 
                         <div class="form-group">
                             <label for="apellidos">Apellidos:</label>
-                            <input #apellidosInput (input)="onInputChange('apellidos', apellidosInput.value)" required type="text" class="form-control" formControlName="apellidos" id="apellidos">
+                            <input #apellidosInput (input)="onInputChange('apellidos', apellidosInput.value)" required type="text" class="form-control" formControlName="apellidos" id="apellidos" value="{{cliente.apellidos}}">
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input #emailInput (input)="onInputChange('email', emailInput.value)" required type="email" class="form-control" formControlName="email" id="email">
+                            <input #emailInput (input)="onInputChange('email', emailInput.value)" required type="email" class="form-control" formControlName="email" id="email" value="{{cliente.email}}">
                         </div>
                                                <div class="form-group">
                             <label for="tarjetaCredito">Tarjeta de Crédito:</label>
