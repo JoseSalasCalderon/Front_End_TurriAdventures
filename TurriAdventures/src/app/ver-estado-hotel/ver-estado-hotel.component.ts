@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HeaderComponent } from "../header/header.component";
 import { ViewEncapsulation } from '@angular/core';
 import { SidebarAdministradorComponent } from '../sidebar-administrador/sidebar-administrador.component';
-import { Habitacion } from '../../Model/Horario';
+import { Habitacion } from '../../Model/Habitacion';
 import { HabitacionService } from '../../Core/HabitacionService';
 import { TipoHabitacionService } from '../../Core/TipoHabitacionService';
 import { TipoHabitacion } from '../../Model/TipoHabitacion';

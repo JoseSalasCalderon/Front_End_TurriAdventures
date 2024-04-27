@@ -29,11 +29,11 @@
                 <div class="formulario-reserva" id="paymentForm">
                     <form  >
                         <div class="monto-reservacion">
-                            <h2>Monto de la reservacion: $ {{monto()}}</h2>
+                            <h2>Monto de la reservación: $ {{monto()}}</h2>
                         </div>
 
                         <div class="form-group">
-                            <label for="idCliente">Cedula:</label>
+                            <label for="idCliente">Cédula:</label>
                             <input #idClienteInput (input)="onInputChange('idCliente', idClienteInput.value)" required type="text" class="form-control" formControlName="idCliente" id="cedula" maxlength="8">
                         </div>
 

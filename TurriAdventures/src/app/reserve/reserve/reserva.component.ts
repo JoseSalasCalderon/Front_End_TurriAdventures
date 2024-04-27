@@ -4,6 +4,7 @@ import { DatosCompartidosService } from '../DatosCompartidosService';
 import { Router } from '@angular/router';
 import { ClienteService } from '../../../Core/ClienteService';
 import { Cliente } from '../../../Model/Cliente';
+import { TipoHabitacionService } from '../../../Core/TipoHabitacionService';
 
 
 @Component({
@@ -15,20 +16,23 @@ import { Cliente } from '../../../Model/Cliente';
 })
 export class ReservaComponent implements OnInit {
     datos: { idCliente: string, nombre: string, apellidos: string, email: string, tarjetaCredito: string ,vencimiento: string } = { idCliente: '', nombre: '', apellidos: '', email: '', tarjetaCredito: '', vencimiento:'' };
-    datosReserve: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: string } = { fechaLlegada: '', fechaSalida: '', tipoHabitacion: '' };
+    datosReserve: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: number } = { fechaLlegada: '', fechaSalida: '', tipoHabitacion: 0 };
     tarjetaValida: boolean = true;
     cliente: Cliente = new Cliente(0, "", "", "");
-
+    nombreTipoHabitacion: String = "";
 
     constructor(
         private datosCompartidosService: DatosCompartidosService,
         private ClienteService: ClienteService,
-        private router: Router
+        private router: Router,
+        private TipoHabitacionService: TipoHabitacionService,
+
     ) { }
 
     ngOnInit(): void {
         this.datosReserve = this.datosCompartidosService.getDatosReserve();
     }
+     
 
     monto(): number {
         let fechaLlegada = new Date(this.datosReserve.fechaLlegada);
@@ -36,14 +40,15 @@ export class ReservaComponent implements OnInit {
         let total: number = 0;
         let dias = Math.ceil((fechaSalida.getTime() - fechaLlegada.getTime()) / (1000 * 60 * 60 * 24));
 
+
         switch (this.datosReserve.tipoHabitacion) {
-            case 'doble':
+            case 1:
                 total = dias * 150;
                 break;
-            case 'estandar':
+            case 2:
                 total = dias * 100;
                 break;
-            case 'ejecutiva':
+            case 3:
                 total = dias * 200;
                 break;
             default:
