@@ -12,15 +12,15 @@ export class ReservationService {
   private url: string = ""
 
   constructor(private http:HttpClient) {
-    this.url = "https://localhost:7032/Reservacions/ListarReservas";
+    this.url = "https://localhost:7032/Reservacions/";
    }
 
+   ListarReservas():Observable<Reserva[]>{
+    return this.http.get<Reserva[]>(this.url+'ListarReservas');
+  }//ListarReservas
 
-   getList():Observable<Reserva[]>{
-    return this.http.get<Reserva[]>(this.url);
-}
-
-
-
+    CrearReserva(reserva: Reserva): Observable<any> {      
+      return this.http.post(this.url + 'CrearReserva', reserva);
+  }//CrearReserva
 
 }

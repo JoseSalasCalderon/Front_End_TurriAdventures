@@ -1,5 +1,5 @@
 export interface Cliente{
-    idCliente: number,
+    idCliente: string,
     nombre: string,
     apellidos: string,
     email: string
@@ -7,7 +7,7 @@ export interface Cliente{
 
 export class Cliente implements Cliente {
     constructor(
-        public idCliente: number,
+        public idCliente: string,
         public nombre: string,
         public apellidos: string,
         public email: string
