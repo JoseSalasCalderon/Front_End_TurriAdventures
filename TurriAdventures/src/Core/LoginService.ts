@@ -14,8 +14,23 @@ export class LoginService {
     this.url = "https://localhost:7068/api/Administradors/login?";
   }
 
-  verificarCredenciales(usuario: string, contrasena: string): Observable<number> {
-    return this.http.post<number>("https://localhost:7068/api/Administradors/login?Usuario="+usuario+"&"+"Contrasena="+contrasena,{ usuario, contrasena });
+
+
+  buscarUsuario(data: any): Observable<Login> {
+    console.log(data);
+    return this.http.post<Login>("https://localhost:7068/api/Administradors/VerificarCredencialesAdministrador?usuario="+data.usuario+"&"+"contrasena="+data.contrasena,data);
   }
 
+  isAuthenticated(): boolean {
+    const id = sessionStorage.getItem('id');
+    return !!id;
+  }
+
+  public logout(): void {
+    sessionStorage.removeItem('id');
+    sessionStorage.removeItem('usuario');
+  }
+
+
 }
+

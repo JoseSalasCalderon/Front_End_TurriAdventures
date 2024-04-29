@@ -1,12 +1,14 @@
 export interface Login{
-    Usuario:String
-    Contrasena:String
+    ID: number;
+    usuario:string
+    contrasena:string
 }
 
 
 export class Login implements Login {
     constructor(
-        public Usuario: String,
-        public Contrasena: String
+        public ID: number,
+        public usuario: string,
+        public contrasena: string
     ) {}
 }

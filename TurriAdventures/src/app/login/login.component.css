@@ -1,0 +1,27 @@
+
+.card{
+    background-color:  #343a40;;
+}
+
+.form-label{
+    color: white;
+}
+
+
+.img-fluid{
+    width: 200px;
+    margin-left: 19%;
+}
+
+.card-header{
+    color: white;
+}
+
+.container{
+    padding-top: 5%;
+    padding-left: 30%;
+}
+
+.img{
+    width: 200px;
+}

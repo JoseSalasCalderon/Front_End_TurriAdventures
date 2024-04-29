@@ -13,9 +13,9 @@ import { VistaHabitacionesComponent } from './vista-habitaciones/vista-habitacio
 import { VerEstadoHotelComponent } from './ver-estado-hotel/ver-estado-hotel.component';
 import { LoginComponent } from './login/login.component';
 import { AdministradorComponent } from './administrador/administrador.component';
+import { AuthGuard } from './auth.guard';
 
 export const routes: Routes = [
-    { path: 'about', component: AboutComponent },
     { path: 'home', component: HomeComponent },
     { path: 'rates', component: RatesComponent },
     { path: 'reserve', component: ReserveComponent },
@@ -26,11 +26,11 @@ export const routes: Routes = [
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
     { path: 'vista/:id', component:VistaHabitacionesComponent},
-    { path: 'administrador', component: AdministradorComponent },
+    { path: 'administrador', component: AdministradorComponent,  },
     { path: 'verEstadoHotel', component:VerEstadoHotelComponent},
     { path: 'login', component: LoginComponent},
-        { path: 'administrador', component: AdministradorComponent },
-        { path: '**', component: HomeComponent}
+    { path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },
+    { path: '**', component: HomeComponent}
 
 
 
