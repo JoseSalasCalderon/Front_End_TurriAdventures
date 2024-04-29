@@ -8,19 +8,22 @@ import { TipoHabitacionService } from '../../../Core/TipoHabitacionService';
 import { TipoHabitacion } from '../../../Model/TipoHabitacion';
 import { Router } from '@angular/router';
 import { HabitacionService } from '../../../Core/HabitacionService';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-reserve',
   standalone: true,
   templateUrl: './reserve.component.html',
   styleUrl: './reserve.component.css',
-  imports: [SidebarComponent, HeaderComponent]
+  imports: [CommonModule, SidebarComponent, HeaderComponent]
 })
 export class ReserveComponent implements OnInit {
   listaReservas: Reserva[] = [];
   listaTiposHabitacion: TipoHabitacion[] = [];
   datos: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: number } = { fechaLlegada: '', fechaSalida: '', tipoHabitacion: 0 };
   habitacion: any;
+  mensaje: string = '';
+  esError: boolean = false;
 
   constructor(
     private datosCompartidosService: DatosCompartidosService,
@@ -41,30 +44,38 @@ export class ReserveComponent implements OnInit {
   }
 
   async onSubmit() {
-    if (this.camposValidos() && await this.validarDisponibilidad()) {
-      this.habitacion = await this.habitacionService.ConsultarDisponibilidadHabitaciones(this.datos.fechaLlegada, this.datos.fechaSalida, this.datos.tipoHabitacion).toPromise();
+    if (this.camposValidos()) {
+      if (await this.validarDisponibilidad()) {
+        this.habitacion = await this.habitacionService.ConsultarDisponibilidadHabitaciones(this.datos.fechaLlegada, this.datos.fechaSalida, this.datos.tipoHabitacion).toPromise();
 
-      console.log('Probando habitacion', this.habitacion);
-      const queryParams = {
-        fechaLlegada: this.datos.fechaLlegada,
-        fechaSalida: this.datos.fechaSalida,
-        habitacionId: this.habitacion.idHabitacion, // Obtener el ID de la habitación
-      };
-      console.log('habitacionId en reserve', this.habitacion.idHabitacion)
-      console.log('queryParams para reserva', queryParams);
-      this.router.navigate(['/reserva'], { queryParams: { ...this.datos, habitacionId: this.habitacion.idHabitacion } });
-    }
-    else {
-      const { disponible, fechaLlegada, fechaSalida } = await this.buscarRangoFechasDisponible();
-      if (disponible) {
-        this.router.navigate(['/reservanodisponible'], {
-          queryParams: {
-            fechaLlegada: fechaLlegada,
-            fechaSalida: fechaSalida
-          }
-        });
+        console.log('Probando habitacion', this.habitacion);
+        const queryParams = {
+          fechaLlegada: this.datos.fechaLlegada,
+          fechaSalida: this.datos.fechaSalida,
+          habitacionId: this.habitacion.idHabitacion, // Obtener el ID de la habitación
+        };
+        console.log('habitacionId en reserve', this.habitacion.idHabitacion)
+        console.log('queryParams para reserva', queryParams);
+        this.router.navigate(['/reserva'], { queryParams: { ...this.datos, habitacionId: this.habitacion.idHabitacion } });
       }
-    }
+      else {
+        const { disponible, fechaLlegada, fechaSalida } = await this.buscarRangoFechasDisponible();
+        if (disponible) {
+          this.router.navigate(['/reservanodisponible'], {
+            queryParams: {
+              fechaLlegada: fechaLlegada,
+              fechaSalida: fechaSalida
+            }
+          });
+        }
+      }//if-else disponibilidad
+    } else {
+      this.mensaje = 'Por favor revisa que los estén completos.';
+      this.esError = true;
+      setTimeout(() => {
+          this.mensaje = '';
+      }, 3000);
+      return;    }
   }
 
   camposValidos(): boolean {
@@ -133,7 +144,11 @@ export class ReserveComponent implements OnInit {
       const formTiposHabitaciones = document.getElementById("tipoHabitacion");
       //Se valida para saber si existe y se genera este select
       if (formTiposHabitaciones) {
+
         formTiposHabitaciones.innerHTML = '';
+        formTiposHabitaciones.innerHTML += `
+        <option value="" disabled selected>Por favor seleccione el tipo de habitación de su preferencia</option>
+      `;
         for (let index = 0; index < data.length; index++) {
           formTiposHabitaciones.innerHTML += `
             <option value="${data[index].idTipoHabitacion}">${data[index].nombreTipoHabitacion}</option>

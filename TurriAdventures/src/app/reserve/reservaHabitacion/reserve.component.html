@@ -16,6 +16,7 @@
       <div class="col-lg-3 col-md-4">
         <app-sidebar></app-sidebar>
       </div>
+
       <div class="col-lg-9 col-md-8">
         <div class="container">
           <h1>Reservar en Línea</h1>
@@ -51,6 +52,12 @@
 
               </div>
             </div>
+            <div class="row mt-3">
+              <div *ngIf="mensaje" class="alert" [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
+                {{ mensaje }}
+              </div>
+            </div>
+
           </form>
         </div>
       </div>
