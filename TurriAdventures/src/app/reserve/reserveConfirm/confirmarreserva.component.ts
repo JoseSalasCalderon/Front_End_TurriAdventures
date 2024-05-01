@@ -25,17 +25,9 @@ export class ConfirmarreservaComponent implements OnInit {
   ngOnInit(): void {
     this.datosReserve = this.datosCompartidosService.getDatosReserve();
     this.datosCliente = this.datosCompartidosService.getDatosCliente();
-    this.route.queryParams.subscribe(params => {
-      this.idReserva = params['idReserva']; // Obtiene el ID de la reserva desde los parámetros de la URL
-    });
-    console.log('ID de la reserva en confirmar reserva:', this.idReserva);
+    // this.route.queryParams.subscribe(params => {
+    //   this.idReserva = params['idReserva']; // Obtiene el ID de la reserva desde los parámetros de la URL
+    // });
   }
   
 }
-
-
-// this.route.queryParams.subscribe(params => {
-    //   this.habitacionId = params['habitacionId']; // Obtener el ID de la habitación
-    //   console.log('Habitación ID en confirm:', this.habitacionId);
-
-    // });

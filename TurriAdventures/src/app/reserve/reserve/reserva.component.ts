@@ -100,14 +100,14 @@ export class ReservaComponent implements OnInit {
                 idHabitacion: this.habitacionId, // Asigna el id de la habitación disponible
                 idReservacion: 0
             };
-            //await this.reservaService.CrearReserva(reserva).toPromise();
-            //this.router.navigate(['/confirmReserve']);
+            await this.reservaService.CrearReserva(reserva).toPromise();
+            this.router.navigate(['/confirmReserve']);
 
-            const reservaCreada = await this.reservaService.CrearReserva(reserva).toPromise();
-        const idReservaCreada = reservaCreada.idReservacion; // Obtiene el ID de la reserva creada
-        this.router.navigate(['/confirmReserve'], { queryParams: { idReserva: idReservaCreada } });
-    
-    }
+            // const reservaCreada = await this.reservaService.CrearReserva(reserva).toPromise();
+            // const idReservaCreada = reservaCreada.idReservacion; // Obtiene el ID de la reserva creada
+            // this.router.navigate(['/confirmReserve'], { queryParams: { idReserva: idReservaCreada } });
+
+        }
         else {
             this.mensaje = 'Por favor revisa que los datos ingresados sean válidos y completos.';
             this.esError = true;
@@ -119,11 +119,11 @@ export class ReservaComponent implements OnInit {
     }
 
     camposValidos(): boolean {
-        return !!this.datosReserve.fechaLlegada && !!this.datosReserve.fechaSalida && 
-        !!this.datosReserve.tipoHabitacion && !!this.datosCliente.cvv && this.datosCliente.cvv.length === 3 
-        && !!this.datosCliente.idCliente && !!this.datosCliente.nombre && !!this.datosCliente.apellidos 
-        && !!this.datosCliente.email && !!this.datosCliente.tarjetaCredito &&
-         !!this.datosCliente.vencimiento && this.tarjetaValida;
+        return !!this.datosReserve.fechaLlegada && !!this.datosReserve.fechaSalida &&
+            !!this.datosReserve.tipoHabitacion && !!this.datosCliente.cvv && this.datosCliente.cvv.length === 3
+            && !!this.datosCliente.idCliente && !!this.datosCliente.nombre && !!this.datosCliente.apellidos
+            && !!this.datosCliente.email && !!this.datosCliente.tarjetaCredito &&
+            !!this.datosCliente.vencimiento && this.tarjetaValida;
 
     }
 

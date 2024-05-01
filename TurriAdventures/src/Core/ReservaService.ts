@@ -22,5 +22,5 @@ export class ReservationService {
     CrearReserva(reserva: Reserva): Observable<any> {      
       return this.http.post(this.url + 'CrearReserva', reserva);
   }//CrearReserva
-
+  
 }

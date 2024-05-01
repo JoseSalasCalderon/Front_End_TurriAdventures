@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './reserve.component.css',
   imports: [CommonModule, SidebarComponent, HeaderComponent]
 })
+
 export class ReserveComponent implements OnInit {
   listaReservas: Reserva[] = [];
   listaTiposHabitacion: TipoHabitacion[] = [];
@@ -48,7 +49,6 @@ export class ReserveComponent implements OnInit {
       if (await this.validarDisponibilidad()) {
         this.habitacion = await this.habitacionService.ConsultarDisponibilidadHabitaciones(this.datos.fechaLlegada, this.datos.fechaSalida, this.datos.tipoHabitacion).toPromise();
 
-        console.log('Probando habitacion', this.habitacion);
         const queryParams = {
           fechaLlegada: this.datos.fechaLlegada,
           fechaSalida: this.datos.fechaSalida,

@@ -2,7 +2,6 @@ import { Routes } from '@angular/router';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { RatesComponent } from './tarifas/rates.component';
-import { ReserveComponent } from './reserve/reservaHabitacion/reserve.component';
 import { ReservaComponent } from './reserve/reserve/reserva.component';
 import { ConfirmarreservaComponent } from './reserve/reserveConfirm/confirmarreserva.component';
 import { ReservanodisponibleComponent } from './reserve/reservenodisponible/reservanodisponible.component';
@@ -14,12 +13,14 @@ import { VerEstadoHotelComponent } from './ver-estado-hotel/ver-estado-hotel.com
 import { LoginComponent } from './login/login.component';
 import { AdministradorComponent } from './administrador/administrador.component';
 import { AuthGuard } from './auth.guard';
+import { ReserveComponent } from './reserve/reservaHabitacion/reserve.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'rates', component: RatesComponent },
     { path: 'reserve', component: ReserveComponent },
     { path: 'reserva', component: ReservaComponent },
+    { path: 'about', component: AboutComponent},
     { path: 'confirmReserve', component: ConfirmarreservaComponent},
     { path: 'reservanodisponible', component: ReservanodisponibleComponent},
     { path: 'contact', component: ContactComponent },
