@@ -40,7 +40,7 @@ export class ReservaComponent implements OnInit {
         this.datosReserve = this.datosCompartidosService.getDatosReserve();
         this.route.queryParams.subscribe(params => {
             this.datosReserva = params;
-            this.habitacionId = params['habitacionId']; // Obtener el ID de la habitación
+            this.habitacionId = params['habitacionId']; // Obtener el id de la habitación
         });
 
         this.datosIngresados = true;
@@ -182,9 +182,6 @@ export class ReservaComponent implements OnInit {
                     this.datosCliente.nombre = this.cliente.nombre;
                     this.datosCliente.apellidos = this.cliente.apellidos;
                     this.datosCliente.email = this.cliente.email;
-
-                    // Luego de actualizar los datos del cliente, actualiza los datos compartidos
-                    //console.log('datos compar', this.datosCompartidosService.setDatosCliente(this.cliente));
                 }
             });
         };

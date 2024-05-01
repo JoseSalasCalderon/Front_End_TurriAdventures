@@ -14,6 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { AdministradorComponent } from './administrador/administrador.component';
 import { AuthGuard } from './auth.guard';
 import { ReserveComponent } from './reserve/reservaHabitacion/reserve.component';
+import { HomeAdministradorComponent } from './home-administrador/home-administrador.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -30,8 +31,11 @@ export const routes: Routes = [
     { path: 'administrador', component: AdministradorComponent,  },
     { path: 'verEstadoHotel', component:VerEstadoHotelComponent},
     { path: 'login', component: LoginComponent},
+    
     { path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },
-    { path: '**', component: HomeComponent}
+    { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
+    { path: 'homeAdmin', component: HomeAdministradorComponent, canActivate:[AuthGuard]},
+
 
 
 

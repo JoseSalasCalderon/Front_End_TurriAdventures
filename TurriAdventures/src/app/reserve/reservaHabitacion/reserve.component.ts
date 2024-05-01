@@ -52,7 +52,7 @@ export class ReserveComponent implements OnInit {
         const queryParams = {
           fechaLlegada: this.datos.fechaLlegada,
           fechaSalida: this.datos.fechaSalida,
-          habitacionId: this.habitacion.idHabitacion, // Obtener el ID de la habitación
+          habitacionId: this.habitacion.idHabitacion, 
         };
         console.log('habitacionId en reserve', this.habitacion.idHabitacion)
         console.log('queryParams para reserva', queryParams);
