@@ -23,8 +23,15 @@
                         </p>
                         <div class="alert alert-success" role="alert">
                             <h4 class="alert-heading">¡No te preocupes!</h4>
-                            <p>Le recomendamos reservar en estas fechas {{ fechaLlegada }} al {{ fechaSalida }} que hay
+                            <p>Si desea reservar en ese tipo de habitación le recomendamos reservar en estas fechas {{
+                                fechaLlegada }} al {{ fechaSalida }} que hay
                                 disponibilidad según el tipo de habitación escogido.</p>
+                            <p>Si desea reservar en otro tipo de habitación, le recomendamos una
+                                {{nombreTipoRecomendado}}.</p>
+                            <div>
+                                <img src="assets/Habitaciones/{{tipoRecomendado }}.jpg" alt="">
+
+                            </div>
                         </div>
 
                     </div>

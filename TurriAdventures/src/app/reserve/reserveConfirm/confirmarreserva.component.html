@@ -20,9 +20,11 @@
   <h1>Reservar en Línea</h1>
   <div class="informacion-reserva">
     <p>Reservacion realizada!</p>
-    <p>Gracias {{ datosReserva.nombre }} {{ datosReserva.apellidos }}! Su reservacion fue realizada exitosamente.    </p>
-    <p>Numero de reservacion: {{numeroReservacion}}   </p>
-    <p>Acabamos de enviar esta informacion a la direccion {{ datosReserva.email }} para mayor facilidad.    </p>
+    <p>Gracias {{ datosCliente.nombre }} {{ datosCliente.apellidos }}! Su reservacion fue realizada exitosamente.    </p>
+    <p>Numero de reservacion: {{this.idReserva}}   </p>
+    <!-- <p>Su cuarto es: {{this.datosReserve.tipoHabitacion}} -  {{habitacionId}}  </p> -->
+    <p>Dia de ingreso {{ this.datosReserve.fechaLlegada }} a partir de las 2pm al {{ this.datosReserve.fechaSalida }} hasta las 11am</p>
+    <p>Acabamos de enviar esta informacion a la direccion {{ datosCliente.email }} para mayor facilidad.    </p>
     <p>Gracias por preferirnos!</p>
   </div>
 </div>

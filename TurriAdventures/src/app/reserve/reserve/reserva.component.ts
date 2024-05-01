@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { SidebarComponent } from "../../sidebar/sidebar.component";
 import { DatosCompartidosService } from '../DatosCompartidosService';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClienteService } from '../../../Core/ClienteService';
 import { Cliente } from '../../../Model/Cliente';
-import { TipoHabitacionService } from '../../../Core/TipoHabitacionService';
+import { ReservationService } from '../../../Core/ReservaService';
+import { Reserva } from '../../../Model/Reserva';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
@@ -12,27 +14,38 @@ import { TipoHabitacionService } from '../../../Core/TipoHabitacionService';
     standalone: true,
     templateUrl: './reserva.component.html',
     styleUrl: './reserva.component.css',
-    imports: [SidebarComponent]
+    imports: [CommonModule, SidebarComponent]
 })
 export class ReservaComponent implements OnInit {
-    datos: { idCliente: string, nombre: string, apellidos: string, email: string, tarjetaCredito: string ,vencimiento: string } = { idCliente: '', nombre: '', apellidos: '', email: '', tarjetaCredito: '', vencimiento:'' };
+    datosCliente: { idCliente: string, nombre: string, apellidos: string, email: string, tarjetaCredito: string, vencimiento: string, cvv: string } = { idCliente: '', nombre: '', apellidos: '', email: '', tarjetaCredito: '', vencimiento: '', cvv: '' };
     datosReserve: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: number } = { fechaLlegada: '', fechaSalida: '', tipoHabitacion: 0 };
     tarjetaValida: boolean = true;
-    cliente: Cliente = new Cliente(0, "", "", "");
-    nombreTipoHabitacion: String = "";
+    cliente: Cliente = new Cliente("", "", "", "");
+    datosReserva: any;
+    habitacionId: any;
+    datosIngresados: boolean = false;
+    mensaje: string = '';
+    esError: boolean = false;
 
     constructor(
         private datosCompartidosService: DatosCompartidosService,
         private ClienteService: ClienteService,
         private router: Router,
-        private TipoHabitacionService: TipoHabitacionService,
+        private reservaService: ReservationService,
+        private route: ActivatedRoute
 
     ) { }
 
     ngOnInit(): void {
         this.datosReserve = this.datosCompartidosService.getDatosReserve();
+        this.route.queryParams.subscribe(params => {
+            this.datosReserva = params;
+            this.habitacionId = params['habitacionId']; // Obtener el id de la habitación
+        });
+
+        this.datosIngresados = true;
     }
-     
+
 
     monto(): number {
         let fechaLlegada = new Date(this.datosReserve.fechaLlegada);
@@ -40,108 +53,140 @@ export class ReservaComponent implements OnInit {
         let total: number = 0;
         let dias = Math.ceil((fechaSalida.getTime() - fechaLlegada.getTime()) / (1000 * 60 * 60 * 24));
 
+        switch (Number(this.datosReserve.tipoHabitacion)) { //No se porque lo valida como string
 
-        switch (this.datosReserve.tipoHabitacion) {
             case 1:
-                total = dias * 150;
+                total = dias * 200;
                 break;
             case 2:
-                total = dias * 100;
+                total = dias * 150;
                 break;
             case 3:
-                total = dias * 200;
+                total = dias * 100;
                 break;
             default:
                 break;
         }
-    
         return total;
     }
-    
 
-    onInputChange(field: 'nombre' | 'apellidos' | 'email' | 'tarjetaCredito'| 'idCliente', value: string) {
-        this.datos[field] = value;
+    onInputChange(field: 'nombre' | 'apellidos' | 'email' | 'tarjetaCredito' | 'idCliente' | 'cvv', value: string) {
+        this.datosIngresados = true;
+
+        this.datosCliente[field] = value;
         if (field === 'tarjetaCredito') {
             this.validarTarjeta();
-        } else if (field === 'idCliente'){
+        } else if (field === 'idCliente') {
             //Agregar el campo de Cedula para que se cargue todo automáticamente
             this.obtenerDatosCliente(value.trim());
         }
-        
-        this.datosCompartidosService.setDatosReserva(this.datos);
+        this.datosCompartidosService.setDatosCliente(this.datosCliente);
     }
 
-    onSubmit() {
-        if (this.camposValidos() && this.tarjetaValida&& this.isValidExpiryDate('vencimiento', this.datos.vencimiento)) {
-            this.datosCompartidosService.incrementarReservacion();
+    async onSubmit() {
+        if (this.camposValidos() && this.isValidExpiryDate('vencimiento', this.datosCliente.vencimiento)) {
+            const nuevoCliente: Cliente = {
+                idCliente: this.datosCliente.idCliente,
+                nombre: this.datosCliente.nombre,
+                apellidos: this.datosCliente.apellidos,
+                email: this.datosCliente.email
+            };
+            await this.ClienteService.CrearCliente(nuevoCliente).toPromise();
+            const reserva: Reserva = {
+                idCliente: nuevoCliente.idCliente,
+                fechaLlegada: new Date(this.datosReserva.fechaLlegada),
+                fechaSalida: new Date(this.datosReserva.fechaSalida),
+                estadoReservacion: "Pendiente",
+                idHabitacion: this.habitacionId, // Asigna el id de la habitación disponible
+                idReservacion: 0
+            };
+            await this.reservaService.CrearReserva(reserva).toPromise();
             this.router.navigate(['/confirmReserve']);
+
+            // const reservaCreada = await this.reservaService.CrearReserva(reserva).toPromise();
+            // const idReservaCreada = reservaCreada.idReservacion; // Obtiene el ID de la reserva creada
+            // this.router.navigate(['/confirmReserve'], { queryParams: { idReserva: idReservaCreada } });
+
         }
         else {
-            alert('Por favor revisar que los datos ingresados sean validos y completos'); //cambiar por modal o un mensaje mas bonito
+            this.mensaje = 'Por favor revisa que los datos ingresados sean válidos y completos.';
+            this.esError = true;
+            setTimeout(() => {
+                this.mensaje = '';
+            }, 3000);
+            return;
         }
     }
 
     camposValidos(): boolean {
-        return !!this.datos.nombre && !!this.datos.apellidos && !!this.datos.email && !!this.datos.idCliente;
+        return !!this.datosReserve.fechaLlegada && !!this.datosReserve.fechaSalida &&
+            !!this.datosReserve.tipoHabitacion && !!this.datosCliente.cvv && this.datosCliente.cvv.length === 3
+            && !!this.datosCliente.idCliente && !!this.datosCliente.nombre && !!this.datosCliente.apellidos
+            && !!this.datosCliente.email && !!this.datosCliente.tarjetaCredito &&
+            !!this.datosCliente.vencimiento && this.tarjetaValida;
+
     }
 
     cancel() {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/reserve']);
     }
-    
+
     validarTarjeta(): void {
-        let numero = this.datos.tarjetaCredito.replace(/\s/g, '').replace(/-/g, '');
-        if (!/^\d+$/.test(numero) || numero.length < 1) {
-            this.tarjetaValida = false;
-            return;
-        }
-        
+        let numero = this.datosCliente.tarjetaCredito.replace(/\s/g, '').replace(/-/g, '');
+        /* 
+         if (!/^\d + $ /.test(numero) || numero.length < 1) {
+             this.tarjetaValida = false;
+             return;
+         }
+ */
         let suma = 0;
         let longitud = numero.length;
         let paridad = longitud % 2;
-        
+
         for (let i = 0; i < longitud; i++) {
             let digito = parseInt(numero.charAt(i), 10);
-        
+
             if (i % 2 === paridad) {
                 digito *= 2;
                 if (digito > 9) {
                     digito -= 9;
                 }
             }
-        
+
             suma += digito;
         }
         this.tarjetaValida = suma % 10 === 0;
     }
 
     isValidExpiryDate(field: 'vencimiento', value: string): boolean {
-        this.datos[field] = value;
-    
+        this.datosCliente[field] = value;
+
         const pattern = /^(0[1-9]|1[0-2])\/\d{2}$/;
-    
-        if (!pattern.test(this.datos.vencimiento)) {
+
+        if (!pattern.test(this.datosCliente.vencimiento)) {
             return false;
         }
-    
+
         const fechaActual = new Date();
-        const [mesVencimiento, anioVencimiento] = this.datos.vencimiento.split('/').map(Number);
+        const [mesVencimiento, anioVencimiento] = this.datosCliente.vencimiento.split('/').map(Number);
         const fechaVencimiento = new Date(2000 + anioVencimiento, mesVencimiento - 1, 1);
         return fechaVencimiento >= fechaActual;
     }
-    
-    obtenerDatosCliente(idCliente: String) {
-        
-        this.limpiarCamposCliente();
 
+    obtenerDatosCliente(idCliente: String) {
+        this.limpiarCamposCliente();
         if (idCliente != '') {
             this.ClienteService.BuscarCliente(idCliente).subscribe((data: Cliente) => {
                 if (data != null) {
                     this.cliente = data;
+                    this.datosCliente.nombre = this.cliente.nombre;
+                    this.datosCliente.apellidos = this.cliente.apellidos;
+                    this.datosCliente.email = this.cliente.email;
                 }
             });
         };
     }
+
 
     limpiarCamposCliente() {
         const nombre = document.getElementById("nombre") as HTMLInputElement;
@@ -157,8 +202,19 @@ export class ReservaComponent implements OnInit {
             email.value = '';
             tarjetaCredito.value = '';
             vencimiento.value = '';
-            cvv.value = '';              
+            cvv.value = '';
         }
+    }
+
+
+
+
+    @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any) { //Para mostrar mensaje si se intenta salir o actualizar de la pagina
+        if (this.datosIngresados) {
+            $event.returnValue = true;
+            return 'Si actualiza la pagina o se sale perderá todos los datos ingresados.';
+        }
+        return null;
     }
 
 }

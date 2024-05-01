@@ -1,0 +1,19 @@
+.content {
+    width: 90%;
+    padding: 20px;
+    justify-content: center;
+    text-align: center;
+    margin-top: 30;
+}
+
+
+.sections {
+    width: 100%;
+    margin-bottom: 10px; /* Reduzca el margen inferior para que los elementos se junten más */
+}
+
+@media (min-width: 768px) {
+    .sections {
+        width: 50%; /* Para que cada sección ocupe la mitad del ancho en pantallas medianas y grandes */
+    }
+}

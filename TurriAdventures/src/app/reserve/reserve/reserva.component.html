@@ -1,4 +1,3 @@
-
 <html lang="es">
 
 <head>
@@ -23,54 +22,73 @@
                 <h5>Habitación Disponible</h5>
                 <div class="habitacion-disponible">
                     <img src="assets/Habitaciones/{{ datosReserve.tipoHabitacion }}.jpg" alt="">
-                    <p>Usted esta reservando en nuestro hotel el tipo de habitacion {{ datosReserve.tipoHabitacion }} para las fechas entre {{ datosReserve.fechaLlegada }} a {{ datosReserve.fechaSalida }} </p>
+                    <p>Usted esta reservando en nuestro hotel el tipo de habitacion {{ datosReserve.tipoHabitacion }}
+                        para las fechas entre {{ datosReserve.fechaLlegada }} a {{ datosReserve.fechaSalida }} </p>
                 </div>
 
                 <div class="formulario-reserva" id="paymentForm">
-                    <form  >
+                    <form>
                         <div class="monto-reservacion">
                             <h2>Monto de la reservación: $ {{monto()}}</h2>
                         </div>
 
                         <div class="form-group">
                             <label for="idCliente">Cédula:</label>
-                            <input #idClienteInput (input)="onInputChange('idCliente', idClienteInput.value)" required type="text" class="form-control" formControlName="idCliente" id="cedula" maxlength="8">
+                            <input #idClienteInput (input)="onInputChange('idCliente', idClienteInput.value)" required
+                                type="text" class="form-control" formControlName="idCliente" id="cedula" maxlength="8">
                         </div>
 
                         <div class="form-group">
                             <label for="nombre">Nombre:</label>
-                            <input #nombreInput (input)="onInputChange('nombre', nombreInput.value)" required type="text" class="form-control" formControlName="nombre" id="nombre" value="{{cliente.nombre}}">
-                        
+                            <input #nombreInput (input)="onInputChange('nombre', nombreInput.value)" required
+                                type="text" class="form-control" formControlName="nombre" id="nombre"
+                                value="{{cliente.nombre}}">
+
                         </div>
 
                         <div class="form-group">
                             <label for="apellidos">Apellidos:</label>
-                            <input #apellidosInput (input)="onInputChange('apellidos', apellidosInput.value)" required type="text" class="form-control" formControlName="apellidos" id="apellidos" value="{{cliente.apellidos}}">
+                            <input #apellidosInput (input)="onInputChange('apellidos', apellidosInput.value)" required
+                                type="text" class="form-control" formControlName="apellidos" id="apellidos"
+                                value="{{cliente.apellidos}}">
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input #emailInput (input)="onInputChange('email', emailInput.value)" required type="email" class="form-control" formControlName="email" id="email" value="{{cliente.email}}">
+                            <input #emailInput (input)="onInputChange('email', emailInput.value)" required type="email"
+                                class="form-control" formControlName="email" id="email" value="{{cliente.email}}">
                         </div>
-                                               <div class="form-group">
-                            <label for="tarjetaCredito">Tarjeta de Crédito:</label>
-                            <input #tarjetaCreditoInput (input)="onInputChange('tarjetaCredito', tarjetaCreditoInput.value)" required type="text" class="form-control" id="tarjetaCredito">
-                        </div>
-                        <div class="form-row"> 
                         <div class="form-group">
-                            <label for="expiryDate">Fecha de vencimiento</label>
-                            <input  #vencimientoInput (input)="isValidExpiryDate('vencimiento',vencimientoInput.value)" required type="text" class="form-control" formControlName="vencimiento" id="vencimiento" placeholder="Formato MM/YY">
+                            <label for="tarjetaCredito">Tarjeta de Crédito:</label>
+                            <input #tarjetaCreditoInput
+                                (input)="onInputChange('tarjetaCredito', tarjetaCreditoInput.value)" required
+                                type="text" class="form-control" id="tarjetaCredito">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Fecha de vencimiento</label>
+                                <input #vencimientoInput
+                                    (input)="isValidExpiryDate('vencimiento',vencimientoInput.value)" required
+                                    type="text" class="form-control" formControlName="vencimiento" id="vencimiento"
+                                    placeholder="Formato MM/YY">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cvv">Código de seguridad (CVV)</label>
+                                <input #cvvInput (input)="onInputChange('cvv', cvvInput.value)" type="text" class="form-control" id="cvv" placeholder="123" maxlength="3" minlength="3" required [type]="nombreInput">
+                            </div>
+
                         </div>
 
-                        <div class="form-group">
-                            <label for="cvv">Código de seguridad (CVV)</label>
-                            <input type="text" class="form-control" id="cvv" placeholder="123" maxlength="3">
+                        <div *ngIf="mensaje" class="alert"
+                            [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
+                            {{ mensaje }}
                         </div>
-                    </div>
-                    <div class="buttons">
-                        <button type="button" (click)="onSubmit()" class="btn btn-primary"  >Aceptar</button>
-                        <button type="button" (click)="cancel()"class="btn btn-secondary">Cancelar</button>
-                    </div>
+
+                        <div class="buttons">
+                            <button type="button" (click)="onSubmit()" class="btn btn-primary">Aceptar</button>
+                            <button type="button" (click)="cancel()" class="btn btn-secondary">Cancelar</button>
+                        </div>
                     </form>
                 </div>
 

@@ -45,12 +45,22 @@
                                 </div>
                             </div>
 
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <button type="button" class="btnAgregar btn btn-primary"
+                                        (click)="logout()">Cerrar Sesión</button>
+                                </div>
+                            </div>
+
                             <div *ngIf="mensaje" class="alert"
                                 [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
                                 {{ mensaje }}
                             </div>
                         </form>
                     </div>
+
+
+
 
                     <!-- Listar administradores -->
                     <div>

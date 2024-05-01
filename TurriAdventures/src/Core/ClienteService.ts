@@ -18,4 +18,9 @@ export class ClienteService {
     return this.http.get<Cliente>(this.url+"BuscarCliente/"+idCliente);
   }
 
+  CrearCliente(cliente: Cliente): Observable<any> {
+    console.log('CrearCliente en service', cliente);      
+    return this.http.post(this.url +"CrearCliente/", cliente);
+}//CrearCliente
+
 }

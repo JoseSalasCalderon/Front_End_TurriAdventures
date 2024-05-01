@@ -3,6 +3,10 @@ import { CommonModule } from '@angular/common';
 import { AdministradorService } from '../../Core/AdministradorService';
 import { Administrador } from '../../Model/Administrador';
 import { SidebarAdministradorComponent } from "../sidebar-administrador/sidebar-administrador.component";
+import { LoginComponent } from '../login/login.component';
+import { Router } from '@angular/router';
+import { LoginService } from '../../Core/LoginService';
+
 
 @Component({
     selector: 'app-administrador',
@@ -21,7 +25,7 @@ export class AdministradorComponent implements OnInit {
     mensaje: string = '';
     esError: boolean = false;
 
-    constructor(private administradorService: AdministradorService) { }
+    constructor(private administradorService: AdministradorService,private router:Router,private loginService:LoginService) { }
 
     ngOnInit(): void {
         this.listarAdministradores();
@@ -112,4 +116,10 @@ export class AdministradorComponent implements OnInit {
             this.nuevoAdmin[field] = value;
         }
     }
+
+
+    logout(): void {
+        this.loginService.logout();
+        this.router.navigate(['/login']);
+      }
 }
