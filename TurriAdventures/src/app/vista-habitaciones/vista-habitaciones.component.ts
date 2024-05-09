@@ -14,7 +14,7 @@ import { FooterComponent } from '../footer/footer.component';
 export class VistaHabitacionesComponent  {
 
 
-  roomType: any;
-  roomDetails: any; 
+  // roomType: any;
+  // roomDetails: any; 
 
 }

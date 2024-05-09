@@ -15,6 +15,7 @@ import { AdministradorComponent } from './administrador/administrador.component'
 import { AuthGuard } from './auth.guard';
 import { ReserveComponent } from './reserve/reservaHabitacion/reserve.component';
 import { HomeAdministradorComponent } from './home-administrador/home-administrador.component';
+import { DisponibilidadHabitacionesComponent } from './disponibilidad-habitaciones/disponibilidad-habitaciones.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -27,14 +28,13 @@ export const routes: Routes = [
     { path: 'contact', component: ContactComponent },
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
-    { path: 'vista/:id', component:VistaHabitacionesComponent},
-    { path: 'administrador', component: AdministradorComponent,  },
-    { path: 'verEstadoHotel', component:VerEstadoHotelComponent},
+    //{ path: 'vista/:id', component:VistaHabitacionesComponent},
+    { path: 'verEstadoHotel', component:VerEstadoHotelComponent, canActivate:[AuthGuard]},
     { path: 'login', component: LoginComponent},
-    
+    { path: 'homeAdmin', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
     { path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },
-    { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
-    { path: 'homeAdmin', component: HomeAdministradorComponent, canActivate:[AuthGuard]},
+    {path: 'dispohabitaciones', component: DisponibilidadHabitacionesComponent, canActivate:[AuthGuard]},
+    { path: '**', component: HomeComponent},
 
 
 

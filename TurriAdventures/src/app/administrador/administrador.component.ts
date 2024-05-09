@@ -39,6 +39,7 @@ export class AdministradorComponent implements OnInit {
     }
 
     agregarAdministrador(): void {
+        console.log('agregar', this.administradorService.CrearAdministrador(this.nuevoAdmin));
         if (!this.nuevoAdmin.usuario || !this.nuevoAdmin.contrasena) {
             this.mensaje = 'Por favor, complete todos los campos.';
             this.esError = true;
@@ -97,8 +98,9 @@ export class AdministradorComponent implements OnInit {
             this.administradorSeleccionado.contrasena = contrasena;
 
             this.administradorService.EditarAdministrador(this.administradorSeleccionado).subscribe(() => {
-                this.listarAdministradores();
                 this.cerrarModalEdicion();
+                this.listarAdministradores();
+
             });
         }
     }

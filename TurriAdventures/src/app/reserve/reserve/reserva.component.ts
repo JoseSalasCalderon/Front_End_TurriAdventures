@@ -8,7 +8,6 @@ import { ReservationService } from '../../../Core/ReservaService';
 import { Reserva } from '../../../Model/Reserva';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
     selector: 'app-reserva',
     standalone: true,
@@ -32,7 +31,7 @@ export class ReservaComponent implements OnInit {
         private ClienteService: ClienteService,
         private router: Router,
         private reservaService: ReservationService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
 
     ) { }
 
@@ -48,6 +47,8 @@ export class ReservaComponent implements OnInit {
 
 
     monto(): number {
+
+
         let fechaLlegada = new Date(this.datosReserve.fechaLlegada);
         let fechaSalida = new Date(this.datosReserve.fechaSalida);
         let total: number = 0;
