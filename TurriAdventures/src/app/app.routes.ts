@@ -16,6 +16,7 @@ import { AuthGuard } from './auth.guard';
 import { ReserveComponent } from './reserve/reservaHabitacion/reserve.component';
 import { HomeAdministradorComponent } from './home-administrador/home-administrador.component';
 import { ListadoReservacionesComponent } from './listado-reservaciones/listado-reservaciones.component';
+import { AdministrarHabitacionesComponent } from './administrar-habitaciones/administrar-habitaciones.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -32,6 +33,7 @@ export const routes: Routes = [
     { path: 'administrador', component: AdministradorComponent,  },
     { path: 'verEstadoHotel', component:VerEstadoHotelComponent},
     { path: 'listadoReservaciones', component:ListadoReservacionesComponent},
+    { path: 'administrarHabitaciones', component:AdministrarHabitacionesComponent},
     { path: 'login', component: LoginComponent},
     
     { path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },

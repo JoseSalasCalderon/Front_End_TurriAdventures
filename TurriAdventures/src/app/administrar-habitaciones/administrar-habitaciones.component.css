@@ -1,0 +1,8 @@
+.table-informacion {
+    margin-top: 3em;
+    margin-bottom: 1em;
+}
+
+th, td {
+    border: 1px solid #000 !important;
+}
