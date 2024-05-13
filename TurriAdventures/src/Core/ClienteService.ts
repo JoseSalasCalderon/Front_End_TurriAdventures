@@ -22,7 +22,7 @@ export class ClienteService {
     return this.http.get<Cliente>(this.url+"BuscarCliente/"+idCliente);
   }
 
-  BuscarClientePorIdReserva(idCliente: String):Observable<Cliente>{
+  BuscarClientePorIdReserva(idCliente: number):Observable<Cliente>{
     return this.http.get<Cliente>(this.url+"BuscarClientePorIdReservacion/"+idCliente);
   }
 

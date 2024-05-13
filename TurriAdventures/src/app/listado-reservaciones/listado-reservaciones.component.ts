@@ -54,16 +54,10 @@ export class ListadoReservacionesComponent implements OnInit{
     return this.RerervaService.ListarReservas().subscribe((reservas: Reserva[]) => {
       const inicio = (this.paginaActual - 1) * this.reservacionesPorPagina;
       const fin = this.paginaActual * this.reservacionesPorPagina;
-      this.HabitacionService.ListarHabitaciones().subscribe((habitaciones: Habitacion[]) => {
-        this.TiposHabitacionService.ListarTiposHabitaciones().subscribe((tiposHabitaciones: TipoHabitacion[]) => {
-          this.ClienteService.ListarCliente().subscribe((clientes: Cliente[]) => {
-            //Se carga la tabla
-            this.cargarTabla(habitaciones, tiposHabitaciones, reservas, clientes, inicio, fin);
-            //Se asignan los valores de las páginas a los botones
-            this.actualizarPaginacion(reservas.length);
-          });
-        });
-      });
+      //Se carga la tabla
+      this.cargarTabla(reservas, inicio, fin);
+      //Se asignan los valores de las páginas a los botones
+      this.actualizarPaginacion(reservas.length);
     });
   };
 
@@ -90,40 +84,33 @@ export class ListadoReservacionesComponent implements OnInit{
     }
   }
 
-  cargarTabla(habitaciones: Habitacion[], tiposHabitaciones: TipoHabitacion[], reservas: Reserva[], clientes: Cliente[], inicio:number, fin:number) {
+  cargarTabla(reservas: Reserva[], inicio:number, fin:number) {
     const tablaHabitaciones = document.getElementById("table-body");
     //Se valida para saber si existe y se genera este select
     if (tablaHabitaciones) {
       tablaHabitaciones.innerHTML = '';
-      for (let k = inicio; k < fin && k < reservas.length; k++) {
-        for (let i = 0; i < habitaciones.length; i++) {
-          for (let j = 0; j < tiposHabitaciones.length; j++) {
-            for (let l = 0; l < clientes.length; l++) {
-              if (reservas[k].idHabitacion === habitaciones[i].idHabitacion &&
-                  habitaciones[i].idTipoHabitacion === tiposHabitaciones[j].idTipoHabitacion &&
-                  reservas[k].idCliente === clientes[l].idCliente) {
-
-                tablaHabitaciones.innerHTML += `
+      for (let index = inicio; index < fin && index < reservas.length; index++) {
+        this.HabitacionService.BuscarHabitacionPorIdReserva(reservas[index].idReservacion).subscribe((habitacion: Habitacion) => {
+          this.TiposHabitacionService.BuscarTipoHabitacionPorIdHabitacion(habitacion.idHabitacion).subscribe((tipoHabitacion: TipoHabitacion) => {
+            this.ClienteService.BuscarClientePorIdReserva(reservas[index].idReservacion).subscribe((cliente: Cliente) => {
+              tablaHabitaciones.innerHTML += `
                   <tr>
                       <td>${this.fechaFormateada}</td>
-                      <td>${reservas[k].idReservacion}</td>
-                      <td>${clientes[l].nombre}</td>
-                      <td>${clientes[l].apellidos}</td>
-                      <td>${clientes[l].email}</td>
-                      <td>${reservas[k].fechaLlegada}</td>
-                      <td>${reservas[k].fechaSalida}</td>
-                      <td>${tiposHabitaciones[j].nombreTipoHabitacion}</td>
+                      <td>${reservas[index].idReservacion}</td>
+                      <td>${cliente.nombre}</td>
+                      <td>${cliente.apellidos}</td>
+                      <td>${cliente.email}</td>
+                      <td>${reservas[index].fechaLlegada}</td>
+                      <td>${reservas[index].fechaSalida}</td>
+                      <td>${tipoHabitacion.nombreTipoHabitacion}</td>
                       <td><button type="button" class="btn btn-primary">Ver</button></td>
                       <td><button type="button" class="btn btn-danger">Eliminar</button></td>
                   </tr>
                 `;
-                break;
-              }//if
-            }//for clientes
-          }//for tiposHabitaciones
-        }//For habitaciones
-        
-      }
+            });
+          });
+        });
+      } // For reservas
     }
   };
 
