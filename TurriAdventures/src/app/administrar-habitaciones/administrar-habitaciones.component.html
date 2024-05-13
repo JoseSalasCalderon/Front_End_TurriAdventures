@@ -24,7 +24,7 @@
             <div class="table-responsive" *ngFor="let tipoHabitacion of tiposHabitaciones">
               <div class="table-informacion" style="display: flex; align-items: center;">
                 <h5 style="margin: 0; padding: 0; margin-right: 20px;">{{ tipoHabitacion.nombreTipoHabitacion }}</h5>
-                <a href="">cambiar descripcion</a>
+                <a href="javascript:void(0)" (click)="editarTipoHabitacion(tipoHabitacion.idTipoHabitacion)">cambiar descripcion</a>
               </div>
               <table class="table table-striped">
                   <thead>

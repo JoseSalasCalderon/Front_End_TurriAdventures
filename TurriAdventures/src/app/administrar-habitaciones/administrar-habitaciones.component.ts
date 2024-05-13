@@ -7,6 +7,7 @@ import { HabitacionService } from '../../Core/HabitacionService';
 import { TipoHabitacionService } from '../../Core/TipoHabitacionService';
 import { TipoHabitacion } from '../../Model/TipoHabitacion';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-administrar-habitaciones',
@@ -31,11 +32,17 @@ export class AdministrarHabitacionesComponent implements OnInit{
   constructor(
     private HabitacionService: HabitacionService,
     private TiposHabitacionService: TipoHabitacionService,
+    private router: Router
   ){}
   
   ngOnInit(): void {
     this.obtenerHabitaciones();
     this.obtenerTiposHabitacion();
+  }
+
+  editarTipoHabitacion(idTipoHabitacion: number) {
+    sessionStorage.setItem('TipoHabitacionSeleccionada', idTipoHabitacion.toString());
+    this.router.navigate(['/verTipoHabitacion']);
   }
 
   obtenerHabitaciones() {

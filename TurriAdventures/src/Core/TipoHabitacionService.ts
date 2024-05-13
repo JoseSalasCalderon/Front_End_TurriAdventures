@@ -19,6 +19,9 @@ export class TipoHabitacionService {
     return this.http.get<TipoHabitacion[]>(this.url+"ListarTipoHabitaciones");
   }
 
+  BuscarTipoHabitacionPorId(idTipoHabitacion: number): Observable<TipoHabitacion> {
+    return this.http.get<TipoHabitacion>(this.url + "BuscarTipoHabitacion/"+idTipoHabitacion);
+  }
 
   BuscarTipoHabitacionPorIdHabitacion(idHabitacion: number): Observable<TipoHabitacion> {
     return this.http.get<TipoHabitacion>(this.url + "BuscarTipoHabitacionPorHabitacion/"+idHabitacion);
