@@ -14,8 +14,16 @@ export class ClienteService {
     this.url = "https://localhost:7032/Clientes/";
   }
 
+  ListarCliente():Observable<Cliente[]>{
+    return this.http.get<Cliente[]>(this.url+"ListarClientes");
+  }
+
   BuscarCliente(idCliente: String):Observable<Cliente>{
     return this.http.get<Cliente>(this.url+"BuscarCliente/"+idCliente);
+  }
+
+  BuscarClientePorIdReserva(idCliente: number):Observable<Cliente>{
+    return this.http.get<Cliente>(this.url+"BuscarClientePorIdReservacion/"+idCliente);
   }
 
   CrearCliente(cliente: Cliente): Observable<any> {

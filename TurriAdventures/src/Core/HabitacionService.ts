@@ -27,6 +27,9 @@ export class HabitacionService {
     return this.http.get<Habitacion[]>(this.url + "ConsultarDisponibilidadHabitaciones", { params });
   }
 
+  BuscarHabitacionPorIdReserva(idReservacion: number): Observable<Habitacion> {
+    return this.http.get<Habitacion>(this.url + "BuscarHabitacionPorIdReserva/"+idReservacion);
+  }
  
   // ConsultarDisponibilidadHabitaciones(fechaLlegada: string, fechaSalida: string, tipo_habitacion_id: number): Observable<{ habitaciones: Habitacion[], habitacionId: string }> {
   //   const params = new HttpParams()
