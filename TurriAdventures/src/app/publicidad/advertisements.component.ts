@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-interface Image {
-  imgSrc: string;
-  imgAlt: string;
-  link: string;
+export interface Advertisement {
+  imageUrl: string;
+  pageUrl: string;
 }
 
 @Component({
@@ -14,36 +13,41 @@ interface Image {
   styleUrl: './advertisements.component.css',
   imports: [CommonModule]
 })
-export class AdvertisementsComponent implements OnInit {
-  // currentAdvertisementIndex: number = 0;
-  // intervalId: any;
+export class AdvertisementsComponent implements OnInit, OnDestroy {
+  advertisements: Advertisement[] = [
+    { imageUrl: 'assets/Anuncios/Hotel2.png', pageUrl: 'https://totaltripviajes.com/hoteles-de-lujo/' },
+    { imageUrl: 'assets/Anuncios/Maxi Pali.jpg', pageUrl: 'https://www.maxipali.co.cr/' },
+    { imageUrl: 'assets/Anuncios/gama.jpg', pageUrl: 'https://galletasgama.com/' },
+    // Agrega más anuncios según sea necesario
+  ];
+  currentAdvertisementIndex: number = 0;
+  intervalId: any;
 
-  // images = ['assets/Anuncios/Hotel2.png', 'assets/Anuncios/gama.jpg'];
-  // urls = ['https://totaltripviajes.com/hoteles-de-lujo/', 'https://galletasgama.com/'];
-
-  images: Image[] = [];
-  selectedIndex = 0;
+  constructor() { }
 
   ngOnInit(): void {
-    this.loadImages();
-
-    setInterval(() => {
-      this.selectedIndex = (this.selectedIndex + 1) % this.images.length;
-    }, 5000);
+    this.startCarousel();
   }
 
-  loadImages() {
-    this.images = [
-      {
-        imgSrc: 'assets/Anuncios/Hotel2.png',
-        imgAlt: 'Hotel2',
-        link: 'https://totaltripviajes.com/hoteles-de-lujo/'
-      },
-      {
-        imgSrc: 'assets/Anuncios/gama.jpg',
-        imgAlt: 'Gama',
-        link: 'https://galletasgama.com/'
-      }
-    ];
+  ngOnDestroy(): void {
+    this.stopCarousel();
+  }
+
+  startCarousel(): void {
+    this.intervalId = setInterval(() => {
+      this.nextAdvertisement();
+    }, 2000); // Cambia de anuncio cada 3 segundos
+  }
+
+  stopCarousel(): void {
+    clearInterval(this.intervalId);
+  }
+
+  nextAdvertisement(): void {
+    this.currentAdvertisementIndex = (this.currentAdvertisementIndex + 1) % this.advertisements.length;
+  }
+
+  openPage(url: string): void {
+    window.open(url, '_blank');
   }
 }

@@ -1,46 +1,8 @@
 <div class="advertisement-container">
-  @if(images.length>0){
-  <div class="ad-carousel">
-    @for (img of images; track $index){
-      <a href="{{ img.link }}" 
-      target="_blank" 
-      [ngClass]="{ 'active-img': $index === selectedIndex }"
-      class="frade">
-      <img src="{{ img.imgSrc }}" alt="{{ img.imgAlt }}" />
+  <div class="advertisement" *ngFor="let advertisement of advertisements; let i = index" [hidden]="i !== currentAdvertisementIndex">
+    <a (click)="openPage(advertisement.pageUrl)">
+      <img [src]="advertisement.imageUrl" alt="Advertisement">
     </a>
-    }
   </div>
-  }@else {
-  <div class="no-ads">
-    <p>No hay anuncios disponibles</p>
-  </div>
-
-  }
 </div>
-
-
-
-
-<!-- <div class="container mt-5">
-  <div class="row">
-    <div class="col">
-      <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item" *ngFor="let slide of images; let i = index" [class.active]="i === 0">
-            <a href="{{ urls[i] }}" target="_blank"> 
-              <img class="d-block w-100" [src]="slide" alt="Slide">
-            </a>
-          </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    </div>
-  </div>
-</div> -->
+  
