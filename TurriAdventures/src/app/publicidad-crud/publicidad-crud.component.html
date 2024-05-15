@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Turri Adventure</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="publicidad-crud.component.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <app-sidebar-administrador></app-sidebar-administrador>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <h2>Publicidad</h2>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4>Imagen Actual</h4>
+                        <img id="imagenActual" [src]="'assets/Anuncios/' + imagenActual" class="img-fluid img-thumbnail" alt="Imagen">
+                    </div>
+
+                    <div class="col-md-6">
+                        <h4>Insertar nueva publicidad</h4>
+                        <form>
+                            <div class="form-group">
+                                <label for="url">Link Destino:</label>
+                                <input type="text" id="url" class="form-control" [value]="publicidades[0]?.linkPublicidad">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="imagen">Subir nueva imagen:</label>
+                                <input type="file" id="imagen" class="form-control-file" (change)="onChangeImagen($event)">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6 offset-md-6">
+                        <button class="btn btn-danger float-right" (click)="cancelarCambios()">Cancelar</button>
+                        <button class="btn btn-success float-right mr-2" (click)="aceptarCambios()">Aceptar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts al final del cuerpo del documento -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -19,6 +19,7 @@ import { DisponibilidadHabitacionesComponent } from './disponibilidad-habitacion
 import { ListadoReservacionesComponent } from './listado-reservaciones/listado-reservaciones.component';
 import { AdministrarHabitacionesComponent } from './administrar-habitaciones/administrar-habitaciones.component';
 import { VerTipoHabitacionComponent } from './ver-tipo-habitacion/ver-tipo-habitacion.component';
+import { PublicidadCRUDComponent } from './publicidad-crud/publicidad-crud.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -31,10 +32,9 @@ export const routes: Routes = [
     { path: 'contact', component: ContactComponent },
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
-    //{ path: 'vista/:id', component:VistaHabitacionesComponent},
     { path: 'verEstadoHotel', component:VerEstadoHotelComponent, canActivate:[AuthGuard]},
    // { path: 'vista/:id', component:VistaHabitacionesComponent},
-   // { path: 'administrador', component: AdministradorComponent,  },
+   // { path: 'administrador', component: AdministradorComponent},
     { path: 'verEstadoHotel', component:VerEstadoHotelComponent},
     { path: 'listadoReservaciones', component:ListadoReservacionesComponent},
     { path: 'administrarHabitaciones', component:AdministrarHabitacionesComponent},
@@ -43,6 +43,7 @@ export const routes: Routes = [
     { path: 'homeAdmin', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
     { path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },
     {path: 'dispohabitaciones', component: DisponibilidadHabitacionesComponent, canActivate:[AuthGuard]},
+    {path: 'crudPulicidad', component: PublicidadCRUDComponent, canActivate:[AuthGuard]},
     { path: '**', component: HomeComponent},
 
 

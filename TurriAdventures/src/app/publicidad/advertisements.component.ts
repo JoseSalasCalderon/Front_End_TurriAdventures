@@ -1,5 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Publicidad } from '../../Model/Publicidad';
+import { PublicidadService } from '../../Core/PublicidadService';
 
 export interface Advertisement {
   imageUrl: string;
@@ -14,18 +16,15 @@ export interface Advertisement {
   imports: [CommonModule]
 })
 export class AdvertisementsComponent implements OnInit, OnDestroy {
-  advertisements: Advertisement[] = [
-    { imageUrl: 'assets/Anuncios/Hotel2.png', pageUrl: 'https://totaltripviajes.com/hoteles-de-lujo/' },
-    { imageUrl: 'assets/Anuncios/Maxi Pali.jpg', pageUrl: 'https://www.maxipali.co.cr/' },
-    { imageUrl: 'assets/Anuncios/gama.jpg', pageUrl: 'https://galletasgama.com/' },
-    // Agrega más anuncios según sea necesario
-  ];
+
+  advertisements: Publicidad[] = [];
   currentAdvertisementIndex: number = 0;
   intervalId: any;
 
-  constructor() { }
+  constructor(private publicidadService: PublicidadService) { }
 
   ngOnInit(): void {
+    this.obtenerPublicidades();
     this.startCarousel();
   }
 
@@ -33,10 +32,19 @@ export class AdvertisementsComponent implements OnInit, OnDestroy {
     this.stopCarousel();
   }
 
+  obtenerPublicidades(): void {
+    this.publicidadService.ListarPublicidades()
+      .subscribe((publicidades: Publicidad[]) => {
+        this.advertisements = publicidades.map(ad => {
+          return { ...ad, imagenPublicidad: 'assets/Anuncios/' + ad.imagenPublicidad };
+        });
+      });
+  }
+
   startCarousel(): void {
     this.intervalId = setInterval(() => {
       this.nextAdvertisement();
-    }, 2000); // Cambia de anuncio cada 3 segundos
+    }, 5000); 
   }
 
   stopCarousel(): void {
