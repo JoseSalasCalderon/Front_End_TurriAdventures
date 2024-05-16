@@ -5,15 +5,18 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule, Routes } from '@angular/router';
+import { ModificarTemporadasComponent } from '../modificar-temporadas/modificar-temporadas.component';
 
 @Component({
   selector: 'app-listar-temporadas',
   standalone: true,
-  imports: [CommonModule,SidebarComponent,HeaderComponent,FooterComponent],
+  imports: [CommonModule,SidebarComponent,HeaderComponent,FooterComponent,RouterModule],
   templateUrl: './listar-temporadas.component.html',
   styleUrl: './listar-temporadas.component.css'
 })
 export class ListarTemporadasComponent implements OnInit {
+
 
   TemporadaPorPagina: number = 3; 
   paginaActual: number = 1;

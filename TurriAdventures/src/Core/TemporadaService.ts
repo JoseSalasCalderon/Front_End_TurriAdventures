@@ -23,4 +23,17 @@ export class TemporadaService {
     return this.http.post('https://localhost:7032/Temporadas/CrearTemporada?descripcionTemporada='+temporada.descripcionTemporada+'&fechaInicioTemporada='+temporada.fechaInicioTemporada+'&fechaFinalTemporada='+temporada.fechaFinalTemporada+'&precioTemporada='+temporada.precioTemporada, temporada);
   }
 
+
+  modificarTemporada(data: any): Observable<any> {
+    const url = `https://localhost:7032/Temporadas/EditarTemporada?idTemporada=${data.idTemporada}&descripcionTemporada=${data.descripcionTemporada}&fechaInicioTemporada=${data.fechaInicioTemporada}&fechaFinalTemporada=${data.fechaFinalTemporada}&precioTemporada=${data.precioTemporada}`;
+    return this.http.put(url, data);
+  }
+  
+
+ObtenerTemporada(id: string): Observable<any> {
+  return this.http.get<any>(`https://localhost:7032/Temporadas/BuscarTemporada/${id}`);
+}
+
+
+
 }
