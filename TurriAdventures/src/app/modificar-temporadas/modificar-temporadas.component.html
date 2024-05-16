@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editar Temporada</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-5">
+  <h2 class="mb-4">Editar Temporada</h2>
+  <form [formGroup]="temporadaForm" (ngSubmit)="onSubmit()">
+    <!-- Campo oculto para almacenar el ID de la temporada -->
+    <input type="hidden" formControlName="idTemporada">
+    
+    <div class="form-group">
+      <label for="descripcionTemporada">Descripción</label>
+      <input type="text" id="descripcionTemporada" class="form-control" formControlName="descripcionTemporada">
+    </div>
+
+    <div class="form-group">
+      <label for="fechaInicioTemporada">Fecha de Inicio</label>
+      <input type="date" id="fechaInicioTemporada" class="form-control" formControlName="fechaInicioTemporada">
+    </div>
+
+    <div class="form-group">
+      <label for="fechaFinalTemporada">Fecha Final</label>
+      <input type="date" id="fechaFinalTemporada" class="form-control" formControlName="fechaFinalTemporada">
+    </div>
+
+    <div class="form-group">
+      <label for="precioTemporada">Precio</label>
+      <input type="number" id="precioTemporada" class="form-control" formControlName="precioTemporada">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar</button>
+  </form>
+</div>
+
+<!-- Scripts al final del cuerpo del documento -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -20,6 +20,9 @@ import { ListadoReservacionesComponent } from './listado-reservaciones/listado-r
 import { AdministrarHabitacionesComponent } from './administrar-habitaciones/administrar-habitaciones.component';
 import { VerTipoHabitacionComponent } from './ver-tipo-habitacion/ver-tipo-habitacion.component';
 import { PublicidadCRUDComponent } from './publicidad-crud/publicidad-crud.component';
+import { ListarTemporadasComponent } from './listar-temporadas/listar-temporadas.component';
+import { CrearTemporadasComponent } from './crear-temporadas/crear-temporadas.component';
+import { ModificarTemporadasComponent } from './modificar-temporadas/modificar-temporadas.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -45,6 +48,13 @@ export const routes: Routes = [
     {path: 'dispohabitaciones', component: DisponibilidadHabitacionesComponent, canActivate:[AuthGuard]},
     {path: 'crudPulicidad', component: PublicidadCRUDComponent, canActivate:[AuthGuard]},
     { path: '**', component: HomeComponent},
+    { path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },
+    {path:'listar-temporadas', component: ListarTemporadasComponent},
+    {path:'crear-temporadas', component: CrearTemporadasComponent},
+    {path:'editar-temporadas/:id', component: ModificarTemporadasComponent},
+    { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
+    { path: 'homeAdmin', component: HomeAdministradorComponent, canActivate:[AuthGuard]},
+
 
 
 
