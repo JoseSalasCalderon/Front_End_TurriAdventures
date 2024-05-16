@@ -20,6 +20,7 @@ import { AdministrarHabitacionesComponent } from './administrar-habitaciones/adm
 import { VerTipoHabitacionComponent } from './ver-tipo-habitacion/ver-tipo-habitacion.component';
 import { ListarTemporadasComponent } from './listar-temporadas/listar-temporadas.component';
 import { CrearTemporadasComponent } from './crear-temporadas/crear-temporadas.component';
+import { ModificarTemporadasComponent } from './modificar-temporadas/modificar-temporadas.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -42,6 +43,7 @@ export const routes: Routes = [
     { path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },
     {path:'listar-temporadas', component: ListarTemporadasComponent},
     {path:'crear-temporadas', component: CrearTemporadasComponent},
+    {path:'editar-temporadas/:id', component: ModificarTemporadasComponent},
     { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
     { path: 'homeAdmin', component: HomeAdministradorComponent, canActivate:[AuthGuard]},
 
