@@ -1,3 +1,33 @@
 .img-container {
-    margin-right: 20px;
+    margin-right: 10px;
+    max-width: 30%;
+  }
+
+  
+  button {
+    margin-top: 0px;
+    margin-right: 15%;
+  }
+
+  .btnBuscar {
+    background-color: #3c434b;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  
+
+  .search-container {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+  }
+
+
+
+  form, ul {
+    margin-top: 10px;
+    margin-bottom: 30px;
   }

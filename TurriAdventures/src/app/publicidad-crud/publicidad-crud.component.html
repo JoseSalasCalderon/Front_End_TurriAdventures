@@ -15,23 +15,45 @@
             <div class="col-lg-3 col-md-4">
                 <app-sidebar-administrador></app-sidebar-administrador>
             </div>
-            <div class="col-lg-9 col-md-8">
-                <h2>Publicidad</h2>
 
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4>Imagen Actual</h4>
-                        <img id="imagenActual" [src]="'assets/Anuncios/' + imagenActual" class="img-fluid img-thumbnail" alt="Imagen">
+            <div class="col-lg-9 col-md-8">
+
+                <h2>Publicidad</h2>
+                <div class="row ">
+                    <div class="col-md-5">
+                        <form class="search-container">
+                            <div class="form-group">
+                                <label for="idPublicidad">Buscar Publicidad:</label>
+                                <input type="text" id="idPublicidad" class="form-control"
+                                    [value]="idPublicidad ? idPublicidad : ''" (input)="onChangeIdPublicidad($event)">
+                            </div>
+                            <button type="button" (click)="buscarPublicidad()" class="btn btnBuscar btn-primary">Buscar</button>
+
+                        </form>
                     </div>
 
+                    <form class="search-container">
+                        <button type="button" class="btn btn-primary" (click)="crearPublicidad()">Crear nueva publicidad</button>
+                    </form>
+
+                </div>
+
+                <div class="row ">
+                    <div class="col-md-6 img-container ">
+                        <h4>Imagen Actual</h4>
+                        <img id="imagenActual" [src]="'https://localhost:7032/images/' + imagenActual" class="img-fluid img-thumbnail" alt="Imagen">
+                        </div>
+
                     <div class="col-md-6">
-                        <h4>Insertar nueva publicidad</h4>
                         <form>
                             <div class="form-group">
+                                <label for="nombrePublicidad">Nombre Publicidad:</label>
+                                <input type="text" id="nombrePublicidad" class="form-control" [value]="publicidades[0]?.nombrePublicidad">
+
                                 <label for="url">Link Destino:</label>
                                 <input type="text" id="url" class="form-control" [value]="publicidades[0]?.linkPublicidad">
                             </div>
-                            
+
                             <div class="form-group">
                                 <label for="imagen">Subir nueva imagen:</label>
                                 <input type="file" id="imagen" class="form-control-file" (change)="onChangeImagen($event)">
@@ -42,7 +64,7 @@
 
                 <div class="row mt-4">
                     <div class="col-md-6 offset-md-6">
-                        <button class="btn btn-danger float-right" (click)="cancelarCambios()">Cancelar</button>
+                        <a class="btn btn-danger float-right" href="/homeAdmin">Cancelar</a>
                         <button class="btn btn-success float-right mr-2" (click)="aceptarCambios()">Aceptar</button>
                     </div>
                 </div>
@@ -50,6 +72,40 @@
         </div>
     </div>
 
+    <!-- Modal crear un nuevo anuncio -->
+    <div class="modal fade" id="crearAnuncioModal" tabindex="-1" role="dialog" aria-labelledby="crearAnuncioModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearAnuncioModalLabel">Crear nueva publicidad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrarModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- Aquí van los campos para crear el nuevo anuncio -->
+                    <form (submit)="guardarImagen($event)">
+                        <div class="form-group">
+                            <label for="nuevoNombre">Nombre publicidad:</label>
+                            <input type="text" id="nuevoNombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevoUrl">Link Destino:</label>
+                            <input type="text" id="nuevoUrl" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevaImagen">Subir nueva imagen:</label>
+                            <input type="file" id="nuevaImagen" class="form-control-file"
+                                (change)="onChangeImagen($event)">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Scripts al final del cuerpo del documento -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>

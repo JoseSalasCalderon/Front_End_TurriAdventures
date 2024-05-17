@@ -24,12 +24,25 @@ export class PublicidadService {
         return this.http.post(this.url + 'CrearPublicidad', publicidad);
     }
 
-    EditarPublicidad(publicidad: Publicidad): Observable<any> {
-        return this.http.put(`${this.url}EditarPublicidad`, publicidad);
+    SubirImagen(imagen: File): Observable<any> {
+        const formData = new FormData();
+        formData.append('imagen', imagen);
+        return this.http.post<any>(this.url + 'SubirImagen', formData);
     }
 
+   EditarPublicidad(publicidad: Publicidad): Observable<any> {
+    return this.http.put(`${this.url}EditarPublicidad`, publicidad);
+  }
 
     EliminarPublicidad(id: number): Observable<any> {
         return this.http.delete(`${this.url}EliminarPublicidad/${id}`);
     }
+    
+    BuscarPublicidadPorId(idPublicidad: number): Observable<Publicidad> {
+        return this.http.get<Publicidad>(`${this.url}BuscarPublicidad/${idPublicidad}`);
+      }
+
+      BuscarPublicidadPorNombre(nombrePublicidad: string): Observable<Publicidad> {
+        return this.http.get<Publicidad>(`${this.url}BuscarPublicidadPorNombre/${nombrePublicidad}`);
+      }
 }
