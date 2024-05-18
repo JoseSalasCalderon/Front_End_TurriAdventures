@@ -27,8 +27,8 @@ export class AdministradorComponent implements OnInit {
 
     constructor(
         private administradorService: AdministradorService,
-        private router:Router,
-        private loginService:LoginService) { }
+        private router: Router,
+        private loginService: LoginService) { }
 
     ngOnInit(): void {
         this.listarAdministradores();

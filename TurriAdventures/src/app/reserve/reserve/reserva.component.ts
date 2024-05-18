@@ -57,13 +57,13 @@ export class ReservaComponent implements OnInit {
         switch (Number(this.datosReserve.tipoHabitacion)) { //No se porque lo valida como string
 
             case 1:
-                total = dias * 200;
+                total = dias * 180;
                 break;
             case 2:
-                total = dias * 150;
+                total = dias * 80;
                 break;
             case 3:
-                total = dias * 100;
+                total = dias * 120;
                 break;
             default:
                 break;

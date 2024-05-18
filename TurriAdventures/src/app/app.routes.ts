@@ -40,7 +40,7 @@ export const routes: Routes = [
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
     { path: 'verEstadoHotel', component:VerEstadoHotelComponent, canActivate:[AuthGuard]},
-   // { path: 'vista/:id', component:VistaHabitacionesComponent},
+   { path: 'vista/:id', component:VistaHabitacionesComponent},
     { path: 'listadoReservaciones', component:ListadoReservacionesComponent, canActivate:[AuthGuard]},
     { path: 'administrarHabitaciones', component:AdministrarHabitacionesComponent, canActivate:[AuthGuard]},
     { path: 'verTipoHabitacion', component:VerTipoHabitacionComponent, canActivate:[AuthGuard]},
