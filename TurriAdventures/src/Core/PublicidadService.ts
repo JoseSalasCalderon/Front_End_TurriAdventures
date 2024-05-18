@@ -34,15 +34,19 @@ export class PublicidadService {
     return this.http.put(`${this.url}EditarPublicidad`, publicidad);
   }
 
-    EliminarPublicidad(id: number): Observable<any> {
-        return this.http.delete(`${this.url}EliminarPublicidad/${id}`);
+    EliminarPublicidad(idPublicidad: number): Observable<any> {
+        return this.http.delete(`${this.url}EliminarPublicidad/${idPublicidad}`);
     }
     
     BuscarPublicidadPorId(idPublicidad: number): Observable<Publicidad> {
         return this.http.get<Publicidad>(`${this.url}BuscarPublicidad/${idPublicidad}`);
       }
 
-      BuscarPublicidadPorNombre(nombrePublicidad: string): Observable<Publicidad> {
-        return this.http.get<Publicidad>(`${this.url}BuscarPublicidadPorNombre/${nombrePublicidad}`);
+      BuscarPublicidadPorNombre(nombrePublicidad: String): Observable<Publicidad> {
+        return this.http.get<Publicidad>(this.url+"BuscarPublicidadPorNombre/"+nombrePublicidad);
       }
+
+    //   BuscarCliente(idCliente: String):Observable<Cliente>{
+    //     return this.http.get<Cliente>(this.url+"BuscarCliente/"+idCliente);
+    //   }
 }

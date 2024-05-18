@@ -3,6 +3,7 @@
     max-width: 400px; /* Tamaño máximo de la imagen */
     height: auto; /* Para mantener la proporción de aspecto */
     margin-left: 10%;
+    
 }
 
 .content {
@@ -13,6 +14,7 @@
 .article {
     display: flex;
     flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+
 }
 
 .sections {

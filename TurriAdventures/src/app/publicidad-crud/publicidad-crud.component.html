@@ -23,40 +23,60 @@
                     <div class="col-md-5">
                         <form class="search-container">
                             <div class="form-group">
-                                <label for="idPublicidad">Buscar Publicidad:</label>
-                                <input type="text" id="idPublicidad" class="form-control"
-                                    [value]="idPublicidad ? idPublicidad : ''" (input)="onChangeIdPublicidad($event)">
+                                <h6 for="idPublicidad">Buscar Publicidad:</h6>
+                                <input type="text" id="busquedaPublicidad" #busquedaInput class="form-control"
+                                    (input)="onInputChange('busquedaPublicidad', busquedaInput.value)" required>
                             </div>
-                            <button type="button" (click)="buscarPublicidad()" class="btn btnBuscar btn-primary">Buscar</button>
+                            <button type="button" (click)="buscarPublicidad()"
+                                class="btn btnBuscar btn-primary">Buscar</button>
 
                         </form>
+
+                        <div *ngIf="mensaje" class="alert"
+                            [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
+                            {{ mensaje }}
+                        </div>
+
                     </div>
 
                     <form class="search-container">
-                        <button type="button" class="btn btn-primary" (click)="crearPublicidad()">Crear nueva publicidad</button>
+                        <button type="button" class="btn btn-primary" (click)="crearPublicidad()">Crear nueva
+                            publicidad</button>
                     </form>
 
                 </div>
 
                 <div class="row ">
                     <div class="col-md-6 img-container ">
-                        <h4>Imagen Actual</h4>
-                        <img id="imagenActual" [src]="'https://localhost:7032/images/' + imagenActual" class="img-fluid img-thumbnail" alt="Imagen">
-                        </div>
+                        <h6>Modificar publicidad</h6>
+
+                        <p>Imagen Actual:</p>
+                        <img id="imagenActual" [src]="'https://localhost:7032/images/' + imagenActual"
+                            class="img-fluid img-thumbnail" alt="Imagen">
+                    </div>
 
                     <div class="col-md-6">
                         <form>
                             <div class="form-group">
                                 <label for="nombrePublicidad">Nombre Publicidad:</label>
-                                <input type="text" id="nombrePublicidad" class="form-control" [value]="publicidades[0].nombrePublicidad">
+                                <!-- <input type="text" id="nombrePublicidad" class="form-control"
+                                    [value]="publicidades[0].nombrePublicidad"> -->
+
+                                    <input type="text" id="nombrePublicidad" #nombrePublicidadInput class="form-control"
+                                    [value]="publicidades[0].nombrePublicidad"
+                                    (input)="onInputChange('nombrePublicidad', nombrePublicidadInput.value)" required>
 
                                 <label for="url">Link Destino:</label>
-                                <input type="text" id="url" class="form-control" [value]="publicidades[0].linkPublicidad">
+                                <input type="text" id="url" #urlInput class="form-control"
+                                    [value]="publicidades[0].linkPublicidad"
+                                    (input)="onInputChange('url', urlInput.value)" required>
+
                             </div>
 
                             <div class="form-group">
                                 <label for="imagen">Subir nueva imagen:</label>
-                                <input type="file" id="imagen" class="form-control-file" (change)="onChangeImagen($event)">
+                                <input type="file" id="imagen" class="form-control-file"
+                                    (change)="onChangeImagen($event)">
                             </div>
                         </form>
                     </div>
@@ -67,10 +87,42 @@
                         <a class="btn btn-danger float-right" href="/homeAdmin">Cancelar</a>
                         <button class="btn btn-success float-right mr-2" (click)="aceptarCambios()">Aceptar</button>
                     </div>
+
+                    <div>
+                        <h6>Lista de anuncios</h6>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="table-dark">Id</th>
+                                        <th class="table-dark">Nombre publicidad</th>
+                                        <th class="table-dark">Link publicidad</th>
+                                        <th class="table-dark   ">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let publicidad of publicidades">
+                                        <td>{{ publicidad.idPublicidad }}</td>
+                                        <td>{{ publicidad.nombrePublicidad }}</td>
+                                        <td>{{ publicidad.linkPublicidad }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger"
+                                                (click)="eliminarPublicidad(publicidad.idPublicidad)">Eliminar</button>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+
         </div>
     </div>
+
+
 
     <!-- Modal crear un nuevo anuncio -->
     <div class="modal fade" id="crearAnuncioModal" tabindex="-1" role="dialog" aria-labelledby="crearAnuncioModalLabel"

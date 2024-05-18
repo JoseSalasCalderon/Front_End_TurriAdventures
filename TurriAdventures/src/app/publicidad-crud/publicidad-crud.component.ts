@@ -3,7 +3,6 @@ import { SidebarAdministradorComponent } from "../sidebar-administrador/sidebar-
 import { Publicidad } from '../../Model/Publicidad';
 import { PublicidadService } from '../../Core/PublicidadService';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-publicidad-crud',
@@ -13,59 +12,57 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule, SidebarAdministradorComponent]
 })
 export class PublicidadCRUDComponent implements OnInit {
-
   publicidades: Publicidad[] = [];
   imagenActual: string = '';
-  imagenOriginal: string = '';
-  idPublicidad: number = 0;
   nombrePublicidad: string = '';
+  url: string = '';
+  busquedaPublicidad: string = '';
   imagenSeleccionada: File | null = null;
+  mensaje: string = '';
+  esError: boolean = false;
 
   constructor(
-    private publicidadService: PublicidadService,
-    private http: HttpClient
-  ) { }
+    private publicidadService: PublicidadService) { }
 
   ngOnInit(): void {
     this.obtenerPublicidades();
   }
 
-  obtenerPublicidades() {
-    this.publicidadService.ListarPublicidades().subscribe(
-      (data: Publicidad[]) => {
-        data.sort((a, b) => b.idPublicidad - a.idPublicidad);
-        this.publicidades = data;
-        if (this.publicidades.length > 0) {
-          this.imagenActual = this.publicidades[0].imagenPublicidad;
-          this.imagenOriginal = this.imagenActual;
-          console.log('Publicidades:', this.publicidades);
-        }
-      }
-    );
+  obtenerPublicidades(): void {
+    this.publicidadService.ListarPublicidades().subscribe((publicidades: Publicidad[]) => {
+      publicidades.sort((a, b) => b.idPublicidad - a.idPublicidad);
+      this.publicidades = publicidades;
+      this.imagenActual = this.publicidades[0].imagenPublicidad;
+
+    });
   }
 
   buscarPublicidad() {
-    this.publicidadService.BuscarPublicidadPorNombre(this.nombrePublicidad).subscribe(
-      (publicidad: Publicidad) => {
-        if (publicidad) {
-          this.imagenActual = publicidad.imagenPublicidad;
-          this.publicidades[0].linkPublicidad = publicidad.linkPublicidad;
-          this.publicidades[0].nombrePublicidad = publicidad.nombrePublicidad;
+    if (this.nombrePublicidad != '') {
+      this.publicidadService.BuscarPublicidadPorNombre(this.nombrePublicidad).subscribe((data: Publicidad) => {
+        if (data) {
+          this.publicidades = [];
+          this.publicidades.push(data);
+          this.imagenActual = data.imagenPublicidad;
         } else {
-          console.log('No se encontró ninguna publicidad con el ID especificado.');
+          this.esError = true;
+          this.mensaje = 'No se encontró la publicidad';
+          setTimeout(() => {
+            this.mensaje = '';
+          }, 3000);
         }
-      },
-    );
+      });
+    } else {
+      this.esError = true;
+      this.mensaje = 'Error en la búsqueda.';
+      setTimeout(() => {
+        this.mensaje = '';
+      }, 3000);
+    }
   }
 
-
-  onChangeIdPublicidad(event: Event) {
-    const input = event.target as HTMLInputElement;
-    if (input.value) {
-      this.nombrePublicidad = input.value, 10;
-    } else {
-      this.nombrePublicidad = '';
-    }
+  onInputChange(field: 'busquedaPublicidad' | 'nombrePublicidad' | 'url', value: string) {
+    this.busquedaPublicidad = value;
   }
 
   aceptarCambios() {//implementar
@@ -86,7 +83,6 @@ export class PublicidadCRUDComponent implements OnInit {
       };
       reader.readAsDataURL(input.files[0]);
     }
-    console.log('Imagen seleccionada:', this.imagenSeleccionada);
   }
 
   crearPublicidad() {
@@ -129,7 +125,7 @@ export class PublicidadCRUDComponent implements OnInit {
             }
           );
         }
-        
+
       );
     }
   }
@@ -147,6 +143,12 @@ export class PublicidadCRUDComponent implements OnInit {
         backdrop.remove();
       }
     }
+  }
+
+  eliminarPublicidad(idPublicidad: number) {
+    this.publicidadService.EliminarPublicidad(idPublicidad).subscribe(() => {
+      this.obtenerPublicidades();
+    });
   }
 
 }
