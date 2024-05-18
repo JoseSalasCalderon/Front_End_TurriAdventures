@@ -46,7 +46,4 @@ export class PublicidadService {
         return this.http.get<Publicidad>(this.url+"BuscarPublicidadPorNombre/"+nombrePublicidad);
       }
 
-    //   BuscarCliente(idCliente: String):Observable<Cliente>{
-    //     return this.http.get<Cliente>(this.url+"BuscarCliente/"+idCliente);
-    //   }
 }

@@ -23,7 +23,8 @@ export class HabitacionService {
       .set('fechaLlegada', fechaLlegada)
       .set('fechaSalida', fechaSalida)
       .set('tipo_habitacion_id', tipo_habitacion_id.toString());
-    
+      console.log('fechaLlegada', fechaLlegada, 'fechaSalida', fechaSalida, 'tipo_habitacion_id', tipo_habitacion_id.toString());
+    console.log('habitacion disponible', this.http.get<Habitacion[]>(this.url + "ConsultarDisponibilidadHabitacion", { params }));
     return this.http.get<Habitacion[]>(this.url + "ConsultarDisponibilidadHabitaciones", { params }).pipe(
       map(habitaciones => habitaciones.length > 0 ? habitaciones[0] : null)
     );

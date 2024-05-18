@@ -53,10 +53,10 @@ export const routes: Routes = [
     {path:'crear-temporadas', component: CrearTemporadasComponent},
     {path:'editar-temporadas/:id', component: ModificarTemporadasComponent},
     {path: 'modificarpaginas', component: ModificarpaginasComponent, canActivate:[AuthGuard]},
-    { path: '**', component: HomeComponent},
     {path:'listar-ofertas', component: ListarOfertasComponent},
     {path:'crear-ofertas', component: CrearOfertasComponent},
     {path:'editar-ofertas/:id', component: ModificarOfertasComponent},
+    { path: '**', component: HomeComponent},
     { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
 
 

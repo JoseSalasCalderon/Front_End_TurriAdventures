@@ -31,7 +31,7 @@
           <div class="row room-row" *ngFor="let price of prices">
             <div class="col-12 room-card">
               <a [routerLink]="['/room', price.roomType]"></a>
-              <img src="" alt="{{ price.roomType }}" class="room-image">
+              <img src="assets/Habitaciones/{{ price.roomType }}.jpg" alt="" class="room-image">
               <div class="room-details">
                 <h2 class="room-title">{{ price.roomType }}</h2>
                 <p class="room-price">Promoción: ${{ isHighSeason() ? price.priceHighSeason : price.priceLowSeason }}
