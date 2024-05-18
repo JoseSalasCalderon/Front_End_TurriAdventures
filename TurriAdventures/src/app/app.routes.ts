@@ -24,6 +24,9 @@ import { ListarTemporadasComponent } from './listar-temporadas/listar-temporadas
 import { CrearTemporadasComponent } from './crear-temporadas/crear-temporadas.component';
 import { ModificarTemporadasComponent } from './modificar-temporadas/modificar-temporadas.component';
 import { ModificarpaginasComponent } from './modificarpaginas/modificarpaginas.component'
+import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.component';
+import { CrearOfertasComponent } from './crear-ofertas/crear-ofertas.component';
+import { ModificarOfertasComponent } from './modificar-ofertas/modificar-ofertas.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -51,6 +54,9 @@ export const routes: Routes = [
     {path:'editar-temporadas/:id', component: ModificarTemporadasComponent},
     {path: 'modificarpaginas', component: ModificarpaginasComponent, canActivate:[AuthGuard]},
     { path: '**', component: HomeComponent},
+    {path:'listar-ofertas', component: ListarOfertasComponent},
+    {path:'crear-ofertas', component: CrearOfertasComponent},
+    {path:'editar-ofertas/:id', component: ModificarOfertasComponent},
     { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
 
 
