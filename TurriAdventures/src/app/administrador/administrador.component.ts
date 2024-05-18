@@ -25,7 +25,10 @@ export class AdministradorComponent implements OnInit {
     mensaje: string = '';
     esError: boolean = false;
 
-    constructor(private administradorService: AdministradorService,private router:Router,private loginService:LoginService) { }
+    constructor(
+        private administradorService: AdministradorService,
+        private router:Router,
+        private loginService:LoginService) { }
 
     ngOnInit(): void {
         this.listarAdministradores();
@@ -120,8 +123,4 @@ export class AdministradorComponent implements OnInit {
     }
 
 
-    logout(): void {
-        this.loginService.logout();
-        this.router.navigate(['/login']);
-      }
 }

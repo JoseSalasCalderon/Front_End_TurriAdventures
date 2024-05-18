@@ -16,11 +16,18 @@
             <div class="col-lg-3 col-md-4">
                 <app-sidebar-administrador></app-sidebar-administrador>
             </div>
-            <!-- Contenido principal -->
+             <!-- Contenido principal -->
             <div class="col-lg-9 col-md-8">
-                <div class="content">
-                    <h1>Bienvenido al Modulo Administrativo del Hotel Turri Adventure</h1>
-                     
+                <div class="content text-center">
+                    <h1 class="mb-4">Bienvenido al Módulo Administrativo del Hotel Turri Adventure</h1>
+
+                    <div class="col-lg-4 col-md-8 mx-auto mt-5">
+                        <h3>Usuario: {{nombre}}</h3>
+                        <div class="mt-3">
+                            <button type="button" class="btnAgregar btn btn-primary" (click)="logout()">Cerrar Sesión</button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>

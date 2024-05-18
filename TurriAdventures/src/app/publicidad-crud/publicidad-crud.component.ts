@@ -38,8 +38,9 @@ export class PublicidadCRUDComponent implements OnInit {
   }
 
   buscarPublicidad() {
-    if (this.nombrePublicidad != '') {
-      this.publicidadService.BuscarPublicidadPorNombre(this.nombrePublicidad).subscribe((data: Publicidad) => {
+    console.log('Buscando publicidad', this.busquedaPublicidad);
+    if (this.busquedaPublicidad != '') {
+      this.publicidadService.BuscarPublicidadPorNombre(this.busquedaPublicidad).subscribe((data: Publicidad) => {
         if (data) {
           this.publicidades = [];
           this.publicidades.push(data);
