@@ -14,7 +14,7 @@
     <div class="row">
       <!-- Barra lateral -->
       <div class="col-lg-3 col-md-4">
-        <app-sidebar></app-sidebar>
+        <app-sidebar-administrador></app-sidebar-administrador>
       </div>
       <!-- Contenido principal -->
       <div class="col-lg-9 col-md-8">
@@ -55,6 +55,11 @@
           <button type="button" class="btn btn-primary" [disabled]="listaEstados.length < TemporadaPorPagina" (click)="cambiarPagina(paginaActual + 1)">Siguiente</button>
 
         </div>
+
+        <div class="h1">
+          <button type="button" class="btn btn-primary" onclick="window.location.href='/crear-temporadas'">Crear Temporada</button>
+        </div>
+
       </div>
     </div>
   </div>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Oferta } from '../../Model/Oferta';
 import { OfertaService } from '../../Core/OfertaService';
 import { Router, RouterModule} from '@angular/router';
-import { SidebarComponent } from '../sidebar/sidebar.component';
+import { SidebarAdministradorComponent } from '../sidebar-administrador/sidebar-administrador.component';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-listar-ofertas',
   standalone: true,
-  imports: [RouterModule,SidebarComponent,HeaderComponent,FooterComponent,CommonModule],
+  imports: [RouterModule,SidebarAdministradorComponent,HeaderComponent,FooterComponent,CommonModule],
   templateUrl: './listar-ofertas.component.html',
   styleUrl: './listar-ofertas.component.css'
 })
