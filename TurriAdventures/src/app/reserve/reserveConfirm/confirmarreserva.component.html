@@ -1,4 +1,5 @@
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,34 +9,38 @@
 </head>
 
 <body>
-  
+
   <div class="container-fluid">
     <div class="row">
-      
+
       <div class="col-lg-3 col-md-4">
         <app-sidebar></app-sidebar>
       </div>
 
-<div class="container">
-  <h1>Reservar en Línea</h1>
-  <div class="informacion-reserva">
-    <p>Reservación realizada!</p>
-    <p>Gracias {{ datosCliente.nombre }} {{ datosCliente.apellidos }}! Su reservación fue realizada exitosamente.    </p>
-    <!--<p>Numero de reservacion: {{this.idReserva}}   </p>
-     <p>Su cuarto es: {{this.datosReserve.tipoHabitacion}} -  {{habitacionId}}  </p> -->
-    <p>Para saber su habitación reservada presentarse con su cédula {{datosCliente.idCliente}} el día de su ingreso {{ this.datosReserve.fechaLlegada }} a partir de las 2pm. Fecha de salida {{ this.datosReserve.fechaSalida }} antes de las 11am</p>
-    <p>Acabamos de enviar la información a la dirección {{ datosCliente.email }} para mayor facilidad.    </p>
-    <p>Gracias por preferirnos!</p>
+      <div class="container">
+        <h1>Reservar en Línea</h1>
+        <div class="informacion-reserva">
+          <p>Reservación realizada!</p>
+          <p>Gracias {{ datosCliente.nombre }} {{ datosCliente.apellidos }}! Su reservación fue realizada exitosamente.
+          </p>
+          <p>Para saber su habitación reservada presentarse con su cédula {{datosCliente.idCliente}} el día de su
+            ingreso {{ this.datosReserve.fechaLlegada }} a partir de las 2pm. Fecha de salida {{
+            this.datosReserve.fechaSalida }} antes de las 11am</p>
+          <p>Acabamos de enviar la información a la dirección {{ datosCliente.email }} para mayor facilidad. </p>
+          <p>Gracias por preferirnos!</p>
+        </div>
+      </div>
+
+
+    </div>
   </div>
-</div>
 
-
-</div>
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+  </script>
 
 </body>
+
 </html>
