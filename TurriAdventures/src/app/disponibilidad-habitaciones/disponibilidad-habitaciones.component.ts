@@ -25,6 +25,9 @@ export class DisponibilidadHabitacionesComponent implements OnInit {
   precioTiposHabitacionMap: any;
   tablaVisible: boolean = false;
 
+  habitacionesPorPagina: number = 6;
+  paginaActual: number = 1;
+
   constructor(
     private TipoHabitacionService: TipoHabitacionService,
     private habitacionService: HabitacionService,
@@ -87,7 +90,7 @@ export class DisponibilidadHabitacionesComponent implements OnInit {
 
     });
 
-    
+
   }
 
   camposValidos(): boolean {
@@ -100,7 +103,7 @@ export class DisponibilidadHabitacionesComponent implements OnInit {
       this.tablaVisible = true;
     }
     else {
-      this.mensaje = 'Por favor revisa que los estén completos.';
+      this.mensaje = 'Por favor revisa que los campos estén completos.';
       this.esError = true;
       setTimeout(() => {
         this.mensaje = '';
@@ -110,28 +113,61 @@ export class DisponibilidadHabitacionesComponent implements OnInit {
   }
 
 
-  listarHabitaciones(): void {
-    this.habitacionService.ConsultarDisponibilidadHabitaciones(this.fechaLlegada, this.fechaSalida, this.tipoHabitacion)
+  listarHabitaciones() {
+    return this.habitacionService.ConsultarDisponibilidadHabitaciones(this.fechaLlegada, this.fechaSalida, this.tipoHabitacion)
       .subscribe(habitaciones => {
-        this.habitaciones = habitaciones;
-       
-        // Paginacion
-      // this.totalPages = Array(Math.ceil(habitaciones.length / this.habitacionesPorPagina)).fill(0).map((x, i) => i + 1);
-      // const inicio = (this.paginaActual - 1) * this.habitacionesPorPagina;
-      // const fin = this.paginaActual * this.habitacionesPorPagina;
-      // this.habitaciones = habitaciones.slice(inicio, fin);
-    });
+        const inicio = (this.paginaActual - 1) * this.habitacionesPorPagina;
+        const fin = this.paginaActual * this.habitacionesPorPagina;
+        const tablaHabitaciones = document.getElementById("table-body");
+        //Se valida para saber si existe y se genera este select
+        if (tablaHabitaciones) {
+          tablaHabitaciones.innerHTML = '';
+
+          for (let i = inicio; i < fin && i < habitaciones.length; i++) {
+            for (let j = 0; j < this.listaTiposHabitacion.length; j++) {
+              if (habitaciones[i].idTipoHabitacion === this.listaTiposHabitacion[j].idTipoHabitacion) {
+                tablaHabitaciones.innerHTML += `
+                <tr>
+                <td>${habitaciones[i].numeroHabitacion}</td>
+                <td>${this.nombreTiposHabitacionMap[habitaciones[i].idTipoHabitacion]}</td>
+                <td>${this.precioTiposHabitacionMap[habitaciones[i].idTipoHabitacion]}</td>
+            </tr>
+                `;
+                break;
+              }
+            }//for tiposHabitaciones
+          }
+
+
+
+        }
+
+        this.actualizarPaginacion(habitaciones.length);
+      });
   }
 
-  // habitacionesPorPagina: number = 2;
-  // paginaActual: number = 1;
-  // currentPage: number = 1;
-  // totalPages: number[] = [];
- 
-  // changePage(page: number) {
-  //   this.paginaActual = page;
-  //   this.listarHabitaciones();
-  // }
 
+  actualizarPaginacion(totalHabitaciones: number) {
+    //Cantidad de páginas redondeado hacia arriba
+    const totalPaginas = Math.ceil(totalHabitaciones / this.habitacionesPorPagina);
+    const paginacion = document.getElementById("pagination");
+    if (paginacion) {
+      paginacion.innerHTML = "";
+      //Crear botones por página
+      for (let i = 1; i <= totalPaginas; i++) {
+        const botonPagina = document.createElement("button");
+        //Estilo con boostrap
+        botonPagina.classList.add("btn", "btn-secondary", "mr-2");
+        //Número del botón como tal
+        botonPagina.textContent = String(i);
+        //Agrega el evento click y el actualizar recursivo
+        botonPagina.addEventListener("click", () => {
+          this.paginaActual = i;
+          this.listarHabitaciones();
+        });
+        paginacion.appendChild(botonPagina);
+      }
+    }
+  }
 }
 
