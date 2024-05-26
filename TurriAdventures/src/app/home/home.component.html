@@ -21,19 +21,14 @@
         <div class="content">
           <div class="article">
             <div class="sections">
-              <img id="homeImage" src="assets/Facilidades/Hotel.jpg" alt="hotel.png">
+              <img id="homeImage" src="assets/Facilidades/{{ imagenHome }}" alt="">
+
             </div>
             <div class="sections">
               <div>
                 <h1>Bienvenido a Hotel Turri Adventure</h1>
                 <p>
-                  ¡Descubre Turri Adventures!, donde puedes disfrutar de emocionantes aventuras y relajarte en un entorno
-                  natural increíble! Ofrecemos un lugar acogedor con habitaciones cómodas y un servicio excelente.
-                  Nuestro ambiente tranquilo te invita a descansar y renovarte, y nuestras comodidades incluyen varias
-                  formas de pago, wifi rápido, un gimnasio completo y bonitas piscinas al aire libre. Explora los
-                  alrededores y déjanos ayudarte a planificar tu experiencia. En Turri Adventures, nos dedicamos a
-                  brindarte unas vacaciones especiales que combinan diversión, comodidad y seguridad. ¡Esperamos que te
-                  unas a nosotros para crear recuerdos inolvidables!
+                  {{ description }}
                 </p>
               </div>
             </div>
@@ -41,7 +36,9 @@
         </div>
       </div>
     </div>
-
+    <div class="h1">
+    <button type="button" class="btn btn-primary btnlogin" onclick="window.location.href='/login'">Login</button>
+  </div>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

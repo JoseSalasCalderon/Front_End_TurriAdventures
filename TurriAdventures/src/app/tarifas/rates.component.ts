@@ -14,9 +14,8 @@ import { RouterModule} from '@angular/router';
   styleUrl: './rates.component.css'
 })
 export class RatesComponent {
-
   prices: { roomType: string, priceLowSeason: number, priceHighSeason: number }[] = [
-    { roomType: 'Habitación Deluxe', priceLowSeason: 120, priceHighSeason: 150 },
+    { roomType: 'Habitación Doble', priceLowSeason: 120, priceHighSeason: 150 },
     { roomType: 'Suite Ejecutiva', priceLowSeason: 180, priceHighSeason: 200 },
     { roomType: 'Habitación Estándar', priceLowSeason: 80, priceHighSeason: 100 }
   ];

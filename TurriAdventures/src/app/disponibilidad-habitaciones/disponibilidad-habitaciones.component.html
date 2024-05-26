@@ -1,0 +1,95 @@
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Turri Adventure</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <app-sidebar-administrador></app-sidebar-administrador>
+            </div>
+
+            <div class="col-lg-9 col-md-8">
+                <div class="container">
+                    <h1>Consultar Disponibilidad de Habitaciones </h1>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="fechaLlegada">Fecha de Llegada:</label>
+                                <input #fechaLlegadaInput
+                                    (input)="onInputChange('fechaLlegada', fechaLlegadaInput.value)" required
+                                    type="date" id="fechaLlegada" formControlName="fechaLlegada" class="form-control"
+                                    [min]="obtenerFechaActual()">
+                            </div>
+                            <div class="col-md-4">
+
+                                <label for="fechaSalida">Fecha de Salida:</label>
+                                <input #fechaSalidaInput (input)="onInputChange('fechaSalida', fechaSalidaInput.value)"
+                                    required type="date" id="fechaSalida" formControlName="fechaSalida"
+                                    class="form-control" [min]="fechaLlegada">
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="tipoHabitacion">Tipo de Habitación:</label>
+                                <select #tipoHabitacionInput
+                                    (input)="onInputChange('tipoHabitacion', tipoHabitacionInput.value)" required
+                                    id="tipoHabitacion" formControlName="tipoHabitacion" class="form-control">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div *ngIf="mensaje" class="alert"
+                            [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
+                            {{ mensaje }}
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-md-12">
+                                <button type="button" (click)="onSubmit()" class="btn btn-primary">Consultar </button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="tablaVisible" class="row modal-body">
+                            <h4>Lista de Habitaciones</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th class="table-dark">Número de Habitación</th>
+                                            <th class="table-dark">Tipo</th>
+                                            <th class="table-dark">Costo Estadía</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <tbody id="table-body"></tbody>
+
+                                </table>
+                                <div id="pagination" class="d-flex justify-content-center mt-3"></div>
+
+                            </div>
+
+                        </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
+
+</html>

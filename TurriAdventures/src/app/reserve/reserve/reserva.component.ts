@@ -8,7 +8,6 @@ import { ReservationService } from '../../../Core/ReservaService';
 import { Reserva } from '../../../Model/Reserva';
 import { CommonModule } from '@angular/common';
 
-
 @Component({
     selector: 'app-reserva',
     standalone: true,
@@ -32,7 +31,7 @@ export class ReservaComponent implements OnInit {
         private ClienteService: ClienteService,
         private router: Router,
         private reservaService: ReservationService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
 
     ) { }
 
@@ -48,6 +47,8 @@ export class ReservaComponent implements OnInit {
 
 
     monto(): number {
+
+
         let fechaLlegada = new Date(this.datosReserve.fechaLlegada);
         let fechaSalida = new Date(this.datosReserve.fechaSalida);
         let total: number = 0;
@@ -56,13 +57,13 @@ export class ReservaComponent implements OnInit {
         switch (Number(this.datosReserve.tipoHabitacion)) { //No se porque lo valida como string
 
             case 1:
-                total = dias * 200;
+                total = dias * 180;
                 break;
             case 2:
-                total = dias * 150;
+                total = dias * 80;
                 break;
             case 3:
-                total = dias * 100;
+                total = dias * 120;
                 break;
             default:
                 break;
