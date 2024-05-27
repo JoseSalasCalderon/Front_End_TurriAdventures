@@ -27,4 +27,6 @@ export class TipoHabitacionService {
     return this.http.get<TipoHabitacion>(this.url + "BuscarTipoHabitacionPorHabitacion/"+idHabitacion);
   }
 
+
+
 }
