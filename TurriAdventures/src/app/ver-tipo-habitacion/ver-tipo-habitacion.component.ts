@@ -85,6 +85,7 @@ export class VerTipoHabitacionComponent implements OnInit{
       }, (error: any) => {
         console.error('File upload failed', error);
         alert('File upload failed');
+        alert('File upload failed');
       });
     }
   }
