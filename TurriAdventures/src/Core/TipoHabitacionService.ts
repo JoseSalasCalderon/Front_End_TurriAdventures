@@ -27,4 +27,8 @@ export class TipoHabitacionService {
     return this.http.get<TipoHabitacion>(this.url + "BuscarTipoHabitacionPorHabitacion/"+idHabitacion);
   }
 
+  ActualizarTipoHabitacion(tipoHabitacion: TipoHabitacion): Observable<any> {
+    return this.http.put(`${this.url}EditarTipoHabitacion`, tipoHabitacion);
+  }
+
 }

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { TipoHabitacionService } from '../../Core/TipoHabitacionService';
 import { TipoHabitacion } from '../../Model/TipoHabitacion';
 import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-ver-tipo-habitacion',
@@ -14,7 +15,7 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './ver-tipo-habitacion.component.html',
   styleUrl: './ver-tipo-habitacion.component.css',
   encapsulation: ViewEncapsulation.None,
-  imports: [CommonModule, HeaderComponent, SidebarAdministradorComponent]
+  imports: [CommonModule, HeaderComponent, SidebarAdministradorComponent, FormsModule]
 })
 export class VerTipoHabitacionComponent implements OnInit{
   
@@ -39,7 +40,13 @@ export class VerTipoHabitacionComponent implements OnInit{
       const tipoHabitacionInt = parseInt(tipoHabitacionSeleccionada);
       this.tiposHabitacionService.BuscarTipoHabitacionPorId(tipoHabitacionInt).subscribe((tipoHabitacion: TipoHabitacion) => {
         this.tipoHabitacionSeleccionada = tipoHabitacion;
-        this.imageSrc = `assets/Habitaciones/${tipoHabitacion.idTipoHabitacion}.jpg`;
+        const imageUrl = `assets/Habitaciones/${tipoHabitacion.imagenTipoHabitacion}`;
+        this.imageSrc = imageUrl;
+        
+        // Realiza una solicitud HTTP para obtener la imagen como un Blob
+        this.http.get(imageUrl, { responseType: 'blob' }).subscribe(blob => {
+          this.selectedFile = new File([blob], tipoHabitacion.imagenTipoHabitacion, { type: blob.type });
+        });
       });
     }
   }
@@ -79,7 +86,6 @@ export class VerTipoHabitacionComponent implements OnInit{
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
       console.log(this.selectedFile.name);
-
       // Agregar la ruta de la carpeta assets
       const assetsPath = 'src/assets/Habitaciones'; // Ajusta esta ruta según la estructura de tu proyecto frontend
       formData.append('assetsPath', assetsPath);
@@ -87,6 +93,16 @@ export class VerTipoHabitacionComponent implements OnInit{
       this.http.post('https://localhost:7032/api/FileUpload/upload', formData).subscribe((response: any) => {
         console.log('File uploaded successfully', response);
         alert('File uploaded successfully');
+        // Se actualiza el tipo de habitacion
+        if (this.tipoHabitacionSeleccionada && this.selectedFile) {
+          this.tipoHabitacionSeleccionada.imagenTipoHabitacion = this.selectedFile.name;
+          this.tiposHabitacionService.ActualizarTipoHabitacion(this.tipoHabitacionSeleccionada).subscribe(response => {
+            // Abrir modal si la respuesta es true o false
+            console.log(response);
+
+          });
+        }
+        
       }, (error: any) => {
         console.error('File upload failed', error);
         alert('File upload failed');
