@@ -78,6 +78,11 @@ export class VerTipoHabitacionComponent implements OnInit{
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
+      console.log(this.selectedFile.name);
+
+      // Agregar la ruta de la carpeta assets
+      const assetsPath = 'src/assets/Habitaciones'; // Ajusta esta ruta según la estructura de tu proyecto frontend
+      formData.append('assetsPath', assetsPath);
 
       this.http.post('https://localhost:7032/api/FileUpload/upload', formData).subscribe((response: any) => {
         console.log('File uploaded successfully', response);
@@ -85,10 +90,10 @@ export class VerTipoHabitacionComponent implements OnInit{
       }, (error: any) => {
         console.error('File upload failed', error);
         alert('File upload failed');
-        alert('File upload failed');
       });
     }
   }
+
 
   volverAdministrarHabitaciones() {
     this.router.navigate(['/administrarHabitaciones']);
