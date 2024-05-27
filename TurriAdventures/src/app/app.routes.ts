@@ -24,6 +24,7 @@ import { ModificarTemporadasComponent } from './modificar-temporadas/modificar-t
 import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.component';
 import { CrearOfertasComponent } from './crear-ofertas/crear-ofertas.component';
 import { ModificarOfertasComponent } from './modificar-ofertas/modificar-ofertas.component';
+import { ModificarImagenComponent } from './modificar-imagen/modificar-imagen.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -43,15 +44,16 @@ export const routes: Routes = [
     { path: 'administrarHabitaciones', component:AdministrarHabitacionesComponent},
     { path: 'verTipoHabitacion', component:VerTipoHabitacionComponent},
     { path: 'login', component: LoginComponent},
-    { path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },
+    { path: 'administrador', component: AdministradorComponent,  },
     {path:'listar-temporadas', component: ListarTemporadasComponent},
     {path:'crear-temporadas', component: CrearTemporadasComponent},
     {path:'editar-temporadas/:id', component: ModificarTemporadasComponent},
     {path:'listar-ofertas', component: ListarOfertasComponent},
     {path:'crear-ofertas', component: CrearOfertasComponent},
     {path:'editar-ofertas/:id', component: ModificarOfertasComponent},
-    { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
-    { path: 'homeAdmin', component: HomeAdministradorComponent, canActivate:[AuthGuard]},
+    {path:'editar-imagenHabi', component: ModificarImagenComponent},
+    { path: '**', component: HomeAdministradorComponent,},
+    { path: 'homeAdmin', component: HomeAdministradorComponent, },
 
 
 

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,37 +21,40 @@
       <!-- Contenido principal -->
       <div class="col-lg-9 col-md-8">
         <h2>Administrar Habitación</h2>
-        
+
         <div class="ml-1 mt-5 d-flex align-items-center">
-            <h5 class="my-0 mr-5 custom-h5 text-primary">{{ tipoHabitacionSeleccionada?.nombreTipoHabitacion }}</h5>
-            <p class="mb-0 ml-5">Tarifa Diaria: $</p>
-            <input type="text" class="form-control mr-1 col-2" value="{{ tipoHabitacionSeleccionada?.precio }}">
+          <h5 class="my-0 mr-5 custom-h5 text-primary">{{ tipoHabitacionSeleccionada?.nombreTipoHabitacion }}</h5>
+          <p class="mb-0 ml-5">Tarifa Diaria: $</p>
+          <input type="text" class="form-control mr-1 col-2" value="{{ tipoHabitacionSeleccionada?.precio }}">
         </div>
-        
+
         <!-- TextArea -->
         <div class="ml-1 mt-4">
-            <h4>Descripción</h4>
-            <textarea class="form-control scrollable-textarea" rows="5">{{ tipoHabitacionSeleccionada?.descripcionTipoHabitacion }}</textarea>
-        </div>   
+          <h4>Descripción</h4>
+          <textarea class="form-control scrollable-textarea"
+            rows="5">{{ tipoHabitacionSeleccionada?.descripcionTipoHabitacion }}</textarea>
+        </div>
 
         <!-- Imagen con título y campo de búsqueda -->
         <div class="ml-1 row mt-4">
-            <div class="mr-5">
-                <h4>Imagen Actual</h4>
-                <img src="assets\Habitaciones\{{ tipoHabitacionSeleccionada?.idTipoHabitacion }}.jpg" class="img-fluid img-thumbnail w-100 h-auto" alt="Imagen">
+          <div class="mr-5">
+            <h4>Imagen Actual</h4>
+            <div class="drop-box" (click)="fileInput.click()" (dragover)="onDragOver($event)"
+              (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+              <img *ngIf="imageSrc" [src]="imageSrc" class="img-fluid img-thumbnail w-100 h-auto" alt="Imagen">
+              <p *ngIf="!imageSrc">Arrastra y suelta una imagen aquí, o haz clic para seleccionar una imagen.</p>
             </div>
-            <div class="d-flex align-items-center">
-                <input type="text" class="form-control mr-2" placeholder="Buscar imagen...">
-                <button class="btn btn-primary" type="button">Buscar</button>
-            </div>
+            <input type="file" #fileInput class="d-none" (change)="onFileSelected($event)">
+          </div>
         </div>
-        
+
+
         <!-- Botones Aceptar y Cancelar -->
         <div class="row mt-4">
-            <div class="col-md-6 offset-md-6">
-                <button class="btn btn-danger float-right" (click)="volverAdministrarHabitaciones()">Cancelar</button>
-                <button class="btn btn-success float-right mr-2">Aceptar</button>
-            </div>
+          <div class="col-md-6 offset-md-6">
+            <button class="btn btn-danger float-right" (click)="volverAdministrarHabitaciones()">Cancelar</button>
+            <button class="btn btn-success float-right mr-2" (click)="aceptar()">Aceptar</button>
+          </div>
         </div>
       </div>
 
@@ -62,7 +66,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+
   <!-- Agrega aquí tus scripts específicos para este archivo HTML -->
 </body>
+
 </html>
