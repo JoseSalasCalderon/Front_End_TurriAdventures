@@ -47,7 +47,7 @@ export class ReserveComponent implements OnInit {
   async onSubmit() {
     if (this.camposValidos()) {
       if (await this.validarDisponibilidad()) {
-        this.habitacion = await this.habitacionService.ConsultarDisponibilidadHabitaciones(this.datos.fechaLlegada, this.datos.fechaSalida, this.datos.tipoHabitacion).toPromise();
+        this.habitacion = await this.habitacionService.ConsultarDisponibilidadHabitacion(this.datos.fechaLlegada, this.datos.fechaSalida, this.datos.tipoHabitacion).toPromise();
 
         const queryParams = {
           fechaLlegada: this.datos.fechaLlegada,
@@ -83,7 +83,7 @@ export class ReserveComponent implements OnInit {
   }
 
   async validarDisponibilidad(): Promise<boolean> {
-    const habitacionDisponible = await this.habitacionService.ConsultarDisponibilidadHabitaciones(this.datos.fechaLlegada, this.datos.fechaSalida, this.datos.tipoHabitacion).toPromise();
+    const habitacionDisponible = await this.habitacionService.ConsultarDisponibilidadHabitacion(this.datos.fechaLlegada, this.datos.fechaSalida, this.datos.tipoHabitacion).toPromise();
     if (habitacionDisponible) {
       console.log('habitacionDisponible', habitacionDisponible);
       return true;
@@ -104,7 +104,7 @@ export class ReserveComponent implements OnInit {
       nuevaFechaSalida.setDate(nuevaFechaSalida.getDate() + diasRecorridos);
 
       // Consulta la disponibilidad para las nuevas fechas
-      const disponibilidad = await this.habitacionService.ConsultarDisponibilidadHabitaciones(
+      const disponibilidad = await this.habitacionService.ConsultarDisponibilidadHabitacion(
         nuevaFechaLlegada.toISOString().slice(0, 10),
         nuevaFechaSalida.toISOString().slice(0, 10),
         this.datos.tipoHabitacion

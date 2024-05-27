@@ -15,16 +15,18 @@ import { AdministradorComponent } from './administrador/administrador.component'
 import { AuthGuard } from './auth.guard';
 import { ReserveComponent } from './reserve/reservaHabitacion/reserve.component';
 import { HomeAdministradorComponent } from './home-administrador/home-administrador.component';
+import { DisponibilidadHabitacionesComponent } from './disponibilidad-habitaciones/disponibilidad-habitaciones.component';
 import { ListadoReservacionesComponent } from './listado-reservaciones/listado-reservaciones.component';
 import { AdministrarHabitacionesComponent } from './administrar-habitaciones/administrar-habitaciones.component';
 import { VerTipoHabitacionComponent } from './ver-tipo-habitacion/ver-tipo-habitacion.component';
+import { PublicidadCRUDComponent } from './publicidad-crud/publicidad-crud.component';
 import { ListarTemporadasComponent } from './listar-temporadas/listar-temporadas.component';
 import { CrearTemporadasComponent } from './crear-temporadas/crear-temporadas.component';
 import { ModificarTemporadasComponent } from './modificar-temporadas/modificar-temporadas.component';
+import { ModificarpaginasComponent } from './modificarpaginas/modificarpaginas.component'
 import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.component';
 import { CrearOfertasComponent } from './crear-ofertas/crear-ofertas.component';
 import { ModificarOfertasComponent } from './modificar-ofertas/modificar-ofertas.component';
-import { ModificarImagenComponent } from './modificar-imagen/modificar-imagen.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -37,23 +39,25 @@ export const routes: Routes = [
     { path: 'contact', component: ContactComponent },
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
-    { path: 'vista/:id', component:VistaHabitacionesComponent},
-    { path: 'administrador', component: AdministradorComponent,  },
-    { path: 'verEstadoHotel', component:VerEstadoHotelComponent},
-    { path: 'listadoReservaciones', component:ListadoReservacionesComponent},
-    { path: 'administrarHabitaciones', component:AdministrarHabitacionesComponent},
-    { path: 'verTipoHabitacion', component:VerTipoHabitacionComponent},
+    { path: 'verEstadoHotel', component:VerEstadoHotelComponent, canActivate:[AuthGuard]},
+   { path: 'vista/:id', component:VistaHabitacionesComponent},
+    { path: 'listadoReservaciones', component:ListadoReservacionesComponent, canActivate:[AuthGuard]},
+    { path: 'administrarHabitaciones', component:AdministrarHabitacionesComponent, canActivate:[AuthGuard]},
+    { path: 'verTipoHabitacion', component:VerTipoHabitacionComponent, canActivate:[AuthGuard]},
     { path: 'login', component: LoginComponent},
-    { path: 'administrador', component: AdministradorComponent,  },
+    { path: 'homeAdmin', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
+   { path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },
+    {path: 'dispohabitaciones', component: DisponibilidadHabitacionesComponent, canActivate:[AuthGuard]},
+    {path: 'crudPulicidad', component: PublicidadCRUDComponent, canActivate:[AuthGuard]},
     {path:'listar-temporadas', component: ListarTemporadasComponent},
     {path:'crear-temporadas', component: CrearTemporadasComponent},
     {path:'editar-temporadas/:id', component: ModificarTemporadasComponent},
+    {path: 'modificarpaginas', component: ModificarpaginasComponent, canActivate:[AuthGuard]},
     {path:'listar-ofertas', component: ListarOfertasComponent},
     {path:'crear-ofertas', component: CrearOfertasComponent},
     {path:'editar-ofertas/:id', component: ModificarOfertasComponent},
-    {path:'editar-imagenHabi', component: ModificarImagenComponent},
-    { path: '**', component: HomeAdministradorComponent,},
-    { path: 'homeAdmin', component: HomeAdministradorComponent, },
+    { path: '**', component: HomeComponent},
+    { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
 
 
 

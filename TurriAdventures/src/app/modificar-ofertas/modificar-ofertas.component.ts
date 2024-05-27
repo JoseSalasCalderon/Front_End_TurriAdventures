@@ -111,7 +111,7 @@ export class ModificarOfertasComponent {
       this.OfertaService.modificarOferta(updatedOfertaForServer).subscribe(
         response => {
           console.log('Oferta actualizada', response);
-          this.router.navigate(['/listar-Ofertas']);
+          this.router.navigate(['/listar-ofertas']);
         },
         error => {
           console.error('Error al actualizar la Oferta', error);

@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem('id', dataLogin.ID.toString());
           sessionStorage.setItem('usuario', dataLogin.usuario);
 
-            this.router.navigate(['/administrador']);
+            this.router.navigate(['/homeAdmin']);
       
         } else {
           console.log("El nombre de usuario o la contraseña son incorrectos");

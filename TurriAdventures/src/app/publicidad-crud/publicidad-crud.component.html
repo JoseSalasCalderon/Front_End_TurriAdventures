@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Turri Adventure</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="publicidad-crud.component.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <app-sidebar-administrador></app-sidebar-administrador>
+            </div>
+
+            <div class="col-lg-9 col-md-8">
+
+                <h2>Publicidad</h2>
+                <div class="row ">
+                    <div class="col-md-5">
+                        <form class="search-container">
+                            <div class="form-group">
+                                <h6 for="idPublicidad">Buscar Publicidad:</h6>
+                                <input type="text" id="busquedaPublicidad" #busquedaInput class="form-control"
+                                    (input)="onInputChange('busquedaPublicidad', busquedaInput.value)" required>
+                            </div>
+                            <button type="button" (click)="buscarPublicidad()"
+                                class="btn btnBuscar btn-primary">Buscar</button>
+
+                        </form>
+
+                        <div *ngIf="mensaje" class="alert"
+                            [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
+                            {{ mensaje }}
+                        </div>
+
+                    </div>
+
+                    <form class="search-container">
+                        <button type="button" class="btn btn-primary" (click)="crearPublicidad()">Crear nueva
+                            publicidad</button>
+                    </form>
+
+                </div>
+
+                <div class="row ">
+                    <div class="col-md-6 img-container ">
+                        <h6>Modificar publicidad</h6>
+
+                        <p>Imagen Actual:</p>
+                        <img id="imagenActual" [src]="'https://localhost:7032/images/' + imagenActual"
+                            class="img-fluid img-thumbnail" alt="Imagen">
+                    </div>
+
+                    <div class="col-md-6">
+                        <form>
+                            <div class="form-group">
+                                <label for="nombrePublicidad">Nombre Publicidad:</label>
+                                <!-- <input type="text" id="nombrePublicidad" class="form-control"
+                                    [value]="publicidades[0].nombrePublicidad"> -->
+
+                                    <input type="text" id="nombrePublicidad" #nombrePublicidadInput class="form-control"
+                                    [value]="publicidades[0].nombrePublicidad"
+                                    (input)="onInputChange('nombrePublicidad', nombrePublicidadInput.value)" required>
+
+                                <label for="url">Link Destino:</label>
+                                <input type="text" id="url" #urlInput class="form-control"
+                                    [value]="publicidades[0].linkPublicidad"
+                                    (input)="onInputChange('url', urlInput.value)" required>
+
+                            </div>
+
+                            <div class="form-group">
+                                <label for="imagen">Subir nueva imagen:</label>
+                                <input type="file" id="imagen" class="form-control-file"
+                                    (change)="onChangeImagen($event)" accept="image/*">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-6 offset-md-6">
+                        <a class="btn btn-danger float-right" href="/homeAdmin">Cancelar</a>
+                        <button class="btn btn-success float-right mr-2" (click)="aceptarCambios()">Aceptar</button>
+                    </div>
+
+                    <div>
+                        <h6>Lista de anuncios</h6>
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="table-dark">Id</th>
+                                        <th class="table-dark">Nombre publicidad</th>
+                                        <th class="table-dark">Link publicidad</th>
+                                        <th class="table-dark   ">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let publicidad of publicidades">
+                                        <td>{{ publicidad.idPublicidad }}</td>
+                                        <td>{{ publicidad.nombrePublicidad }}</td>
+                                        <td>{{ publicidad.linkPublicidad }}</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger"
+                                                (click)="eliminarPublicidad(publicidad.idPublicidad)">Eliminar</button>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+    <!-- Modal crear un nuevo anuncio -->
+    <div class="modal fade" id="crearAnuncioModal" tabindex="-1" role="dialog" aria-labelledby="crearAnuncioModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="crearAnuncioModalLabel">Crear nueva publicidad</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="cerrarModal()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body">
+                    <!-- Aquí van los campos para crear el nuevo anuncio -->
+                    <form (submit)="guardarImagen($event)">
+                        <div class="form-group">
+                            <label for="nuevoNombre">Nombre publicidad:</label>
+                            <input type="text" id="nuevoNombre" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevoUrl">Link Destino:</label>
+                            <input type="text" id="nuevoUrl" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="nuevaImagen">Subir nueva imagen:</label>
+                            <input type="file" id="nuevaImagen" class="form-control-file"
+                                (change)="onChangeImagen($event)">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Crear</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Scripts al final del cuerpo del documento -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -25,7 +25,10 @@ export class AdministradorComponent implements OnInit {
     mensaje: string = '';
     esError: boolean = false;
 
-    constructor(private administradorService: AdministradorService,private router:Router,private loginService:LoginService) { }
+    constructor(
+        private administradorService: AdministradorService,
+        private router: Router,
+        private loginService: LoginService) { }
 
     ngOnInit(): void {
         this.listarAdministradores();
@@ -39,6 +42,7 @@ export class AdministradorComponent implements OnInit {
     }
 
     agregarAdministrador(): void {
+        console.log('agregar', this.administradorService.CrearAdministrador(this.nuevoAdmin));
         if (!this.nuevoAdmin.usuario || !this.nuevoAdmin.contrasena) {
             this.mensaje = 'Por favor, complete todos los campos.';
             this.esError = true;
@@ -97,8 +101,9 @@ export class AdministradorComponent implements OnInit {
             this.administradorSeleccionado.contrasena = contrasena;
 
             this.administradorService.EditarAdministrador(this.administradorSeleccionado).subscribe(() => {
-                this.listarAdministradores();
                 this.cerrarModalEdicion();
+                this.listarAdministradores();
+
             });
         }
     }
@@ -118,8 +123,4 @@ export class AdministradorComponent implements OnInit {
     }
 
 
-    logout(): void {
-        this.loginService.logout();
-        this.router.navigate(['/login']);
-      }
 }

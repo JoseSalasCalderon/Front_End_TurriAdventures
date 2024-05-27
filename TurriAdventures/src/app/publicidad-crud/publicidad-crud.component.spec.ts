@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ModificarImagenComponent } from './modificar-imagen.component';
+import { PublicidadCRUDComponent } from './publicidad-crud.component';
 
-describe('ModificarImagenComponent', () => {
-  let component: ModificarImagenComponent;
-  let fixture: ComponentFixture<ModificarImagenComponent>;
+describe('PublicidadCRUDComponent', () => {
+  let component: PublicidadCRUDComponent;
+  let fixture: ComponentFixture<PublicidadCRUDComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ModificarImagenComponent]
+      imports: [PublicidadCRUDComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(ModificarImagenComponent);
+    fixture = TestBed.createComponent(PublicidadCRUDComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
