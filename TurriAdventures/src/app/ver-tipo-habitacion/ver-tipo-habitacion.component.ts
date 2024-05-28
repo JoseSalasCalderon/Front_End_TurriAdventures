@@ -42,7 +42,13 @@ export class VerTipoHabitacionComponent implements OnInit{
       const tipoHabitacionInt = parseInt(tipoHabitacionSeleccionada);
       this.tiposHabitacionService.BuscarTipoHabitacionPorId(tipoHabitacionInt).subscribe((tipoHabitacion: TipoHabitacion) => {
         this.tipoHabitacionSeleccionada = tipoHabitacion;
-        this.imageSrc = `assets/Habitaciones/${tipoHabitacion.idTipoHabitacion}.jpg`;
+        const imageUrl = `assets/Habitaciones/${tipoHabitacion.imagenTipoHabitacion}`;
+        this.imageSrc = imageUrl;
+        
+        // Realiza una solicitud HTTP para obtener la imagen como un Blob
+        this.http.get(imageUrl, { responseType: 'blob' }).subscribe(blob => {
+          this.selectedFile = new File([blob], tipoHabitacion.imagenTipoHabitacion, { type: blob.type });
+        });
       });
     }
   }
@@ -81,18 +87,39 @@ export class VerTipoHabitacionComponent implements OnInit{
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
+      console.log(this.selectedFile.name);
+      // Agregar la ruta de la carpeta assets
+      const assetsPath = 'src/assets/Habitaciones'; // Ajusta esta ruta según la estructura de tu proyecto frontend
+      formData.append('assetsPath', assetsPath);
 
       this.http.post('https://localhost:7032/api/FileUpload/upload', formData).subscribe((response: any) => {
         console.log('File uploaded successfully', response);
-        this.successMessage = 'El archivo se subió correctamente.';
-        this.errorMessage = null;
+        alert('File uploaded successfully');
+
+
+        // Se actualiza el tipo de habitacion
+        if (this.tipoHabitacionSeleccionada && this.selectedFile) {
+          this.tipoHabitacionSeleccionada.imagenTipoHabitacion = this.selectedFile.name;
+          this.tiposHabitacionService.ActualizarTipoHabitacion(this.tipoHabitacionSeleccionada).subscribe(response => {
+            // Abrir modal si la respuesta es true o false
+            if(response=true){
+              this.successMessage = 'Actualizó correctamente.';
+              this.errorMessage = null;
+            }else{
+              this.successMessage = null;
+              this.errorMessage = 'No se pudo actualizar.';
+            }
+
+          });
+        }
+        
       }, (error: any) => {
-        console.error('File upload failed', error);
         this.successMessage = null;
-        this.errorMessage = 'Error al subir el archivo.';
+        this.errorMessage = 'No se subió el archivo.';
       });
     }
   }
+
 
   volverAdministrarHabitaciones() {
     this.router.navigate(['/administrarHabitaciones']);
