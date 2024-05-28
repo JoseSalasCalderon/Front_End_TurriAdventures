@@ -8,6 +8,7 @@ import { TipoHabitacionService } from '../../Core/TipoHabitacionService';
 import { TipoHabitacion } from '../../Model/TipoHabitacion';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { UploadImagesServiceService } from '../../Core/upload-images-service.service';
 
 @Component({
   selector: 'app-ver-tipo-habitacion',
@@ -29,7 +30,8 @@ export class VerTipoHabitacionComponent implements OnInit{
   constructor(
     private tiposHabitacionService: TipoHabitacionService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private UploadImagesServiceService: UploadImagesServiceService
   ) { }
 
   ngOnInit(): void {
@@ -48,6 +50,7 @@ export class VerTipoHabitacionComponent implements OnInit{
         // Realiza una solicitud HTTP para obtener la imagen como un Blob
         this.http.get(imageUrl, { responseType: 'blob' }).subscribe(blob => {
           this.selectedFile = new File([blob], tipoHabitacion.imagenTipoHabitacion, { type: blob.type });
+          console.log(this.selectedFile);
         });
       });
     }
@@ -91,32 +94,50 @@ export class VerTipoHabitacionComponent implements OnInit{
       // Agregar la ruta de la carpeta assets
       const assetsPath = 'src/assets/Habitaciones'; // Ajusta esta ruta según la estructura de tu proyecto frontend
       formData.append('assetsPath', assetsPath);
-
-      this.http.post('https://localhost:7032/api/FileUpload/upload', formData).subscribe((response: any) => {
-        console.log('File uploaded successfully', response);
-        alert('File uploaded successfully');
-
-
-        // Se actualiza el tipo de habitacion
-        if (this.tipoHabitacionSeleccionada && this.selectedFile) {
-          this.tipoHabitacionSeleccionada.imagenTipoHabitacion = this.selectedFile.name;
-          this.tiposHabitacionService.ActualizarTipoHabitacion(this.tipoHabitacionSeleccionada).subscribe(response => {
-            // Abrir modal si la respuesta es true o false
-            if(response=true){
-              this.successMessage = 'Actualizó correctamente.';
-              this.errorMessage = null;
-            }else{
-              this.successMessage = null;
-              this.errorMessage = 'No se pudo actualizar.';
-            }
-
-          });
-        }
-        
-      }, (error: any) => {
-        this.successMessage = null;
-        this.errorMessage = 'No se subió el archivo.';
+      this.UploadImagesServiceService.subirImagen(this.selectedFile).subscribe((res) => {
+        console.log(res);
+        // if (res) {
+        //   if (this.tipoHabitacionSeleccionada && this.selectedFile) {
+        //     this.tipoHabitacionSeleccionada.imagenTipoHabitacion = this.selectedFile.name;
+        //     this.tiposHabitacionService.ActualizarTipoHabitacion(this.tipoHabitacionSeleccionada).subscribe(response => {
+        //       // Abrir modal si la respuesta es true o false
+        //       if(response=true){
+        //         this.successMessage = 'Actualizó correctamente.';
+        //         this.errorMessage = null;
+        //       }else{
+        //         this.successMessage = null;
+        //         this.errorMessage = 'No se pudo actualizar.';
+        //       }
+  
+        //     });
+        //   }
+        // }
       });
+      // this.http.post('https://localhost:7032/api/FileUpload/upload', formData).subscribe((response: any) => {
+      //   console.log('File uploaded successfully', response);
+      //   alert('File uploaded successfully');
+
+
+        //Se actualiza el tipo de habitacion
+        // if (this.tipoHabitacionSeleccionada && this.selectedFile) {
+        //   this.tipoHabitacionSeleccionada.imagenTipoHabitacion = this.selectedFile.name;
+        //   this.tiposHabitacionService.ActualizarTipoHabitacion(this.tipoHabitacionSeleccionada).subscribe(response => {
+        //     // Abrir modal si la respuesta es true o false
+        //     if(response=true){
+        //       this.successMessage = 'Actualizó correctamente.';
+        //       this.errorMessage = null;
+        //     }else{
+        //       this.successMessage = null;
+        //       this.errorMessage = 'No se pudo actualizar.';
+        //     }
+
+        //   });
+        // }
+        
+      // }, (error: any) => {
+      //   this.successMessage = null;
+      //   this.errorMessage = 'No se subió el archivo.';
+      // });
     }
   }
 
