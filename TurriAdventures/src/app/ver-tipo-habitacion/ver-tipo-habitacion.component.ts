@@ -22,6 +22,8 @@ export class VerTipoHabitacionComponent implements OnInit{
   tipoHabitacionSeleccionada: TipoHabitacion | null = null;
   imageSrc: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
@@ -93,19 +95,27 @@ export class VerTipoHabitacionComponent implements OnInit{
       this.http.post('https://localhost:7032/api/FileUpload/upload', formData).subscribe((response: any) => {
         console.log('File uploaded successfully', response);
         alert('File uploaded successfully');
+
+
         // Se actualiza el tipo de habitacion
         if (this.tipoHabitacionSeleccionada && this.selectedFile) {
           this.tipoHabitacionSeleccionada.imagenTipoHabitacion = this.selectedFile.name;
           this.tiposHabitacionService.ActualizarTipoHabitacion(this.tipoHabitacionSeleccionada).subscribe(response => {
             // Abrir modal si la respuesta es true o false
-            console.log(response);
+            if(response=true){
+              this.successMessage = 'Actualizó correctamente.';
+              this.errorMessage = null;
+            }else{
+              this.successMessage = null;
+              this.errorMessage = 'No se pudo actualizar.';
+            }
 
           });
         }
         
       }, (error: any) => {
-        console.error('File upload failed', error);
-        alert('File upload failed');
+        this.successMessage = null;
+        this.errorMessage = 'No se subió el archivo.';
       });
     }
   }
