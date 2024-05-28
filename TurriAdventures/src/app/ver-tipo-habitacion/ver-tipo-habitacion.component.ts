@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { TipoHabitacionService } from '../../Core/TipoHabitacionService';
 import { TipoHabitacion } from '../../Model/TipoHabitacion';
 import { HttpClient } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-ver-tipo-habitacion',
@@ -14,13 +15,15 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './ver-tipo-habitacion.component.html',
   styleUrl: './ver-tipo-habitacion.component.css',
   encapsulation: ViewEncapsulation.None,
-  imports: [CommonModule, HeaderComponent, SidebarAdministradorComponent]
+  imports: [CommonModule, HeaderComponent, SidebarAdministradorComponent, FormsModule]
 })
 export class VerTipoHabitacionComponent implements OnInit{
   
   tipoHabitacionSeleccionada: TipoHabitacion | null = null;
   imageSrc: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
+  successMessage: string | null = null;
+  errorMessage: string | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
@@ -78,22 +81,18 @@ export class VerTipoHabitacionComponent implements OnInit{
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('file', this.selectedFile, this.selectedFile.name);
-      console.log(this.selectedFile.name);
-
-      // Agregar la ruta de la carpeta assets
-      const assetsPath = 'src/assets/Habitaciones'; // Ajusta esta ruta según la estructura de tu proyecto frontend
-      formData.append('assetsPath', assetsPath);
 
       this.http.post('https://localhost:7032/api/FileUpload/upload', formData).subscribe((response: any) => {
         console.log('File uploaded successfully', response);
-        alert('File uploaded successfully');
+        this.successMessage = 'El archivo se subió correctamente.';
+        this.errorMessage = null;
       }, (error: any) => {
         console.error('File upload failed', error);
-        alert('File upload failed');
+        this.successMessage = null;
+        this.errorMessage = 'Error al subir el archivo.';
       });
     }
   }
-
 
   volverAdministrarHabitaciones() {
     this.router.navigate(['/administrarHabitaciones']);

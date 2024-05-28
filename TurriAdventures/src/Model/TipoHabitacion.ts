@@ -1,9 +1,9 @@
 export interface TipoHabitacion{
     idTipoHabitacion: number,
-    nombreTipoHabitacion: String,
+    nombreTipoHabitacion: string,
     precio: number,
-    descripcionTipoHabitacion: String,
-    imagenTipoHabitacion: String,
+    descripcionTipoHabitacion: string,
+    imagenTipoHabitacion: string,
     idOferta: number,
     idTemporada: number
 }
@@ -12,10 +12,10 @@ export class TipoHabitacion implements TipoHabitacion {
     tipo: any;
     constructor(
         public idTipoHabitacion: number,
-        public nombreTipoHabitacion: String,
+        public nombreTipoHabitacion: string,
         public precio: number,
-        public descripcionTipoHabitacion: String,
-        public imagenTipoHabitacion: String,
+        public descripcionTipoHabitacion: string,
+        public imagenTipoHabitacion: string,
         public idOferta: number,
         public idTemporada: number
     ) {};
