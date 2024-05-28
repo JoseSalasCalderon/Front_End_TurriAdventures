@@ -22,19 +22,34 @@
       <div class="col-lg-9 col-md-8">
         <h2>Administrar Habitación</h2>
 
-        <div *ngIf="tipoHabitacionSeleccionada" class="ml-1 mt-5 d-flex align-items-center">
-          <h5 class="my-0 mr-5 custom-h5 text-primary">{{ tipoHabitacionSeleccionada.nombreTipoHabitacion }}</h5>
+        <!-- Alerta de éxito -->
+        <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show" role="alert">
+          {{ successMessage }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <!-- Alerta de error -->
+        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ errorMessage }}
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="ml-1 mt-5 d-flex align-items-center">
+          <h5 class="my-0 mr-5 custom-h5 text-primary">{{ tipoHabitacionSeleccionada?.nombreTipoHabitacion }}</h5>
           <p class="mb-0 ml-5">Tarifa Diaria: $</p>
-          <input type="text" class="form-control mr-1 col-2" [(ngModel)]="tipoHabitacionSeleccionada.precio">
+          <input type="text" class="form-control mr-1 col-2" value="{{ tipoHabitacionSeleccionada?.precio }}">
         </div>
-        
+
         <!-- TextArea -->
-        <div *ngIf="tipoHabitacionSeleccionada" class="ml-1 mt-4">
+        <div class="ml-1 mt-4">
           <h4>Descripción</h4>
-          <textarea class="form-control scrollable-textarea" [(ngModel)]="tipoHabitacionSeleccionada.descripcionTipoHabitacion" rows="5"></textarea>
+          <textarea class="form-control scrollable-textarea"
+            rows="5">{{ tipoHabitacionSeleccionada?.descripcionTipoHabitacion }}</textarea>
         </div>
-        
-        
 
         <!-- Imagen con título y campo de búsqueda -->
         <div class="ml-1 row mt-4">
@@ -49,7 +64,6 @@
           </div>
         </div>
 
-
         <!-- Botones Aceptar y Cancelar -->
         <div class="row mt-4">
           <div class="col-md-6 offset-md-6">
@@ -58,8 +72,6 @@
           </div>
         </div>
       </div>
-
-
     </div>
   </div>
 
