@@ -24,12 +24,6 @@ export class PublicidadService {
         return this.http.post(this.url + 'CrearPublicidad', publicidad);
     }
 
-    // SubirImagen(imagen: File): Observable<any> {
-    //     const formData = new FormData();
-    //     formData.append('imagen', imagen);
-    //     return this.http.post<any>(this.url + 'SubirImagen', formData);
-    // }
-
     SubirImagen(file: File): Observable<any> {
         const data = new FormData();
         data.append('file', file);

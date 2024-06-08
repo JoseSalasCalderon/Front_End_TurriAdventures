@@ -38,16 +38,12 @@ export class PublicidadCRUDComponent implements OnInit {
       publicidades.sort((a, b) => b.idPublicidad - a.idPublicidad);
       this.publicidades = publicidades;
 
-      if (this.publicidades.length > 0) {
+      // if (this.publicidades.length > 0) {
         this.imagenActual = this.publicidades[0].imagenPublicidad; 
         this.nombrePublicidad = this.publicidades[0].nombrePublicidad;
         this.url = this.publicidades[0].linkPublicidad;
-      }
+      // }
 
-
-      // this.imagenActual = this.publicidades[0].imagenPublicidad; 
-      // this.nombrePublicidad = this.publicidades[0].nombrePublicidad;
-      // this.url = this.publicidades[0].linkPublicidad;
     });
   }
 
@@ -87,26 +83,13 @@ export class PublicidadCRUDComponent implements OnInit {
   }
 
   aceptarCambios() {
-    if (!this.publicidades.length) return; //en caso de que no hay publicidades
+    if (!this.publicidades.length) return; 
     const publicidad = this.publicidades[0];
     publicidad.nombrePublicidad = this.nombrePublicidad;
     publicidad.linkPublicidad = this.url;
 
     
     if (this.imagenSeleccionada) {
-
-    //   this.UploadImagesServiceService.subirImagen(this.imagenSeleccionada).subscribe((res) => {
-    //     console.log(res);
-    //     if (res) {
-    //       if (this.imagenSeleccionada) {
-    //         publicidad.imagenPublicidad = res.url;
-    //         this.actualizarPublicidad(publicidad);
-
-    //       }
-    //     }
-    //   }
-    // );
-
       this.publicidadService.SubirImagen(this.imagenSeleccionada).subscribe(
       (response) => {
           publicidad.imagenPublicidad = response.secure_url;
@@ -168,38 +151,9 @@ export class PublicidadCRUDComponent implements OnInit {
       backdrop.classList.add('modal-backdrop', 'fade', 'show');
       document.body.appendChild(backdrop);
     }
+
     this.obtenerPublicidades();
   }
-
-  // guardarImagen(event: Event) {
-  //   event.preventDefault();
-  //   const input = event.target as HTMLInputElement;
-  //   if (this.imagenSeleccionada) {
-  //     const nombrePublicidad = (document.getElementById('nuevoNombre') as HTMLInputElement).value;
-  //     const linkDestino = (document.getElementById('nuevoUrl') as HTMLInputElement).value;
-
-  //     this.publicidadService.SubirImagen(this.imagenSeleccionada).subscribe(
-  //       (response) => {
-  //         const nombreImagen = response.nombreImagen;
-
-  //         const nuevaPublicidad: Publicidad = {
-  //           idPublicidad: 0,
-  //           imagenPublicidad: nombreImagen,
-  //           linkPublicidad: linkDestino,
-  //           nombrePublicidad: nombrePublicidad
-  //         };
-
-  //         this.publicidadService.CrearPublicidad(nuevaPublicidad).subscribe(
-  //           (data) => {
-  //             this.obtenerPublicidades();
-  //             this.cerrarModal();
-  //           }
-  //         );
-  //       }
-
-  //     );
-  //   }
-  // }
 
   guardarImagen(event: Event) {
     event.preventDefault();
@@ -249,8 +203,6 @@ export class PublicidadCRUDComponent implements OnInit {
     this.publicidadService.EliminarPublicidad(idPublicidad).subscribe(() => {
       this.obtenerPublicidades();
     });
-
-    this.obtenerPublicidades();
   }
 
 }
