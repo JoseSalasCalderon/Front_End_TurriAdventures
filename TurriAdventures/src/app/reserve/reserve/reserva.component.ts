@@ -25,6 +25,7 @@ export class ReservaComponent implements OnInit {
     datosIngresados: boolean = false;
     mensaje: string = '';
     esError: boolean = false;
+    nombre: string = '';
 
     constructor(
         private datosCompartidosService: DatosCompartidosService,
@@ -47,23 +48,23 @@ export class ReservaComponent implements OnInit {
 
 
     monto(): number {
-
-
         let fechaLlegada = new Date(this.datosReserve.fechaLlegada);
         let fechaSalida = new Date(this.datosReserve.fechaSalida);
         let total: number = 0;
         let dias = Math.ceil((fechaSalida.getTime() - fechaLlegada.getTime()) / (1000 * 60 * 60 * 24));
 
         switch (Number(this.datosReserve.tipoHabitacion)) { //No se porque lo valida como string
-
             case 1:
                 total = dias * 180;
+                this.nombre= 'Suite Ejecutiva';
                 break;
             case 2:
                 total = dias * 80;
+                this.nombre= 'Habitación Estándar';
                 break;
             case 3:
                 total = dias * 120;
+                this.nombre= 'Habitación Doble';
                 break;
             default:
                 break;
