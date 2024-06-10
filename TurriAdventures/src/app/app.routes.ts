@@ -27,6 +27,7 @@ import { ModificarpaginasComponent } from './modificarpaginas/modificarpaginas.c
 import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.component';
 import { CrearOfertasComponent } from './crear-ofertas/crear-ofertas.component';
 import { ModificarOfertasComponent } from './modificar-ofertas/modificar-ofertas.component';
+import { AboutCrudComponent } from './about-crud/about-crud.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -56,6 +57,7 @@ export const routes: Routes = [
     {path:'listar-ofertas', component: ListarOfertasComponent},
     {path:'crear-ofertas', component: CrearOfertasComponent},
     {path:'editar-ofertas/:id', component: ModificarOfertasComponent},
+    {path: 'about-crud', component: AboutCrudComponent},
     { path: '**', component: HomeComponent},
     { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
 
