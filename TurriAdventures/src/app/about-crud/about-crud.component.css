@@ -47,8 +47,8 @@
   }
   
   .selected-image img {
-    width: 60%;
-    height: 60%;
+    width: 80%;
+    height: 80%;
     object-fit: cover;
     object-position: center;
   }
@@ -66,6 +66,24 @@
   }
   
   .btn:hover {
-    background-color: #0056b3 !important;
+    background-color: #575f66 !important;
   }
-  
+
+ 
+
+.modal-header {
+  background-color: #3c434b;
+  color: white;
+}
+
+.modal-title {
+  margin: 0;
+  font-weight: bold;
+}
+
+.img-thumbnail {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
