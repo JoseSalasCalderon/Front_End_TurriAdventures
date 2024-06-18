@@ -82,7 +82,7 @@ export class ReserveComponent implements OnInit {
         }
       }//if-else disponibilidad
     } else {
-      this.mensaje = 'Por favor revisa que los estén completos.';
+      this.mensaje = 'Por favor revisa que los estén correctos.';
       this.esError = true;
       setTimeout(() => {
           this.mensaje = '';
@@ -90,8 +90,29 @@ export class ReserveComponent implements OnInit {
       return;    }
   }
 
+  // camposValidos(): boolean {
+  //   return !!this.datos.fechaLlegada && !!this.datos.fechaSalida && !!this.datos.tipoHabitacion;
+  // }
+
   camposValidos(): boolean {
-    return !!this.datos.fechaLlegada && !!this.datos.fechaSalida && !!this.datos.tipoHabitacion;
+    if (!this.datos.fechaLlegada || !this.datos.fechaSalida || !this.datos.tipoHabitacion) {
+      return false;
+    }
+
+    const fechaLlegada = new Date(this.datos.fechaLlegada);
+    const fechaSalida = new Date(this.datos.fechaSalida);
+
+    if (fechaSalida < fechaLlegada) {
+      this.mensaje = 'La fecha de salida no puede ser anterior a la fecha de llegada.';
+      this.esError = true;
+      setTimeout(() => {
+        this.mensaje = '';
+        this.esError = false;
+      }, 3000);
+      return false;
+    }
+
+    return true;
   }
 
   async validarDisponibilidad(): Promise<boolean> {
