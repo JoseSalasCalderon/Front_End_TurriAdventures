@@ -42,13 +42,13 @@ export class ReserveComponent implements OnInit {
     this.obtenerTiposHabitacion();
 
     this.route.queryParams.subscribe(params => {
-      console.log('Recibir tipo habitacion',params['roomType'] )
+      console.log('Recibir tipo habitacion', params['roomType'])
       if (params['roomType'] && params['price']) {
         this.tipoHabitacionNombre = params['roomType'];
-       // this.datos.price = +params['price'];
+        // this.datos.price = +params['price'];
       }
     });
-  
+
   }
 
   onInputChange(field: 'fechaLlegada' | 'fechaSalida' | 'tipoHabitacion', value: string | number) {
@@ -64,7 +64,7 @@ export class ReserveComponent implements OnInit {
         const queryParams = {
           fechaLlegada: this.datos.fechaLlegada,
           fechaSalida: this.datos.fechaSalida,
-          habitacionId: this.habitacion.idHabitacion, 
+          habitacionId: this.habitacion.idHabitacion,
         };
         console.log('habitacionId en reserve', this.habitacion.idHabitacion)
         console.log('queryParams para reserva', queryParams);
@@ -82,18 +82,19 @@ export class ReserveComponent implements OnInit {
         }
       }//if-else disponibilidad
     } else {
-      this.mensaje = 'Por favor revisa que los estén correctos.';
-      this.esError = true;
-      setTimeout(() => {
-          this.mensaje = '';
-      }, 3000);
-      return;    }
+      this.mostrarMensaje('Por favor revisa que los datos ingresados estén correctos.', true);
+      return;    
+    }
   }
 
-  // camposValidos(): boolean {
-  //   return !!this.datos.fechaLlegada && !!this.datos.fechaSalida && !!this.datos.tipoHabitacion;
-  // }
-
+  mostrarMensaje(mensaje: string, esError: boolean) {
+    this.mensaje = mensaje;
+    this.esError = esError;
+    setTimeout(() => {
+      this.mensaje = '';
+    }, 3000);
+  }
+  
   camposValidos(): boolean {
     if (!this.datos.fechaLlegada || !this.datos.fechaSalida || !this.datos.tipoHabitacion) {
       return false;
@@ -103,12 +104,6 @@ export class ReserveComponent implements OnInit {
     const fechaSalida = new Date(this.datos.fechaSalida);
 
     if (fechaSalida < fechaLlegada) {
-      this.mensaje = 'La fecha de salida no puede ser anterior a la fecha de llegada.';
-      this.esError = true;
-      setTimeout(() => {
-        this.mensaje = '';
-        this.esError = false;
-      }, 3000);
       return false;
     }
 
