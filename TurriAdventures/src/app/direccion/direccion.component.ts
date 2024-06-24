@@ -25,7 +25,7 @@ export class DireccionComponent implements OnInit{
     }
 
     obtenerDireccion() {
-        return this.DireccionesService.BuscarHabitacionPorIdReserva(1).subscribe((direccion: Direccion) => {
+        return this.DireccionesService.BuscarDireccion(1).subscribe((direccion: Direccion) => {
             this.direccion = direccion;
         });
     }
