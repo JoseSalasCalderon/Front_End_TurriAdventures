@@ -1,0 +1,16 @@
+#informacionDireccion {
+    width: 100%;
+    height: 200px;
+    padding: 10px;
+    margin-top: 1em;
+    box-sizing: border-box;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    resize: none; /* Evita que el textarea se pueda redimensionar */
+}
+
+#informacionDireccion:focus {
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}

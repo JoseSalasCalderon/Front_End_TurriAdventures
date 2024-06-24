@@ -9,6 +9,7 @@ import { TipoHabitacion } from '../../../Model/TipoHabitacion';
 import { Router } from '@angular/router';
 import { HabitacionService } from '../../../Core/HabitacionService';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-reserve',
@@ -25,18 +26,29 @@ export class ReserveComponent implements OnInit {
   habitacion: any;
   mensaje: string = '';
   esError: boolean = false;
+  tipoHabitacionNombre: string = '';
 
   constructor(
     private datosCompartidosService: DatosCompartidosService,
     private ReservationService: ReservationService,
     private TipoHabitacionService: TipoHabitacionService,
     private habitacionService: HabitacionService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
     this.obtenerReservas();
     this.obtenerTiposHabitacion();
+
+    this.route.queryParams.subscribe(params => {
+      console.log('Recibir tipo habitacion',params['roomType'] )
+      if (params['roomType'] && params['price']) {
+        this.tipoHabitacionNombre = params['roomType'];
+       // this.datos.price = +params['price'];
+      }
+    });
+  
   }
 
   onInputChange(field: 'fechaLlegada' | 'fechaSalida' | 'tipoHabitacion', value: string | number) {
@@ -130,7 +142,6 @@ export class ReserveComponent implements OnInit {
     return [year, month, day].join('-');
   }
 
-
   obtenerReservas() {
     return this.ReservationService.ListarReservas().subscribe((data: Reserva[]) => {
       this.listaReservas = data;
@@ -141,23 +152,51 @@ export class ReserveComponent implements OnInit {
 
   obtenerTiposHabitacion() {
     return this.TipoHabitacionService.ListarTiposHabitaciones().subscribe((data: TipoHabitacion[]) => {
-      const formTiposHabitaciones = document.getElementById("tipoHabitacion");
-      //Se valida para saber si existe y se genera este select
-      if (formTiposHabitaciones) {
+      this.listaTiposHabitacion = data;
+      this.actualizarSelectTipoHabitacion();
+    });
+  }
 
-        formTiposHabitaciones.innerHTML = '';
-        formTiposHabitaciones.innerHTML += `
-        <option value="" disabled selected>Por favor seleccione el tipo de habitación de su preferencia</option>
-      `;
-        for (let index = 0; index < data.length; index++) {
-          formTiposHabitaciones.innerHTML += `
-            <option value="${data[index].idTipoHabitacion}">${data[index].nombreTipoHabitacion}</option>
-          `;
+  actualizarSelectTipoHabitacion() {
+    const formTiposHabitaciones = document.getElementById("tipoHabitacion");
+    if (formTiposHabitaciones) {
+      formTiposHabitaciones.innerHTML = '';
+      formTiposHabitaciones.innerHTML += `<option value="" disabled selected>Por favor seleccione el tipo de habitación de su preferencia</option>`;
+      for (let index = 0; index < this.listaTiposHabitacion.length; index++) {
+        formTiposHabitaciones.innerHTML += `<option value="${this.listaTiposHabitacion[index].idTipoHabitacion}">${this.listaTiposHabitacion[index].nombreTipoHabitacion}</option>`;
+      }
+      //validar el tipo que pasa tarifas
+      if (this.tipoHabitacionNombre) {
+        const selectElement = formTiposHabitaciones as HTMLSelectElement;
+        const selectedTipo = this.listaTiposHabitacion.find(tipo => tipo.nombreTipoHabitacion.toLowerCase() === this.tipoHabitacionNombre.toLowerCase());
+        if (selectedTipo) {
+          selectElement.value = selectedTipo.idTipoHabitacion.toString();
+          this.datos.tipoHabitacion = selectedTipo.idTipoHabitacion; // Asignar el ID correspondiente
         }
       }
-      this.listaTiposHabitacion = data;
-      console.log('listaTiposHabitacion', data);
-
-    })
+    }
   }
 }
+
+//   obtenerTiposHabitacion() {
+//     return this.TipoHabitacionService.ListarTiposHabitaciones().subscribe((data: TipoHabitacion[]) => {
+//       const formTiposHabitaciones = document.getElementById("tipoHabitacion");
+//       //Se valida para saber si existe y se genera este select
+//       if (formTiposHabitaciones) {
+
+//         formTiposHabitaciones.innerHTML = '';
+//         formTiposHabitaciones.innerHTML += `
+//         <option value="" disabled selected>Por favor seleccione el tipo de habitación de su preferencia</option>
+//       `;
+//         for (let index = 0; index < data.length; index++) {
+//           formTiposHabitaciones.innerHTML += `
+//             <option value="${data[index].idTipoHabitacion}">${data[index].nombreTipoHabitacion}</option>
+//           `;
+//         }
+//       }
+//       this.listaTiposHabitacion = data;
+//       console.log('listaTiposHabitacion', data);
+
+//     })
+//   }
+// }

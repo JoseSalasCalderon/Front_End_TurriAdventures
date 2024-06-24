@@ -37,7 +37,15 @@
                 <p class="room-price">Promoción: ${{ isHighSeason() ? price.priceHighSeason : price.priceLowSeason }}
                   por
                   noche en temporada de {{ isHighSeason() ? 'Temporada Alta' : 'Temporada Baja' }}!</p>
-               <button class="btn custom-btn" [routerLink]="['/reserve']">Reservar ahora</button>   <!-- ['/vista', price.roomType] -->
+               <!-- <button class="btn custom-btn" [routerLink]="['/reserve']">
+                Reservar ahora
+              </button> -->
+                 <!-- ['/vista', price.roomType] -->
+                 <button class="btn custom-btn" 
+                 [routerLink]="['/reserve']"
+                 [queryParams]="{ roomType: price.roomType, price: isHighSeason() ? price.priceHighSeason : price.priceLowSeason }">
+                 Reservar ahora
+               </button>
               </div>
             </div>
           </div>

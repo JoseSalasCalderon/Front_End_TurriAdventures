@@ -24,11 +24,12 @@ export class PublicidadService {
         return this.http.post(this.url + 'CrearPublicidad', publicidad);
     }
 
-    SubirImagen(imagen: File): Observable<any> {
-        const formData = new FormData();
-        formData.append('imagen', imagen);
-        return this.http.post<any>(this.url + 'SubirImagen', formData);
-    }
+    SubirImagen(file: File): Observable<any> {
+        const data = new FormData();
+        data.append('file', file);
+        data.append('upload_preset', 'ml_default'); 
+        return this.http.post(`https://api.cloudinary.com/v1_1/dqpootcvr/image/upload`, data);
+      }
 
    EditarPublicidad(publicidad: Publicidad): Observable<any> {
     return this.http.put(`${this.url}EditarPublicidad`, publicidad);
