@@ -12,6 +12,7 @@ import { ClienteService } from '../../Core/ClienteService';
 import { Cliente } from '../../Model/Cliente';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-listado-reservaciones',
@@ -46,7 +47,8 @@ export class ListadoReservacionesComponent implements OnInit {
     private ReservaService: ReservationService,
     private ClienteService: ClienteService,
     private renderer: Renderer2,
-    private el: ElementRef
+    private el: ElementRef,
+    private router:Router,
   ) {}
 
   ngOnInit(): void {
@@ -103,47 +105,50 @@ export class ListadoReservacionesComponent implements OnInit {
           this.TiposHabitacionService.BuscarTipoHabitacionPorIdHabitacion(habitacion.idHabitacion).subscribe((tipoHabitacion: TipoHabitacion) => {
             this.ClienteService.BuscarClientePorIdReserva(reservas[index].idReservacion).subscribe((cliente: Cliente) => {
               const fila = this.renderer.createElement('tr');
-
+  
               const celdaFecha = this.renderer.createElement('td');
               celdaFecha.innerHTML = this.fechaFormateada;
               this.renderer.appendChild(fila, celdaFecha);
-
+  
               const celdaId = this.renderer.createElement('td');
               celdaId.innerHTML = String(reservas[index].idReservacion);
               this.renderer.appendChild(fila, celdaId);
-
+  
               const celdaNombre = this.renderer.createElement('td');
               celdaNombre.innerHTML = cliente.nombre;
               this.renderer.appendChild(fila, celdaNombre);
-
+  
               const celdaApellidos = this.renderer.createElement('td');
               celdaApellidos.innerHTML = cliente.apellidos;
               this.renderer.appendChild(fila, celdaApellidos);
-
+  
               const celdaEmail = this.renderer.createElement('td');
               celdaEmail.innerHTML = cliente.email;
               this.renderer.appendChild(fila, celdaEmail);
-
+  
               const celdaFechaLlegada = this.renderer.createElement('td');
               celdaFechaLlegada.innerHTML = reservas[index].fechaLlegada;
               this.renderer.appendChild(fila, celdaFechaLlegada);
-
+  
               const celdaFechaSalida = this.renderer.createElement('td');
               celdaFechaSalida.innerHTML = reservas[index].fechaSalida;
               this.renderer.appendChild(fila, celdaFechaSalida);
-
+  
               const celdaTipoHabitacion = this.renderer.createElement('td');
               celdaTipoHabitacion.innerHTML = tipoHabitacion.nombreTipoHabitacion;
               this.renderer.appendChild(fila, celdaTipoHabitacion);
-
+  
               const celdaVer = this.renderer.createElement('td');
               const botonVer = this.renderer.createElement('button');
               this.renderer.addClass(botonVer, 'btn');
               this.renderer.addClass(botonVer, 'btn-primary');
               botonVer.innerHTML = 'Ver';
+              this.renderer.listen(botonVer, 'click', () => {
+                this.router.navigate(['/ver-reserva', reservas[index].idReservacion]);
+              });
               this.renderer.appendChild(celdaVer, botonVer);
               this.renderer.appendChild(fila, celdaVer);
-
+  
               const celdaEliminar = this.renderer.createElement('td');
               const botonEliminar = this.renderer.createElement('button');
               this.renderer.addClass(botonEliminar, 'btn');
@@ -152,7 +157,7 @@ export class ListadoReservacionesComponent implements OnInit {
               this.renderer.listen(botonEliminar, 'click', () => this.eliminar(reservas[index].idReservacion));
               this.renderer.appendChild(celdaEliminar, botonEliminar);
               this.renderer.appendChild(fila, celdaEliminar);
-
+  
               this.renderer.appendChild(tablaHabitaciones, fila);
             });
           });
@@ -160,4 +165,5 @@ export class ListadoReservacionesComponent implements OnInit {
       }
     }
   }
+  
 }

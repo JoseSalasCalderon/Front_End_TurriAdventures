@@ -26,5 +26,9 @@ export class ReservationService {
     EliminarReserva(idReservacion: number): Observable<any> {
       return this.http.delete(this.url + 'EliminarReserva?idReserva='+ idReservacion);
     }
+
+    BuscarReservaPorId(idReservacion: number): Observable<Reserva>{
+      return this.http.get<Reserva>(this.url+'BuscarReservaPorId/'+idReservacion);
+    }
   
 }
