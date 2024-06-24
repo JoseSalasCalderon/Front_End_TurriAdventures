@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AdvertisementsComponent } from '../publicidad/advertisements.component';
 
 
+
 @Component({
   selector: 'app-sidebar-administrador',
   standalone: true,
