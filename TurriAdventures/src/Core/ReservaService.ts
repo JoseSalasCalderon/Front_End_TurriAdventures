@@ -17,10 +17,14 @@ export class ReservationService {
 
    ListarReservas():Observable<Reserva[]>{
     return this.http.get<Reserva[]>(this.url+'ListarReservas');
-  }//ListarReservas
+    }//ListarReservas
 
     CrearReserva(reserva: Reserva): Observable<any> {      
       return this.http.post(this.url + 'CrearReserva', reserva);
-  }//CrearReserva
+    }//CrearReserva
+
+    EliminarReserva(idReservacion: number): Observable<any> {
+      return this.http.delete(this.url + 'EliminarReserva?idReserva='+ idReservacion);
+    }
   
 }

@@ -43,8 +43,14 @@ export class ModificarComoLlegarComponent {
           .subscribe(response => {
             if (response) {
               this.successMessage = 'Actualizó correctamente.';
+              setTimeout(() => {
+                this.successMessage = '';
+              }, 3000);
             }else {
               this.successMessage = 'No se pudo actualizar';
+              setTimeout(() => {
+                this.successMessage = '';
+              }, 3000);
             }
           });
       } else {
