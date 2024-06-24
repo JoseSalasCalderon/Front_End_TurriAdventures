@@ -18,8 +18,12 @@ export class DireccionService {
     return this.http.get<Direccion[]>(this.url+"ListarDirecciones");
   }
 
-  BuscarHabitacionPorIdReserva(idDireccion: number): Observable<Direccion> {
+  BuscarDireccion(idDireccion: number): Observable<Direccion> {
     return this.http.get<Direccion>(this.url + "BuscarDireccion/"+idDireccion);
+  }
+
+  ActualizarDireccion(direccion: Direccion ): Observable<any> {
+    return this.http.put(`${this.url}EditarDireccion`, direccion);
   }
 
 }

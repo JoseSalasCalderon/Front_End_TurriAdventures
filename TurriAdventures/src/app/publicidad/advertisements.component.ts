@@ -36,7 +36,7 @@ export class AdvertisementsComponent implements OnInit, OnDestroy {
     this.publicidadService.ListarPublicidades()
       .subscribe((publicidades: Publicidad[]) => {
         this.advertisements = publicidades.map(ad => {
-          return { ...ad, imagenPublicidad: ad.imagenPublicidad };
+          return { ...ad, imagenPublicidad: '' + ad.imagenPublicidad };
         });
       });
   }
