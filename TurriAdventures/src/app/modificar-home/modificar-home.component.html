@@ -26,9 +26,37 @@
                 <form [formGroup]="homeForm" (ngSubmit)="onSubmit()">
                   <div class="form-group">
                     <label for="descriptionInput">Descripción:</label>
-                    <textarea class="form-control" id="descriptionInput" formControlName="description" rows="5"></textarea>
+                    <textarea class="form-control" id="descriptionInput" formControlName="description"
+                      rows="5"></textarea>
                   </div>
-                  <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+
+                  <div class="row ">
+
+                    <div class="col-md-6 img-container ">
+                      <p>Imagen Actual:</p>
+                      <img *ngIf="imagenHome" [src]="imagenHome" alt="Imagen Publicidad" class="img-fluid mt-2">
+                    </div>
+
+                    <div class="col-md-6"> 
+                      <div class="form-group">
+                        <label for="imagen">Subir nueva imagen:</label>
+                        <input type="file" id="imagen" class="form-control-file" (change)="onChangeImagen($event)"
+                          accept="image/*">
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="col-md-6 offset-md-6">
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <a class="btn btn-danger float-right" href="/modificarpaginas">Cancelar</a>
+                    <!-- <button class="btn btn-success float-right mr-2" (click)="aceptarCambios()">Aceptar</button> -->
+                  </div>
+
+                  <div *ngIf="mensaje" class="alert" [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
+                    {{ mensaje }}
+                  </div>
                 </form>
               </div>
             </div>

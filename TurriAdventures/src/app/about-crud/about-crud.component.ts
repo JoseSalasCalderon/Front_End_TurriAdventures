@@ -19,8 +19,10 @@ export class AboutCrudComponent implements OnInit {
   imagenSeleccionada: string = '';
   about!: About[];
   vistaPreviaImagen: string | ArrayBuffer | null = null;
-  
-  
+    
+  currentPage: number = 1;
+  pageSize: number = 8; 
+
   mensaje: string = '';
   esError: boolean = false;
 
@@ -179,9 +181,6 @@ export class AboutCrudComponent implements OnInit {
       }
     }
   }
-
-  currentPage: number = 1;
-  pageSize: number = 8; 
 
   imagenesPaginadas(): string[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;

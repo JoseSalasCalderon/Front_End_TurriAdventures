@@ -67,8 +67,7 @@ export const routes: Routes = [
     {path:'ver-reserva/:id', component: VerReservaComponent},
 
     {path:'editar-home', component: ModificarHomeComponent},
-    { path: '**', component: HomeComponent},
-    { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
+   // { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
 
 
 
