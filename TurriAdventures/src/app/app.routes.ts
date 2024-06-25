@@ -28,6 +28,8 @@ import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.componen
 import { CrearOfertasComponent } from './crear-ofertas/crear-ofertas.component';
 import { ModificarOfertasComponent } from './modificar-ofertas/modificar-ofertas.component';
 import { AboutCrudComponent } from './about-crud/about-crud.component';
+import { ModificarComoLlegarComponent } from './modificar-como-llegar/modificar-como-llegar.component';
+import { VerReservaComponent } from './ver-reserva/ver-reserva.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -58,6 +60,8 @@ export const routes: Routes = [
     {path:'crear-ofertas', component: CrearOfertasComponent},
     {path:'editar-ofertas/:id', component: ModificarOfertasComponent},
     {path: 'about-crud', component: AboutCrudComponent},
+    {path:'modificarComoLlegar', component: ModificarComoLlegarComponent},
+    {path:'ver-reserva/:id', component: VerReservaComponent},
     { path: '**', component: HomeComponent},
     { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
 

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Turri Adventure</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" type="text/css" href="home-administrador.component.css"> -->
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-lg-3 col-md-4">
+                <app-sidebar-administrador></app-sidebar-administrador>
+            </div>
+            <!-- Contenido principal -->
+            <div class="col-lg-9 col-md-8">
+                <div>
+                    <h2>Listado de Reservaciones - Ver Reserva</h2>
+                    <div class="card-body">
+                        <p><strong>Fecha:</strong> {{ fechaFormateada }}</p>
+                        <p><strong>ID Reserva:</strong> {{ reserva?.idReservacion }}</p>
+                        <p><strong>Nombre:</strong> {{ cliente?.nombre }}</p>
+                        <p><strong>Apellidos:</strong> {{ cliente?.apellidos }}</p>
+                        <p><strong>Email:</strong> {{ cliente?.email }}</p>
+                        <p><strong>Fecha Llegada:</strong> {{ reserva?.fechaLlegada }}</p>
+                        <p><strong>Fecha Salida:</strong> {{ reserva?.fechaSalida }}</p>
+                        <p><strong>Tipo:</strong> {{ tipoHabitacion?.nombreTipoHabitacion }}</p>
+                    </div>
+                    <div class="d-flex justify-content-center mt-4">
+                        <button (click)="imprimir()" id="imprimir-estado-hotel" class="btn btn-primary">
+                          <i class="fas fa-print fa-2x"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
