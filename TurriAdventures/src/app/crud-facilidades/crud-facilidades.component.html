@@ -26,7 +26,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let facilidad of facilidades">
-              <td><img [src]="facilidad.imagenFacilidad" alt="Imagen Facilidad" class="img-thumbnail" style="width: 300px;"></td>
+              <td><img [src]="facilidad.imagenFacilidad" alt="Imagen Facilidad" class="img-thumbnail" style="width: 400px;"></td>
               <td>{{ facilidad.descripcionFacilidad }}</td>
               <td>
                 <button class="btn btn-primary" (click)="openModal('edit', facilidad)" style="width: 80px;">Editar</button>
@@ -59,6 +59,9 @@
               <label for="imagenFacilidad">Imagen</label>
               <input type="file" id="imagenFacilidad" (change)="onFileChange($event)" class="form-control">
             </div>
+            <div class="form-group text-center" *ngIf="imagenFacilidad">
+              <img [src]="imagenFacilidad" alt="imagenFacilidad" class="img-thumbnail">
+          </div>
             <button type="submit" class="btn btn-primary">Guardar</button>
           </form>
         </div>

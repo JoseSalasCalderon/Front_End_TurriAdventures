@@ -71,7 +71,7 @@ export const routes: Routes = [
     { path: 'modificarContacto', component: ModificarContactComponent, canActivate:[AuthGuard]},
 {path: 'crud-facilidades', component: CrudFacilidadesComponent, canActivate:[AuthGuard]},
     {path:'editar-home', component: ModificarHomeComponent, canActivate:[AuthGuard]},
-   // { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
+   { path: '**', component: HomeComponent},
 
 
 

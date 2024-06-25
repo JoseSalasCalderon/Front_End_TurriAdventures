@@ -18,11 +18,12 @@ export class CrudFacilidadesComponent implements OnInit {
   facilidadForm: FormGroup;
   modalTitle: string = '';
   selectedFacilidad: Facilidad | null = null;
+  imagenFacilidad: File | null = null;
 
   constructor(
     private fb: FormBuilder,
     private facilidadService: FacilidadService,
-    private uploadImagesService: UploadImagesServiceService  ) {
+    private uploadImagesService: UploadImagesServiceService) {
     this.facilidadForm = this.fb.group({
       descripcionFacilidad: ['', Validators.required],
       imagenFacilidad: [null]
@@ -40,37 +41,60 @@ export class CrudFacilidadesComponent implements OnInit {
   }
 
   openModal(mode: string, facilidad?: Facilidad): void {
+
     this.modalTitle = mode === 'create' ? 'Agregar Facilidad' : 'Editar Facilidad';
     if (mode === 'edit' && facilidad) {
       this.selectedFacilidad = facilidad;
       this.facilidadForm.patchValue(facilidad);
+      console.log('facilidad', this.selectedFacilidad.imagenFacilidad);
+      // this.imagenFacilidad = this.selectedFacilidad.imagenFacilidad;
     } else {
       this.selectedFacilidad = null;
       this.facilidadForm.reset();
     }
 
-    // Abre el modal utilizando JavaScript vanilla
     const modalElement = document.getElementById('facilidadModal');
     if (modalElement) {
-      modalElement.classList.add('show'); // Muestra el modal
+      modalElement.classList.add('show');
       modalElement.style.display = 'block';
     }
   }
 
   closeModal(): void {
-    // Cierra el modal utilizando JavaScript vanilla
     const modalElement = document.getElementById('facilidadModal');
     if (modalElement) {
-      modalElement.classList.remove('show'); // Oculta el modal
+      modalElement.classList.remove('show');
       modalElement.style.display = 'none';
     }
     this.facilidadForm.reset();
     this.selectedFacilidad = null;
   }
 
-  onFileChange(event: Event): void {
+  // onFileChange(event: Event): void {
+  //   const input = event.target as HTMLInputElement;
+  //   if (input.files && input.files[0]) {
+  //     //  this.imagenFacilidad = input.files[0];
+
+  //     this.facilidadForm.patchValue({
+  //       imagenFacilidad: input.files[0]
+
+  //     });
+  //   }
+  // }
+
+  onFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
+      this.imagenFacilidad = input.files[0];
+
+      const reader = new FileReader();
+
+      reader.onload = (e: any) => {
+        this.imagenFacilidad = e.target.result;
+      };
+
+      reader.readAsDataURL(input.files[0]);
+
       this.facilidadForm.patchValue({
         imagenFacilidad: input.files[0]
       });
