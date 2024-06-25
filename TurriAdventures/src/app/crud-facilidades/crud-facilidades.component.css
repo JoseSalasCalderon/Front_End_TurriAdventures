@@ -1,0 +1,10 @@
+.btnAgregar {
+    background-color: #3c434b !important;
+    color: white !important;
+    border: none !important;
+    cursor: pointer !important;
+  }
+  
+  .btn:hover {
+    background-color: #575f66 !important;
+  }

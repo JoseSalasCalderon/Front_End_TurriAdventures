@@ -33,6 +33,7 @@ import { VerReservaComponent } from './ver-reserva/ver-reserva.component';
 import { ModificarHomeComponent } from './modificar-home/modificar-home.component';
 import e from 'express';
 import { ModificarContactComponent } from './modificar-contact/modificar-contact.component';
+import { CrudFacilidadesComponent } from './crud-facilidades/crud-facilidades.component';
 
 
 export const routes: Routes = [
@@ -68,8 +69,8 @@ export const routes: Routes = [
     {path:'modificarComoLlegar', component: ModificarComoLlegarComponent},
     {path:'ver-reserva/:id', component: VerReservaComponent},
     { path: 'modificarContacto', component: ModificarContactComponent, canActivate:[AuthGuard]},
-
-    {path:'editar-home', component: ModificarHomeComponent},
+{path: 'crud-facilidades', component: CrudFacilidadesComponent, canActivate:[AuthGuard]},
+    {path:'editar-home', component: ModificarHomeComponent, canActivate:[AuthGuard]},
    // { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
 
 
