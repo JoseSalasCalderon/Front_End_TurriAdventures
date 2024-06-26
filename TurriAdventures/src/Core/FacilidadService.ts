@@ -18,11 +18,11 @@ export class FacilidadService {
     return this.http.get<Facilidad[]>(this.url+"ListarFacilidades");
   }
   CrearFacilidad(facilidad: Facilidad): Observable<any> {
-    return this.http.post(this.url + "CrearFacilidad", facilidad);
+    return this.http.post<any>(this.url + "CrearFacilidad", facilidad);
   }
 
   EditarFacilidad(facilidad: Facilidad): Observable<any> {
-    return this.http.put(this.url + "EditarFacilidad", facilidad);
+    return this.http.put<any>(this.url + "EditarFacilidad", facilidad);
   }
 
   EliminarFacilidad(id: number): Observable<any> {
