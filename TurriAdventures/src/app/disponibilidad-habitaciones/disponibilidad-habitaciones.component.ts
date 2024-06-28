@@ -103,7 +103,7 @@ export class DisponibilidadHabitacionesComponent implements OnInit {
       this.tablaVisible = true;
     }
     else {
-      this.mensaje = 'Por favor revisa que los campos estén completos.';
+      this.mensaje = 'Por favor revisa el formato de los campos';
       this.esError = true;
       setTimeout(() => {
         this.mensaje = '';

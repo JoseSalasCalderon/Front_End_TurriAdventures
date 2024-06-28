@@ -70,7 +70,7 @@ export class ReserveComponent implements OnInit {
         }
       }//if-else disponibilidad
     } else {
-      this.mensaje = 'Por favor revisa que los estén completos.';
+      this.mensaje = 'Por favor revisa el formato.';
       this.esError = true;
       setTimeout(() => {
           this.mensaje = '';

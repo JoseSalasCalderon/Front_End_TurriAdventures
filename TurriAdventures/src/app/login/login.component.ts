@@ -1,33 +1,32 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from '../../Core/LoginService';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LoginService } from '../../Core/LoginService';
 import { Login } from '../../Model/Login';
 
-
 let dataLogin: Login;
+
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
 
   usuario: string = "";
-  contrasena: string ="";
+  contrasena: string = "";
   public entrar: boolean;
   public error: boolean = false;
-  
+  public loginErrorMessage: string | null = null;
 
-  constructor(private loginService: LoginService, private router:Router,  ) {
+  constructor(private loginService: LoginService, private router: Router) {
     this.entrar = false;
-
   }
-  ngOnInit(): void {
 
-  }
+  ngOnInit(): void { }
 
   buttonInicioSesion(): void {
     if (this.usuario.trim().length === 0 || this.contrasena.trim().length === 0) {
@@ -36,37 +35,37 @@ export class LoginComponent implements OnInit {
     }
 
     this.error = false;
-
-    console.log("Nombre" + this.usuario);
-    console.log("Contrasennia" + this.contrasena);
     this.buscarUsuario(this.usuario, this.contrasena);
   }
 
   buscarUsuario(usuario: string, contrasena: string) {
     if (usuario.trim().length !== 0 && contrasena.trim().length !== 0) {
-      this.loginService.buscarUsuario({ usuario, contrasena }).subscribe((data: any) => {
-        console.log(data);
-        dataLogin = new Login(data.id,data.usuario, data.contrasena);
-        if (dataLogin.ID != null) {
-          console.log(dataLogin.ID);
-          sessionStorage.setItem('id', dataLogin.ID.toString());
-          sessionStorage.setItem('usuario', dataLogin.usuario);
-
+      this.loginService.buscarUsuario({ usuario, contrasena }).subscribe({
+        next: (data: any) => {
+          dataLogin = new Login(data.id, data.usuario, data.contrasena);
+          if (dataLogin.ID != null) {
+            sessionStorage.setItem('id', dataLogin.ID.toString());
+            sessionStorage.setItem('usuario', dataLogin.usuario);
             this.router.navigate(['/homeAdmin']);
-      
-        } else {
-          console.log("El nombre de usuario o la contraseña son incorrectos");
+          } else {
+            this.mostrarMensajeError("El nombre de usuario o la contraseña son incorrectos");
+          }
+        },
+        error: () => {
+          this.mostrarMensajeError("El nombre de usuario o la contraseña son incorrectos");
         }
       });
-    } else {
-      console.log("Buscar" + usuario.length);
     }
   }
 
-  
-  logout(){
+  mostrarMensajeError(mensaje: string) {
+    this.loginErrorMessage = mensaje;
+    setTimeout(() => {
+      this.loginErrorMessage = null;
+    }, 3000);
+  }
+
+  logout() {
     this.loginService.logout();
   }
-
-  }
-
+}

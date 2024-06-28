@@ -9,13 +9,14 @@
 
 <div class="container">
   <div class="col-md-6">
+    <div *ngIf="loginErrorMessage" class="alert alert-danger" role="alert">
+      {{ loginErrorMessage }}
+    </div>
     <div class="card">
       <div class="card-header">Login</div>
       <div class="card-body">
         <div class="imageContainer">
-          <img
-            src="assets\logo.png"
-            alt="Logo del proyecto" class="img-fluid">
+          <img src="assets/logo.png" alt="Logo del proyecto" class="img-fluid">
         </div>
         <form method="post" class="form-login">
           <div class="mb-3">
@@ -27,13 +28,13 @@
             <input type="password" class="form-control" [(ngModel)]="contrasena" id="password" name="password" placeholder="Password">
           </div>
 
-
-          <button mat-raised-button (click)="buscarUsuario(usuario,contrasena)" class="btn btn-primary" style="background-color: #5BC0DE;">Login</button>
+          <button (click)="buttonInicioSesion()" class="btn btn-primary" style="background-color: #5BC0DE;">Login</button>
         </form>
       </div>
     </div>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka32ZOaAMN7B4UbC+1qk4r4CQG3pN7RJaP0Wf8v+51V1n5zpQ1j5udks1XXyX8mQ" crossorigin="anonymous"></script>
 </body>
 </html>

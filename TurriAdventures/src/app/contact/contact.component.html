@@ -23,6 +23,9 @@
             <p>Tel:{{telefono1}}/ {{telefono2}}</p>
             <p>Apdo Postal {{apartadoPostal}}</p>
             <p>{{email}}</p>
+            @if(telefono1 == 'No disponible'){
+              <p><strong class="text-danger">Error, Vuelva Más tarde!</strong></p>
+            }
           </div>
         </div>
       </div>

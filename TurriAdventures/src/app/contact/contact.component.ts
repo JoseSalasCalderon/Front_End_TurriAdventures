@@ -13,10 +13,10 @@ import { Contact } from '../../Model/Contact';
     imports: [SidebarComponent, HeaderComponent]
 })
 export class ContactComponent implements OnInit{
-    telefono1: string = '';
-    telefono2: string = '';
-    apartadoPostal: string= '';
-    email: string= '';
+    telefono1: string = 'No disponible';
+    telefono2: string = 'No disponible';
+    apartadoPostal: string= 'No disponible';
+    email: string= 'No disponible';
     constructor(private contactService: ContactService) {}
 
     ngOnInit(): void {

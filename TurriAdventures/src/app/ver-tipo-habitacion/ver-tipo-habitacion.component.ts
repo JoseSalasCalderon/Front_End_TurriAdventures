@@ -25,6 +25,7 @@ export class VerTipoHabitacionComponent implements OnInit{
   selectedFile: File | null = null;
   successMessage: string | null = null;
   errorMessage: string | null = null;
+  generalErrorMessage: string | null = null;
   @ViewChild('fileInput') fileInput!: ElementRef;
 
   constructor(
@@ -42,16 +43,22 @@ export class VerTipoHabitacionComponent implements OnInit{
     const tipoHabitacionSeleccionada = sessionStorage.getItem('TipoHabitacionSeleccionada');
     if (tipoHabitacionSeleccionada) {
       const tipoHabitacionInt = parseInt(tipoHabitacionSeleccionada);
-      this.tiposHabitacionService.BuscarTipoHabitacionPorId(tipoHabitacionInt).subscribe((tipoHabitacion: TipoHabitacion) => {
-        this.tipoHabitacionSeleccionada = tipoHabitacion;
-        this.imageSrc = tipoHabitacion.imagenTipoHabitacion;
-        
-        // Realiza una solicitud HTTP para obtener la imagen como un Blob
-        this.http.get(this.imageSrc, { responseType: 'blob' }).subscribe(blob => {
-          this.selectedFile = new File([blob], tipoHabitacion.imagenTipoHabitacion, { type: blob.type });
-          console.log(this.selectedFile);
-        });
+      this.tiposHabitacionService.BuscarTipoHabitacionPorId(tipoHabitacionInt).subscribe({
+        next: (tipoHabitacion: TipoHabitacion) => {
+          this.tipoHabitacionSeleccionada = tipoHabitacion;
+          this.imageSrc = tipoHabitacion.imagenTipoHabitacion;
+          
+          // Realiza una solicitud HTTP para obtener la imagen como un Blob
+          this.http.get(this.imageSrc, { responseType: 'blob' }).subscribe(blob => {
+            this.selectedFile = new File([blob], tipoHabitacion.imagenTipoHabitacion, { type: blob.type });
+          });
+        },
+        error: () => {
+          this.generalErrorMessage = 'Algo anda mal. Por favor, vuelva más tarde.';
+        }
       });
+    } else {
+      this.generalErrorMessage = 'Algo anda mal. Por favor, vuelva más tarde.';
     }
   }
 
