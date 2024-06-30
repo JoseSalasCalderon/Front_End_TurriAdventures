@@ -27,9 +27,11 @@ import { ModificarpaginasComponent } from './modificarpaginas/modificarpaginas.c
 import { ListarOfertasComponent } from './listar-ofertas/listar-ofertas.component';
 import { CrearOfertasComponent } from './crear-ofertas/crear-ofertas.component';
 import { ModificarOfertasComponent } from './modificar-ofertas/modificar-ofertas.component';
+import { AboutCrudComponent } from './about-crud/about-crud.component';
 import { ModificarComoLlegarComponent } from './modificar-como-llegar/modificar-como-llegar.component';
 import { VerReservaComponent } from './ver-reserva/ver-reserva.component';
 import { ModificarHomeComponent } from './modificar-home/modificar-home.component';
+import { ModificarFacilidadesComponent } from './modificar-facilidades/modificar-facilidades.component';
 
 
 export const routes: Routes = [
@@ -60,11 +62,10 @@ export const routes: Routes = [
     {path:'listar-ofertas', component: ListarOfertasComponent},
     {path:'crear-ofertas', component: CrearOfertasComponent},
     {path:'editar-ofertas/:id', component: ModificarOfertasComponent},
-
     {path:'modificarComoLlegar', component: ModificarComoLlegarComponent},
     {path:'ver-reserva/:id', component: VerReservaComponent},
-
     {path:'editar-home', component: ModificarHomeComponent},
+    {path:'editar-facilidad', component: ModificarFacilidadesComponent},
     { path: '**', component: HomeComponent},
     { path: '**', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
 

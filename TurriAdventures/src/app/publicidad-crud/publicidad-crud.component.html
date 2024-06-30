@@ -55,9 +55,7 @@
                         <form>
                             <div class="form-group">
                                 <label for="nombrePublicidad">Nombre Publicidad:</label>
-                                <!-- <input type="text" id="nombrePublicidad" class="form-control"
-                                    [value]="publicidades[0].nombrePublicidad"> -->
-
+                               
                                     <input type="text" id="nombrePublicidad" #nombrePublicidadInput class="form-control"
                                     [value]="publicidades[0].nombrePublicidad"
                                     (input)="onInputChange('nombrePublicidad', nombrePublicidadInput.value)" required>
