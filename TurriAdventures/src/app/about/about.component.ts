@@ -5,6 +5,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 import { ViewEncapsulation } from '@angular/core';
 import { AboutService } from '../../Core/AboutService';
 import { About } from '../../Model/About';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-about',
@@ -20,6 +21,7 @@ export class AboutComponent implements OnInit {
   description: string = '';
   images: string[] = [];
   selectedImage: string = '';
+  errorMessage: string = '';
 
   constructor(private aboutService: AboutService) {}
 
@@ -27,12 +29,21 @@ export class AboutComponent implements OnInit {
     this.obtenerNosotros();
   }
 
- async obtenerNosotros() {
-    this.aboutService.ListarNosotros().subscribe((data: About[]) => {
-      if (data.length > 0) {
-        this.description = data[0].descripcionNosotros;
-        this.images = data.map(item => item.imagenNosotros);
-        this.selectedImage = this.images[0];
+  obtenerNosotros(): void {
+    this.aboutService.ListarNosotros().subscribe({
+      next: (data: About[]) => {
+        if (data.length > 0) {
+          this.description = data[0].descripcionNosotros;
+          this.images = data.map(item => 'assets/Facilidades/' + item.imagenNosotros);
+          this.selectedImage = this.images[0];
+          this.errorMessage = '';
+        } else {
+          this.errorMessage = 'No hay información disponible.';
+        }
+      },
+      error: (error: HttpErrorResponse) => {
+        this.errorMessage = 'Error al cargar la información. Intente nuevamente más tarde.';
+        console.error('ERROR', error);
       }
     });
   }

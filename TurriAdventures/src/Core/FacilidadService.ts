@@ -20,7 +20,6 @@ export class FacilidadService {
   CrearFacilidad(facilidad: Facilidad): Observable<any> {
     return this.http.post(this.url + "CrearFacilidad", facilidad);
   }
-
   EditarFacilidad(facilidad: Facilidad): Observable<any> {
     return this.http.put(this.url + "EditarFacilidad", facilidad);
   }
@@ -28,4 +27,5 @@ export class FacilidadService {
   EliminarFacilidad(id: number): Observable<any> {
     return this.http.delete(this.url + `EliminarFacilidad/${id}`);
   }
+
 }
