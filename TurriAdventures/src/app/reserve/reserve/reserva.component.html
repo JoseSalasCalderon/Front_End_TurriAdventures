@@ -21,7 +21,7 @@
                 <h1>Reservar en Línea</h1>
                 <h5>Habitación Disponible</h5>
                 <div class="habitacion-disponible">
-                    <img src="assets/Habitaciones/{{ datosReserve.tipoHabitacion }}.jpg" alt="">
+                    <img src="assets/Habitaciones/{{ nombre }}.jpg" alt="">
                     <p>Usted esta reservando en nuestro hotel el tipo de habitacion {{ datosReserve.tipoHabitacion }}
                         para las fechas entre {{ datosReserve.fechaLlegada }} a {{ datosReserve.fechaSalida }} </p>
                 </div>
@@ -35,7 +35,7 @@
                         <div class="form-group">
                             <label for="idCliente">Cédula:</label>
                             <input #idClienteInput (input)="onInputChange('idCliente', idClienteInput.value)" required
-                                type="text" class="form-control" formControlName="idCliente" id="cedula" maxlength="8">
+                                type="text" class="form-control" formControlName="idCliente" id="cedula">
                         </div>
 
                         <div class="form-group">
@@ -55,7 +55,7 @@
 
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input #emailInput (input)="onInputChange('email', emailInput.value)" required type="email"
+                            <input type="email" #emailInput (input)="onInputChange('email', emailInput.value)" required type="email"
                                 class="form-control" formControlName="email" id="email" value="{{cliente.email}}">
                         </div>
                         <div class="form-group">

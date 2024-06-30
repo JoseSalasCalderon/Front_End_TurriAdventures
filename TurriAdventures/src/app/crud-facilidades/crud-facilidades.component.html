@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Turri Adventure - CRUD Facilidades</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-3 col-md-4">
+        <app-sidebar></app-sidebar>
+      </div>
+      <div class="col-lg-9 col-md-8">
+        <h2>Facilidades</h2>
+        
+        <button class="btn btnAgregar" (click)="openModal('create')">Agregar nueva</button>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>Imagen</th>
+              <th>Descripción</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let facilidad of facilidades">
+              <td><img [src]="facilidad.imagenFacilidad" alt="Imagen Facilidad" class="img-thumbnail" style="width: 400px;"></td>
+              <td>{{ facilidad.descripcionFacilidad }}</td>
+              <td>
+                <button class="btn btn-primary" (click)="openModal('edit', facilidad)" style="width: 80px;">Editar</button>
+                <button class="btn btn-danger" (click)="deleteFacilidad(facilidad.idFacilidad)" style="width: 80px;">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+<div class="modal fade" id="facilidadModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalTitle">{{ modalTitle }}</h5>
+          <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="facilidadForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="descripcionFacilidad">Descripción</label>
+              <input type="text" id="descripcionFacilidad" formControlName="descripcionFacilidad" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="imagenFacilidad">Imagen</label>
+              <input type="file" id="imagenFacilidad" (change)="onFileChange($event)" class="form-control">
+            </div>
+            <div class="form-group text-center" *ngIf="imagenFacilidad">
+              <img [src]="imagenFacilidad" alt="imagenFacilidad" class="img-thumbnail">
+          </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -25,6 +25,7 @@ export class ReservaComponent implements OnInit {
     datosIngresados: boolean = false;
     mensaje: string = '';
     esError: boolean = false;
+    nombre: string = '';
 
     constructor(
         private datosCompartidosService: DatosCompartidosService,
@@ -47,23 +48,23 @@ export class ReservaComponent implements OnInit {
 
 
     monto(): number {
-
-
         let fechaLlegada = new Date(this.datosReserve.fechaLlegada);
         let fechaSalida = new Date(this.datosReserve.fechaSalida);
         let total: number = 0;
         let dias = Math.ceil((fechaSalida.getTime() - fechaLlegada.getTime()) / (1000 * 60 * 60 * 24));
 
         switch (Number(this.datosReserve.tipoHabitacion)) { //No se porque lo valida como string
-
             case 1:
                 total = dias * 180;
+                this.nombre= 'Suite Ejecutiva';
                 break;
             case 2:
                 total = dias * 80;
+                this.nombre= 'Habitación Estándar';
                 break;
             case 3:
                 total = dias * 120;
+                this.nombre= 'Habitación Doble';
                 break;
             default:
                 break;
@@ -71,17 +72,65 @@ export class ReservaComponent implements OnInit {
         return total;
     }
 
+    // onInputChange(field: 'nombre' | 'apellidos' | 'email' | 'tarjetaCredito' | 'idCliente' | 'cvv', value: string) {
+    //     this.datosIngresados = true;
+    //     this.datosCliente[field] = value;
+        
+    //     if (field === 'tarjetaCredito') {
+    //         this.validarTarjeta();
+    //     } else if (field === 'idCliente') {
+    //         //Agregar el campo de Cedula para que se cargue todo automáticamente
+    //         this.obtenerDatosCliente(value.trim());
+    //     }
+    //     this.datosCompartidosService.setDatosCliente(this.datosCliente);
+    // }
+
     onInputChange(field: 'nombre' | 'apellidos' | 'email' | 'tarjetaCredito' | 'idCliente' | 'cvv', value: string) {
         this.datosIngresados = true;
-
         this.datosCliente[field] = value;
-        if (field === 'tarjetaCredito') {
-            this.validarTarjeta();
-        } else if (field === 'idCliente') {
-            //Agregar el campo de Cedula para que se cargue todo automáticamente
-            this.obtenerDatosCliente(value.trim());
+
+        if (field === 'idCliente') {
+            if (!this.validarCedula(value)) {
+                this.mensaje = 'La cédula solo debe contener números.';
+                this.esError = true;
+                setTimeout(() => { this.mensaje = ''; this.esError = false; }, 3000);
+                return;
+            } else {
+                this.obtenerDatosCliente(value.trim());
+            }
         }
+
+        if (field === 'nombre' || field === 'apellidos') {
+            if (!this.validarNombre(value)) {
+                this.mensaje = 'El nombre y los apellidos no deben contener números o símbolos.';
+                this.esError = true;
+                setTimeout(() => { this.mensaje = ''; this.esError = false; }, 3000);
+                return;
+            }
+        }
+
+        if (field === 'tarjetaCredito') {
+            if (!this.validarSoloNumeros(value)) {
+                this.mensaje = 'La tarjeta de crédito solo debe contener números.';
+                this.esError = true;
+                setTimeout(() => { this.mensaje = ''; this.esError = false; }, 3000);
+                return;
+            } else {
+                this.validarTarjeta();
+            }
+        }
+
         this.datosCompartidosService.setDatosCliente(this.datosCliente);
+    }
+
+    validarCedula(value: string): boolean {
+        return /^\d+$/.test(value);
+    }
+    validarNombre(value: string): boolean {
+        return !/\d/.test(value);
+    }
+    validarSoloNumeros(value: string): boolean {
+        return /^\d+$/.test(value);
     }
 
     async onSubmit() {
@@ -128,9 +177,12 @@ export class ReservaComponent implements OnInit {
 
     }
 
-    cancel() {
+   cancel() {
+    const confirmCancel = window.confirm('¿Está seguro que desea cancelar porque se perderán todos los datos');
+    if (confirmCancel) {
         this.router.navigate(['/reserve']);
     }
+}
 
     validarTarjeta(): void {
         let numero = this.datosCliente.tarjetaCredito.replace(/\s/g, '').replace(/-/g, '');

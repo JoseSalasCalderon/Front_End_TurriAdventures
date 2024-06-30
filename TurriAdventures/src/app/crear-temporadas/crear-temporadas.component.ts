@@ -43,7 +43,7 @@ export class CrearTemporadasComponent {
         this.listaEstados.push(data);
         this.formularioEstado.reset(); 
         // Navegación después de guardar exitosamente
-        this.router.navigate(['/listar_estado']);
+        this.router.navigate(['/listar-temporadas']);
       },
       error: (e) => {
         // Manejo de errores

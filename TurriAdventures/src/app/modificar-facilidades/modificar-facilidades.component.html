@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hotel Turri Adventure</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="home.component.css">
+  <link rel="stylesheet" type="text/css" href="modificar-facilidades.component.css">
 </head>
 
 <body>
@@ -14,31 +14,28 @@
     <div class="row">
       <!-- Sidebar -->
       <div class="col-lg-3 col-md-4">
-        <app-sidebar></app-sidebar>
+        <app-sidebar-administrador></app-sidebar-administrador>
       </div>
       <!-- Contenido principal -->
       <div class="col-lg-9 col-md-8">
         <div class="content">
           <div class="article">
             <div class="sections">
-              <img id="homeImage" src="{{imagenHome}}" alt="">
-
-            </div>
-            <div class="sections">
               <div>
                 <h1>Bienvenido a Hotel Turri Adventure</h1>
-                <p>
-                  {{ description }}
-                </p>
+                <form [formGroup]="homeForm" (ngSubmit)="onSubmit()">
+                  <div class="form-group">
+                    <label for="descriptionInput">Descripción:</label>
+                    <textarea class="form-control" id="descriptionInput" formControlName="description" rows="5"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </form>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="h1">
-    <button type="button" class="btn btn-primary btnlogin" onclick="window.location.href='/login'">Login</button>
-  </div>
   </div>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Turri Adventure</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <app-sidebar-administrador></app-sidebar-administrador>
+            </div>
+            <div class="col-lg-9 col-md-8">
+            
+                <div class="container">
+                    <h1>Editar Contacto</h1>
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label for="telefono1">Teléfono 1:</label>
+                            <input id="telefono1" formControlName="telefono1" class="form-control" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label for="telefono2">Teléfono 2:</label>
+                            <input id="telefono2" formControlName="telefono2" class="form-control" type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label for="apartadoPostal">Apartado Postal:</label>
+                            <input id="apartadoPostal" formControlName="apartadoPostal" class="form-control"
+                                type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input id="email" formControlName="email" class="form-control" type="email" />
+                        </div>
+
+                    </form>
+                    <div class="form-group col-lg-3 col-md-4">
+                        <button class="btn btn-primary" (click)="onSubmit()">Guardar</button>
+                        <a class="btn btn-danger float-right" href="/modificarpaginas">Cancelar</a>
+                    </div>
+                    <div *ngIf="mensaje" class="alert" [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
+                        {{ mensaje }}
+                      </div>
+                </div>
+
+            </div>
+
+            
+        </div>
+        
+
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

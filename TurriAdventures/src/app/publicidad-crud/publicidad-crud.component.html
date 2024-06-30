@@ -24,16 +24,12 @@
                         <form class="search-container">
                             <div class="form-group">
                                 <h6 for="idPublicidad">Buscar Publicidad:</h6>
-                                <input type="text" id="busquedaPublicidad" #busquedaInput class="form-control"
-                                    (input)="onInputChange('busquedaPublicidad', busquedaInput.value)" required>
+                                <input type="text" id="busquedaPublicidad" #busquedaInput class="form-control"(input)="onInputChange('busquedaPublicidad', busquedaInput.value)" required>
                             </div>
                             <button type="button" (click)="buscarPublicidad()"
                                 class="btn btnBuscar btn-primary">Buscar</button>
-
                         </form>
-
-                        <div *ngIf="mensaje" class="alert"
-                            [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
+                        <div *ngIf="mensaje" class="alert" [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
                             {{ mensaje }}
                         </div>
 
@@ -51,17 +47,15 @@
                         <h6>Modificar publicidad</h6>
 
                         <p>Imagen Actual:</p>
-                        <img id="imagenActual" [src]="'https://localhost:7032/images/' + imagenActual"
-                            class="img-fluid img-thumbnail" alt="Imagen">
-                    </div>
+                        <img *ngIf="imagenActual" [src]="imagenActual" alt="Imagen Publicidad" class="img-fluid mt-2">
 
+                    </div>                      
+                    
                     <div class="col-md-6">
                         <form>
                             <div class="form-group">
                                 <label for="nombrePublicidad">Nombre Publicidad:</label>
-                                <!-- <input type="text" id="nombrePublicidad" class="form-control"
-                                    [value]="publicidades[0].nombrePublicidad"> -->
-
+                               
                                     <input type="text" id="nombrePublicidad" #nombrePublicidadInput class="form-control"
                                     [value]="publicidades[0].nombrePublicidad"
                                     (input)="onInputChange('nombrePublicidad', nombrePublicidadInput.value)" required>
@@ -117,8 +111,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 

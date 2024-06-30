@@ -3,13 +3,17 @@
 }
 
 img {
-    width: 25%;
-    min-width: 100px;
-    height: 9em;
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+    cursor: pointer;
 }
+
 .facilities {
+    width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     margin-bottom: 1em;
 }
 

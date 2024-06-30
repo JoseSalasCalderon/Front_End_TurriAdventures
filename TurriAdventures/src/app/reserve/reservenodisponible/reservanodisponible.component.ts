@@ -34,14 +34,14 @@ export class ReservanodisponibleComponent implements OnInit {
 
     recomendacion() {
         if (this.datosReserve.tipoHabitacion == 1) {
-            this.nombreTipoRecomendado = 'Doble';
+            this.nombreTipoRecomendado = 'Habitación Doble';
             this.tipoRecomendado = '3';
         } else if (this.datosReserve.tipoHabitacion == 2) {
-            this.nombreTipoRecomendado = 'Doble';
+            this.nombreTipoRecomendado = 'Habitación Doble';
             this.tipoRecomendado = '3';
 
         } else if (this.datosReserve.tipoHabitacion == 3) {
-            this.nombreTipoRecomendado = 'Suite';
+            this.nombreTipoRecomendado = 'Suite Ejecutiva';
             this.tipoRecomendado = '1';
         }
     }//recomendacion

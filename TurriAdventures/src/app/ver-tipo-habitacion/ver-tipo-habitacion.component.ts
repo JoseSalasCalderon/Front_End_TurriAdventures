@@ -115,31 +115,6 @@ export class VerTipoHabitacionComponent implements OnInit{
           }
         }
       });
-      // this.http.post('https://localhost:7032/api/FileUpload/upload', formData).subscribe((response: any) => {
-      //   console.log('File uploaded successfully', response);
-      //   alert('File uploaded successfully');
-
-
-        //Se actualiza el tipo de habitacion
-        // if (this.tipoHabitacionSeleccionada && this.selectedFile) {
-        //   this.tipoHabitacionSeleccionada.imagenTipoHabitacion = this.selectedFile.name;
-        //   this.tiposHabitacionService.ActualizarTipoHabitacion(this.tipoHabitacionSeleccionada).subscribe(response => {
-        //     // Abrir modal si la respuesta es true o false
-        //     if(response=true){
-        //       this.successMessage = 'Actualizó correctamente.';
-        //       this.errorMessage = null;
-        //     }else{
-        //       this.successMessage = null;
-        //       this.errorMessage = 'No se pudo actualizar.';
-        //     }
-
-        //   });
-        // }
-        
-      // }, (error: any) => {
-      //   this.successMessage = null;
-      //   this.errorMessage = 'No se subió el archivo.';
-      // });
     }
   }
 

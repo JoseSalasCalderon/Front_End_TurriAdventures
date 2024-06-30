@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SidebarAdministradorComponent } from "../sidebar-administrador/sidebar-administrador.component";
 import { Publicidad } from '../../Model/Publicidad';
 import { PublicidadService } from '../../Core/PublicidadService';
@@ -22,10 +22,12 @@ export class PublicidadCRUDComponent implements OnInit {
   mensaje: string = '';
   esError: boolean = false;
 
+  @ViewChild('fileInput') fileInput!: ElementRef;
+
   constructor(
     private publicidadService: PublicidadService,
     private router: Router
-  ) { }
+    ) { }
 
   ngOnInit(): void {
     this.obtenerPublicidades();
@@ -35,9 +37,13 @@ export class PublicidadCRUDComponent implements OnInit {
     this.publicidadService.ListarPublicidades().subscribe((publicidades: Publicidad[]) => {
       publicidades.sort((a, b) => b.idPublicidad - a.idPublicidad);
       this.publicidades = publicidades;
-      this.imagenActual = this.publicidades[0].imagenPublicidad; 
-      this.nombrePublicidad = this.publicidades[0].nombrePublicidad;
-      this.url = this.publicidades[0].linkPublicidad;
+
+      // if (this.publicidades.length > 0) {
+        this.imagenActual = this.publicidades[0].imagenPublicidad; 
+        this.nombrePublicidad = this.publicidades[0].nombrePublicidad;
+        this.url = this.publicidades[0].linkPublicidad;
+      // }
+
     });
   }
 
@@ -45,28 +51,31 @@ export class PublicidadCRUDComponent implements OnInit {
     if (this.busquedaPublicidad != '') {
       this.publicidadService.BuscarPublicidadPorNombre(this.busquedaPublicidad).subscribe((data: Publicidad) => {
         if (data) {
-          this.publicidades = [];
-          this.publicidades.push(data);
+          // this.publicidades = [];
+          // this.publicidades.push(data);
+          // this.imagenActual = data.imagenPublicidad;
+          // this.nombrePublicidad = data.nombrePublicidad;
+          // this.url = data.linkPublicidad; 
+
+          this.publicidades = [data];
           this.imagenActual = data.imagenPublicidad;
-
           this.nombrePublicidad = data.nombrePublicidad;
-          this.url = data.linkPublicidad; 
-
+          this.url = data.linkPublicidad;
         } else {
-          this.esError = true;
-          this.mensaje = 'No se encontró la publicidad';
-          setTimeout(() => {
-            this.mensaje = '';
-          }, 3000);
+        this.mostrarMensaje('No se encontró la publicidad', true);
         }
       });
     } else {
-      this.esError = true;
-      this.mensaje = 'Error en la búsqueda.';
-      setTimeout(() => {
-        this.mensaje = '';
-      }, 3000);
+      this.mostrarMensaje('Error en la búsqueda.', true);
     }
+  }
+
+  mostrarMensaje(mensaje: string, esError: boolean) {
+    this.mensaje = mensaje;
+    this.esError = esError;
+    setTimeout(() => {
+      this.mensaje = '';
+    }, 3000);
   }
 
   onInputChange(field: 'busquedaPublicidad' | 'nombrePublicidad' | 'url', value: string) {
@@ -74,17 +83,23 @@ export class PublicidadCRUDComponent implements OnInit {
   }
 
   aceptarCambios() {
-    if (!this.publicidades.length) return; //en caso de que no hay publicidades
+    if (!this.publicidades.length) return; 
     const publicidad = this.publicidades[0];
     publicidad.nombrePublicidad = this.nombrePublicidad;
     publicidad.linkPublicidad = this.url;
 
+    
     if (this.imagenSeleccionada) {
       this.publicidadService.SubirImagen(this.imagenSeleccionada).subscribe(
-        (response) => {
-          publicidad.imagenPublicidad = response.nombreImagen;
+      (response) => {
+          publicidad.imagenPublicidad = response.secure_url;
           this.actualizarPublicidad(publicidad);
         },
+
+        (error) => {
+          this.mostrarMensaje('Error al subir la imagen', true);
+        }
+
       );
     } else {
       this.actualizarPublicidad(publicidad); 
@@ -94,19 +109,10 @@ export class PublicidadCRUDComponent implements OnInit {
   actualizarPublicidad(publicidad: Publicidad) {
     this.publicidadService.EditarPublicidad(publicidad).subscribe(
       (response) => {
-        this.mensaje = 'La publicidad se ha actualizado exitosamente';
-        this.esError = false;
-        setTimeout(() => {
-          this.mensaje = '';
-        }, 3000);
-        // this.router.navigate(['/homeAdmin']);
+        this.mostrarMensaje('La publicidad se ha actualizado exitosamente', false);
       },
       (error) => {
-        this.mensaje = 'Error al actualizar la publicidad';
-        this.esError = true;
-        setTimeout(() => {
-          this.mensaje = '';
-        }, 3000);
+      this.mostrarMensaje('Error al actualizar la publicidad', true);
       }
     );
   }
@@ -117,12 +123,18 @@ export class PublicidadCRUDComponent implements OnInit {
       this.imagenSeleccionada = input.files[0];
 
       const reader = new FileReader(); 
+    
+      // reader.onload = (e: any) => {
+      //   const imagenActualElement = document.getElementById('imagenActual');
+      //   if (imagenActualElement) {
+      //     imagenActualElement.setAttribute('src', e.target.result);
+      //   }
+      // };
+
       reader.onload = (e: any) => {
-        const imagenActualElement = document.getElementById('imagenActual');
-        if (imagenActualElement) {
-          imagenActualElement.setAttribute('src', e.target.result);
-        }
+        this.imagenActual = e.target.result;
       };
+
       reader.readAsDataURL(input.files[0]);
     }
   }
@@ -139,23 +151,21 @@ export class PublicidadCRUDComponent implements OnInit {
       backdrop.classList.add('modal-backdrop', 'fade', 'show');
       document.body.appendChild(backdrop);
     }
+
     this.obtenerPublicidades();
   }
 
   guardarImagen(event: Event) {
     event.preventDefault();
-    const input = event.target as HTMLInputElement;
-    if (this.imagenSeleccionada) {
-      const nombrePublicidad = (document.getElementById('nuevoNombre') as HTMLInputElement).value;
-      const linkDestino = (document.getElementById('nuevoUrl') as HTMLInputElement).value;
+    const nombrePublicidad = (document.getElementById('nuevoNombre') as HTMLInputElement).value;
+    const linkDestino = (document.getElementById('nuevoUrl') as HTMLInputElement).value;
 
+    if (this.imagenSeleccionada) {
       this.publicidadService.SubirImagen(this.imagenSeleccionada).subscribe(
         (response) => {
-          const nombreImagen = response.nombreImagen;
-
           const nuevaPublicidad: Publicidad = {
             idPublicidad: 0,
-            imagenPublicidad: nombreImagen,
+            imagenPublicidad: response.secure_url, // URL segura de Cloudinary
             linkPublicidad: linkDestino,
             nombrePublicidad: nombrePublicidad
           };
@@ -166,8 +176,10 @@ export class PublicidadCRUDComponent implements OnInit {
               this.cerrarModal();
             }
           );
+        },
+        (error) => {
+          this.mostrarMensaje('Error al subir la imagen', true);
         }
-
       );
     }
   }
@@ -191,8 +203,6 @@ export class PublicidadCRUDComponent implements OnInit {
     this.publicidadService.EliminarPublicidad(idPublicidad).subscribe(() => {
       this.obtenerPublicidades();
     });
-
-    this.obtenerPublicidades();
   }
 
 }
