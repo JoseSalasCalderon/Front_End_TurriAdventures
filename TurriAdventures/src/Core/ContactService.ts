@@ -20,4 +20,7 @@ export class ContactService {
     return this.http.get<Contact[]>(this.url+"ListarContactos");
   }
 
+  EditarContacto(contact: Contact): Observable<any> {
+    return this.http.put(`${this.url}EditarContacto`, contact);
+  }
 }

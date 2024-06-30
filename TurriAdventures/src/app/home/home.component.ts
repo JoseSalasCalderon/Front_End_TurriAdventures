@@ -30,6 +30,9 @@ obtenerHome(): void {
       this.description = data[0].descripcionHome;
       this.imagenHome = data[0].imagenHome;
     }
+    console.log('descripcion', this.description);
+    console.log('imagen', this.imagenHome);
+
   });
 }
 

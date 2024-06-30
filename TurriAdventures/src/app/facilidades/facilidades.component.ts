@@ -33,9 +33,9 @@ export class FacilidadesComponent implements OnInit{
             if (facilidades) {
                 facilidades.innerHTML = '';
                 for (let index = 0; index < data.length; index++) {
-                    facilidades.innerHTML += `
-                        <div class="facilities">
-                            <img class="facility-image" src="assets\\Facilidades\\${data[index].imagenFacilidad}" alt="">
+                    facilidades.innerHTML += 
+                    `<div class="facilities">
+                            <img class="facility-image" src="${data[index].imagenFacilidad}" alt="">
                             <p>${data[index].descripcionFacilidad}</p>
                         </div>
                     `;

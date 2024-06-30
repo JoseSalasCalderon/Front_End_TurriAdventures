@@ -30,19 +30,32 @@
               <h2>Galería</h2>
             </div>
           </div>
-         
-          
+          <div class="about-container">      
             <div class="selected-image" *ngIf="selectedImage">
               <img [src]="selectedImage" alt="Imagen seleccionada">
             </div>
 
-            <div class="gallery">
+            <!-- <div class="gallery">
               <div class="image" *ngFor="let image of images" (click)="showImage(image)">
                 <img [src]="image" alt="Imagen de la galería">
               </div>
-            </div>
+            </div> -->
+
+            <div class="gallery">
+              
+              <div class="image" *ngFor="let image of imagenesPaginadas()" (click)="showImage(image)">
+                  <img [src]="image" alt="Imagen de la galería" >
+              </div>
           </div>
+          
+          </div>
+          <div class="pagination" >
+            <button *ngFor="let page of totalPages()" (click)="cambiarPagina(page)">{{ page }}</button>
+        </div>
+        </div>
+
       </div>
+     
     </div>
   </div>
 
