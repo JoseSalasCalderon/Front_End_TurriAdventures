@@ -3,28 +3,29 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Oferta } from '../../Model/Oferta';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OfertaService } from '../../Core/OfertaService';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
-
-
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-modificar-ofertas',
   standalone: true,
-  imports: [HeaderComponent,FooterComponent,ReactiveFormsModule],
+  imports: [HeaderComponent, FooterComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './modificar-ofertas.component.html',
-  styleUrl: './modificar-ofertas.component.css'
+  styleUrls: ['./modificar-ofertas.component.css']
 })
 export class ModificarOfertasComponent {
   OfertaForm: FormGroup;
   Oferta: Oferta | undefined;
-  id:number=0
+  id: number = 0;
+  submitted = false;
+  successMessage = '';
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private OfertaService: OfertaService,
+    private ofertaService: OfertaService,
     private router: Router
   ) {
     this.OfertaForm = this.fb.group({
@@ -40,18 +41,14 @@ export class ModificarOfertasComponent {
     this.route.paramMap.subscribe(params => {
       const idString = params.get('id');
       if (idString) {
-        this.id = parseInt(idString); // Usando parseInt()
-        // O usando el operador +
-        // this.id = +idString;
-  
-        console.log(this.id); // Esto imprimirá el ID como un número entero
+        this.id = parseInt(idString);
         this.obtenerOferta(idString);
       }
     });
   }
 
   obtenerOferta(id: string): void {
-    this.OfertaService.ObtenerOferta(id).subscribe(
+    this.ofertaService.ObtenerOferta(id).subscribe(
       (data: Oferta) => {
         this.Oferta = data;
         this.cargarFormulario();
@@ -64,10 +61,9 @@ export class ModificarOfertasComponent {
 
   cargarFormulario(): void {
     if (this.Oferta) {
-      console.log('Datos de la oferta:', this.Oferta); // Añadir esta línea para depuración
       const fechaInicio = new Date(this.Oferta.fechaInicioOferta);
       const fechaFinal = new Date(this.Oferta.fechaFinalOferta);
-  
+
       this.OfertaForm.patchValue({
         idOferta: this.Oferta.idOferta,
         descripcionOferta: this.Oferta.descripcionOferta,
@@ -88,36 +84,40 @@ export class ModificarOfertasComponent {
     return `${year}-${month}-${day}`;
   }
 
-
   onSubmit(): void {
-    if (this.OfertaForm.valid && this.Oferta) {
-      const formValues = this.OfertaForm.value;
-      const updatedOferta: Oferta = {
-        ...this.Oferta,
-        idOferta: this.id,
-        descripcionOferta: formValues.descripcionOferta,
-        fechaInicioOferta: new Date(formValues.fechaInicioOferta), // Mantener como Date
-        fechaFinalOferta: new Date(formValues.fechaFinalOferta), // Mantener como Date
-        precioOferta: formValues.precioOferta
-      };
-  
-      // Crear un objeto separado para enviar al servidor con las fechas formateadas como cadenas
-      const updatedOfertaForServer = {
-        ...updatedOferta,
-        fechaInicioOferta: this.formatearFecha(updatedOferta.fechaInicioOferta),
-        fechaFinalOferta: this.formatearFecha(updatedOferta.fechaFinalOferta)
-      };
-  
-      this.OfertaService.modificarOferta(updatedOfertaForServer).subscribe(
-        response => {
-          console.log('Oferta actualizada', response);
-          this.router.navigate(['/listar-ofertas']);
-        },
-        error => {
-          console.error('Error al actualizar la Oferta', error);
-        }
-      );
+    this.submitted = true;
+
+    if (this.OfertaForm.invalid || !this.Oferta) {
+      return;
     }
+
+    const formValues = this.OfertaForm.value;
+    const updatedOferta: Oferta = {
+      ...this.Oferta,
+      idOferta: this.id,
+      descripcionOferta: formValues.descripcionOferta,
+      fechaInicioOferta: new Date(formValues.fechaInicioOferta),
+      fechaFinalOferta: new Date(formValues.fechaFinalOferta),
+      precioOferta: formValues.precioOferta
+    };
+
+    const updatedOfertaForServer = {
+      ...updatedOferta,
+      fechaInicioOferta: this.formatearFecha(updatedOferta.fechaInicioOferta),
+      fechaFinalOferta: this.formatearFecha(updatedOferta.fechaFinalOferta)
+    };
+
+    this.ofertaService.modificarOferta(updatedOfertaForServer).subscribe(
+      response => {
+        this.successMessage = 'La oferta se ha actualizado correctamente.';
+        setTimeout(() => {
+          this.successMessage = '';
+          this.router.navigate(['/listar-ofertas']);
+        }, 2000);
+      },
+      error => {
+        console.error('Error al actualizar la Oferta', error);
+      }
+    );
   }
-  
 }
