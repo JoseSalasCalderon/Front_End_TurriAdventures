@@ -15,28 +15,42 @@
     <input type="hidden" formControlName="idOferta">
     
     <div class="form-group">
-        <label for="descripcionOferta">Descripción</label>
-        <input type="text" id="descripcionOferta" class="form-control" formControlName="descripcionOferta">
+      <label for="descripcionOferta">Descripción</label>
+      <input type="text" id="descripcionOferta" class="form-control" formControlName="descripcionOferta" [ngClass]="{'is-invalid': submitted && OfertaForm.get('descripcionOferta')?.invalid}">
+      <div *ngIf="submitted && OfertaForm.get('descripcionOferta')?.invalid" class="invalid-feedback">
+        La descripción de la oferta es requerida.
       </div>
-      
-      <div class="form-group">
-        <label for="fechaInicioOferta">Fecha de Inicio</label>
-        <input type="date" id="fechaInicioOferta" class="form-control" formControlName="fechaInicioOferta">
+    </div>
+    
+    <div class="form-group">
+      <label for="fechaInicioOferta">Fecha de Inicio</label>
+      <input type="date" id="fechaInicioOferta" class="form-control" formControlName="fechaInicioOferta" [ngClass]="{'is-invalid': submitted && OfertaForm.get('fechaInicioOferta')?.invalid}">
+      <div *ngIf="submitted && OfertaForm.get('fechaInicioOferta')?.invalid" class="invalid-feedback">
+        La fecha de inicio de la oferta es requerida.
       </div>
-      
-      <div class="form-group">
-        <label for="fechaFinalOferta">Fecha Final</label>
-        <input type="date" id="fechaFinalOferta" class="form-control" formControlName="fechaFinalOferta">
+    </div>
+    
+    <div class="form-group">
+      <label for="fechaFinalOferta">Fecha Final</label>
+      <input type="date" id="fechaFinalOferta" class="form-control" formControlName="fechaFinalOferta" [ngClass]="{'is-invalid': submitted && OfertaForm.get('fechaFinalOferta')?.invalid}">
+      <div *ngIf="submitted && OfertaForm.get('fechaFinalOferta')?.invalid" class="invalid-feedback">
+        La fecha de finalización de la oferta es requerida.
       </div>
-      
-      <div class="form-group">
-        <label for="precioOferta">Precio</label>
-        <input type="number" id="precioOferta" class="form-control" formControlName="precioOferta">
+    </div>
+    
+    <div class="form-group">
+      <label for="precioOferta">Precio</label>
+      <input type="number" id="precioOferta" class="form-control" formControlName="precioOferta" [ngClass]="{'is-invalid': submitted && OfertaForm.get('precioOferta')?.invalid}">
+      <div *ngIf="submitted && OfertaForm.get('precioOferta')?.invalid" class="invalid-feedback">
+        El precio de la oferta es requerido.
       </div>
-      
+    </div>
 
     <button type="submit" class="btn btn-primary">Guardar</button>
   </form>
+  <div *ngIf="successMessage" class="alert alert-success mt-3">
+    {{ successMessage }}
+  </div>
 </div>
 
 <!-- Scripts al final del cuerpo del documento -->
