@@ -40,7 +40,8 @@
 
                             <div class="row mt-3">
                                 <div class="col-md-12">
-                                    <button type="button" class="btnAgregar btn btn-primary"(click)="agregarAdministrador()">Agregar</button>
+                                    <button type="button" class="btnAgregar btn btn-primary"
+                                        (click)="agregarAdministrador()">Agregar</button>
                                 </div>
                             </div>
 
@@ -55,6 +56,7 @@
 
 
 
+                    <!-- Listar administradores -->
                     <!-- Listar administradores -->
                     <div>
                         <h4>Lista de Administradores</h4>
@@ -76,13 +78,19 @@
                                                 (click)="editarAdministrador(admin)">Editar</button>
                                             <button class="btn btn-sm btn-danger"
                                                 (click)="eliminarAdministrador(admin.idAdministrador)">Eliminar</button>
-
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
+
+                        <!-- Mensaje de error -->
+                        <div *ngIf="mensaje2" class="alert mt-3"
+                            [ngClass]="{'alert-success': !esError2, 'alert-danger': esError2}">
+                            {{ mensaje2 }}
+                        </div>
                     </div>
+
 
 
                     <!-- Editar un administrador -->

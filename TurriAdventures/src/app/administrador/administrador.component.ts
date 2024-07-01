@@ -23,7 +23,9 @@ export class AdministradorComponent implements OnInit {
     administradorSeleccionado: Administrador | null = null;
     mostrarModalEdicion: boolean = false;
     mensaje: string = '';
+    mensaje2: string = '';
     esError: boolean = false;
+    esError2: boolean = false;
 
     constructor(
         private administradorService: AdministradorService,
@@ -109,10 +111,25 @@ export class AdministradorComponent implements OnInit {
     }
 
     eliminarAdministrador(id: number): void {
-        this.administradorService.EliminarAdministrador(id).subscribe(() => {
-            this.listarAdministradores();
-        });
+        this.administradorService.EliminarAdministrador(id).subscribe(
+            () => {
+                this.listarAdministradores();
+                this.mensaje2 = 'Administrador eliminado con éxito';
+                this.esError2 = false;
+                setTimeout(() => {
+                    this.mensaje2 = '';
+                }, 3000);
+            },
+            error => {
+                this.mensaje2 = 'No fue posible eliminar el administrador.';
+                this.esError2 = true;
+                setTimeout(() => {
+                    this.mensaje2 = '';
+                }, 3000);
+            }
+        );
     }
+    
 
     onInputChange(field: 'usuario' | 'contrasena', value: string) {
         if (this.administradorSeleccionado) {

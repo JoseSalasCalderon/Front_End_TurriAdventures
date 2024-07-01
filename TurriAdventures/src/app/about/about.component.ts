@@ -34,7 +34,7 @@ export class AboutComponent implements OnInit {
       next: (data: About[]) => {
         if (data.length > 0) {
           this.description = data[0].descripcionNosotros;
-          this.images = data.map(item => 'assets/Facilidades/' + item.imagenNosotros);
+          this.images = data.map(item => item.imagenNosotros);
           this.selectedImage = this.images[0];
           this.errorMessage = '';
         } else {
