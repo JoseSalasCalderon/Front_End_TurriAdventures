@@ -31,7 +31,6 @@ import { AboutCrudComponent } from './about-crud/about-crud.component';
 import { ModificarComoLlegarComponent } from './modificar-como-llegar/modificar-como-llegar.component';
 import { VerReservaComponent } from './ver-reserva/ver-reserva.component';
 import { ModificarHomeComponent } from './modificar-home/modificar-home.component';
-import e from 'express';
 import { ModificarContactComponent } from './modificar-contact/modificar-contact.component';
 import { CrudFacilidadesComponent } from './crud-facilidades/crud-facilidades.component';
 
