@@ -1,15 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SidebarComponent } from '../sidebar/sidebar.component';
 import { Facilidad } from '../../Model/Facilidad';
 import { FacilidadService } from '../../Core/FacilidadService';
 import { UploadImagesServiceService } from '../../Core/upload-images-service.service';
+import { SidebarAdministradorComponent } from '../sidebar-administrador/sidebar-administrador.component';
 
 @Component({
   selector: 'app-crud-facilidades',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SidebarComponent],
+  imports: [CommonModule, ReactiveFormsModule, SidebarAdministradorComponent],
   templateUrl: './crud-facilidades.component.html',
   styleUrl: './crud-facilidades.component.css'
 })
