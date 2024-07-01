@@ -32,6 +32,8 @@ import { ModificarComoLlegarComponent } from './modificar-como-llegar/modificar-
 import { VerReservaComponent } from './ver-reserva/ver-reserva.component';
 import { ModificarHomeComponent } from './modificar-home/modificar-home.component';
 import { ModificarFacilidadesComponent } from './modificar-facilidades/modificar-facilidades.component';
+import { ModificarContactComponent } from './modificar-contact/modificar-contact.component';
+import { CrudFacilidadesComponent } from './crud-facilidades/crud-facilidades.component';
 
 
 export const routes: Routes = [
