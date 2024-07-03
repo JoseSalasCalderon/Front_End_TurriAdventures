@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { HomeService } from '../../Core/HomeService';
 import { Home } from '../../Model/Home';
 import { SidebarAdministradorComponent } from '../sidebar-administrador/sidebar-administrador.component';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { UploadImagesServiceService } from '../../Core/upload-images-service.service';
 import { Router } from '@angular/router';
@@ -30,7 +30,7 @@ export class ModificarHomeComponent {
     private uploadImagesService: UploadImagesServiceService,     private router: Router,
   ) {
     this.homeForm = this.fb.group({
-      description: ['']
+      description: ['', [Validators.required, this.descriptionValidator]]
     });
   }
 
@@ -79,6 +79,8 @@ export class ModificarHomeComponent {
             this.obtenerHome();
           }
         );
+      }else {
+        this.mostrarMensaje('Descripción inválida.', true);
       }
   }
 
@@ -105,5 +107,16 @@ export class ModificarHomeComponent {
       this.mensaje = '';
     }, 3000);
     this.obtenerHome();
+  }
+
+  private descriptionValidator(control: AbstractControl): { [key: string]: any } | null {
+    const value = control.value;
+    // const invalidPattern = /[^a-zA-Z0-9\s¡!¿?.]/;
+    const lettersPattern = /[a-zA-Z]{3,}/;
+
+    if (!value || value.trim() === '' || !lettersPattern.test(value)) {
+      return { 'invalidDescription': true };
+    }
+    return null;
   }
 }

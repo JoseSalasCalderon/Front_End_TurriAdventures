@@ -10,6 +10,8 @@ export interface TipoHabitacion{
 
 export class TipoHabitacion implements TipoHabitacion {
     tipo: any;
+  nombre: any;
+  descripcion: any;
     constructor(
         public idTipoHabitacion: number,
         public nombreTipoHabitacion: string,

@@ -122,14 +122,19 @@ export class AboutCrudComponent implements OnInit {
     this.router.navigate(['/modificarpaginas']);
   }
   
-  actualizarDescripcion(newDescription: string){
-    const aboutToUpdate: About = {
-      idNosotros: this.about[0].idNosotros,  // Asegúrate de que estás usando el ID correcto
-      descripcionNosotros: newDescription,
-     imagenNosotros: this.about[0].imagenNosotros  // Asegúrate de que estás usando la imagen correcta
-   };
+actualizarDescripcion(newDescription: string) {
+  if (newDescription.trim().length < 3) {
+    this.mostrarMensaje('Error al actualizar.', true);
+    return;
+  }
 
-   this.aboutService.EditarNosotros(aboutToUpdate).subscribe(
+  const aboutToUpdate: About = {
+    idNosotros: this.about[0].idNosotros,  // Asegúrate de que estás usando el ID correcto
+    descripcionNosotros: newDescription,
+    imagenNosotros: this.about[0].imagenNosotros  // Asegúrate de que estás usando la imagen correcta
+  };
+
+  this.aboutService.EditarNosotros(aboutToUpdate).subscribe(
     (response) => {
       this.mostrarMensaje('La descripción se ha actualizado correctamente.', false);
       this.obtenerNosotros();
@@ -199,3 +204,6 @@ export class AboutCrudComponent implements OnInit {
   
 
 }
+
+
+

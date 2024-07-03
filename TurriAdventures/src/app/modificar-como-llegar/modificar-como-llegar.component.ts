@@ -18,6 +18,7 @@ export class ModificarComoLlegarComponent {
   direccion: Direccion | null = null;
   infoDireccion: String = '';
   successMessage: string | null = null;
+  errorMessage: string | null = null;
 
     constructor(
         private DireccionesService: DireccionService,
@@ -35,6 +36,15 @@ export class ModificarComoLlegarComponent {
     }
 
     actualizar() {
+      // Validar que la dirección no esté en blanco y tenga más de tres letras
+      if (this.infoDireccion.trim().length <= 3) {
+        this.errorMessage = 'Error en la dirección ingresada.';
+        setTimeout(() => {
+          this.errorMessage = null;
+        }, 3000);
+        return;
+      }
+  
       // Verificar si existe idDireccion antes de llamar al servicio
       if (this.direccion?.idDireccion != null) {
         this.direccion.informacionDireccion = this.infoDireccion;
@@ -44,12 +54,12 @@ export class ModificarComoLlegarComponent {
             if (response) {
               this.successMessage = 'Actualizó correctamente.';
               setTimeout(() => {
-                this.successMessage = '';
+                this.successMessage = null;
               }, 3000);
-            }else {
+            } else {
               this.successMessage = 'No se pudo actualizar';
               setTimeout(() => {
-                this.successMessage = '';
+                this.successMessage = null;
               }, 3000);
             }
           });
@@ -57,5 +67,4 @@ export class ModificarComoLlegarComponent {
         return null;
       }
     }
-    
-}
+  }

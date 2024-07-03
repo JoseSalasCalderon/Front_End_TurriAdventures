@@ -30,6 +30,10 @@
                       rows="5"></textarea>
                   </div>
 
+                  <div *ngIf="mensaje" class="alert" [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
+                    {{ mensaje }}
+                  </div>
+                  
                   <div class="row ">
 
                     <div class="col-md-6 img-container ">
@@ -53,9 +57,7 @@
                     <a class="btn btn-danger float-right" href="/modificarpaginas">Cancelar</a>
                   </div>
 
-                  <div *ngIf="mensaje" class="alert" [ngClass]="{'alert-success': !esError, 'alert-danger': esError}">
-                    {{ mensaje }}
-                  </div>
+                 
                 </form>
               </div>
             </div>

@@ -23,9 +23,9 @@ export class ModificarContactComponent  implements OnInit {
     private contactService: ContactService
   ) {
     this.contactForm = this.fb.group({
-      telefono1: ['', Validators.required],
-      telefono2: ['', Validators.required],
-      apartadoPostal: ['', Validators.required],
+      telefono1: ['', [Validators.required, Validators.minLength(8)]],
+      telefono2: ['', [Validators.required, Validators.minLength(8)]],
+      apartadoPostal: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]]
     });
   }
@@ -58,7 +58,7 @@ export class ModificarContactComponent  implements OnInit {
         }
       );
     }else{
-      this.mostrarMensaje('Por favor, complete todos los campos.', true);
+      this.mostrarMensaje('Error al actualizar el contacto.', true);
     }
   }
 

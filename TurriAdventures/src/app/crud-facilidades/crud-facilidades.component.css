@@ -8,3 +8,22 @@
   .btn:hover {
     background-color: #575f66 !important;
   }
+
+.btnAgregar {
+  background-color: #007bff;
+  color: white;
+  margin-bottom: 20px;
+}
+
+.img-thumbnail {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+.alert {
+  margin-top: 20px;
+}
+
+#pagination .btn {
+  width: 40px;
+}

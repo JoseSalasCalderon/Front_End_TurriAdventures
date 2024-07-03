@@ -1,13 +1,13 @@
 export interface Facilidad{
     idFacilidad: number,
-    descripcionFacilidad: String,
-    imagenFacilidad: String
+    descripcionFacilidad: string,
+    imagenFacilidad: string
 }
 
 export class TipoHabitacion implements TipoHabitacion {
     constructor(
         public idFacilidad: number,
-        public descripcionFacilidad: String,
-        public imagenFacilidad: String
+        public descripcionFacilidad: string,
+        public imagenFacilidad: string
     ) {};
 }
