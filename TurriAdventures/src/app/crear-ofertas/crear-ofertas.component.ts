@@ -12,12 +12,14 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './crear-ofertas.component.html',
-  styleUrl: './crear-ofertas.component.css'
+  styleUrls: ['./crear-ofertas.component.css']
 })
 export class CrearOfertasComponent {
 
   formularioEstado: FormGroup;
   listaEstados: Oferta[] = [];
+  submitted = false;
+  successMessage = '';
 
   constructor(
     private ofertaService: OfertaService,
@@ -26,29 +28,42 @@ export class CrearOfertasComponent {
   ) {
     this.formularioEstado = this.fb.group({
       descripcionOferta: ["", Validators.required],
-      fechaInicioOferta: [null],
-      fechaFinalOferta: [null],
-      precioOferta: [0]
+      fechaInicioOferta: [null, Validators.required],
+      fechaFinalOferta: [null, Validators.required],
+      precioOferta: [0, Validators.required]
     });
   }
 
   registrarOferta() {
-    const Oferta = this.formularioEstado.value;
+    this.submitted = true;
+
+    if (this.formularioEstado.invalid) {
+      return;
+    }
+
+    const oferta = this.formularioEstado.value;
 
     // Formatear fechas a YYYY-MM-DD
-    Oferta.fechaInicioOferta = this.formatDate(Oferta.fechaInicioOferta);
-    Oferta.fechaFinalOferta = this.formatDate(Oferta.fechaFinalOferta);
+    oferta.fechaInicioOferta = this.formatDate(oferta.fechaInicioOferta);
+    oferta.fechaFinalOferta = this.formatDate(oferta.fechaFinalOferta);
 
-    this.ofertaService.CrearOfertas(Oferta).subscribe({
+    this.ofertaService.CrearOfertas(oferta).subscribe({
       next: (data) => {
         console.log(data);
         this.listaEstados.push(data);
         this.formularioEstado.reset(); 
-        // Navegación después de guardar exitosamente
-        this.router.navigate(['/listar-ofertas']);
+        this.submitted = false;
+        // Mostrar mensaje de éxito
+        this.successMessage = 'La oferta se ha creado correctamente.';
+        // Redirigir después de 2 segundos
+        setTimeout(() => {
+          this.successMessage = '';
+          this.router.navigate(['/listar-ofertas']);
+        }, 2000);
       },
       error: (e) => {
         // Manejo de errores
+        console.error(e);
       }
     });
   }
@@ -65,7 +80,5 @@ export class CrearOfertasComponent {
       return date as string;
     }
   }
-
-
 
 }
