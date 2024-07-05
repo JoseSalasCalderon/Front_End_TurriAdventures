@@ -34,6 +34,10 @@ ObtenerTemporada(id: string): Observable<any> {
   return this.http.get<any>(`https://localhost:7032/Temporadas/BuscarTemporada/${id}`);
 }
 
+EliminarTemporada(id: number): Observable<any> {
+  return this.http.delete<any>(`https://localhost:7032/Temporadas/eliminarTemporada?id=${id}`);
+}
+
 
 
 }

@@ -7,20 +7,19 @@ import { FooterComponent } from '../footer/footer.component';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, Routes } from '@angular/router';
 
-
 @Component({
   selector: 'app-listar-temporadas',
   standalone: true,
-  imports: [CommonModule,SidebarAdministradorComponent,HeaderComponent,FooterComponent,RouterModule],
+  imports: [CommonModule, SidebarAdministradorComponent, HeaderComponent, FooterComponent, RouterModule],
   templateUrl: './listar-temporadas.component.html',
-  styleUrl: './listar-temporadas.component.css'
+  styleUrls: ['./listar-temporadas.component.css']
 })
 export class ListarTemporadasComponent implements OnInit {
-
 
   TemporadaPorPagina: number = 3; 
   paginaActual: number = 1;
   listaEstados: Temporada[] = [];
+  successMessage: string = '';
 
   constructor(private temporadaService: TemporadaService) { }
 
@@ -36,13 +35,23 @@ export class ListarTemporadasComponent implements OnInit {
     });
   }
 
-  
   cambiarPagina(pagina: number) {
     this.paginaActual = pagina;
     this.obtenerEstados();
   }
 
-
-
-
+  eliminarOferta(id: number): void {
+    this.temporadaService.EliminarTemporada(id).subscribe(
+      response => {
+        this.successMessage = 'La temporada se ha eliminado correctamente.';
+        setTimeout(() => {
+          this.successMessage = '';
+          this.obtenerEstados();
+        }, 2000);
+      },
+      error => {
+        console.error('Error al eliminar la temporada', error);
+      }
+    );
+  }
 }
