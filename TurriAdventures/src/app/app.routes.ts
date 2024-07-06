@@ -47,13 +47,13 @@ export const routes: Routes = [
     { path: 'facilities', component: FacilidadesComponent },
     { path: 'direction', component: DireccionComponent },
     { path: 'verEstadoHotel', component:VerEstadoHotelComponent, canActivate:[AuthGuard]},
-   { path: 'vista/:id', component:VistaHabitacionesComponent},
+    {path: 'vista/:id', component:VistaHabitacionesComponent},
     { path: 'listadoReservaciones', component:ListadoReservacionesComponent, canActivate:[AuthGuard]},
     { path: 'administrarHabitaciones', component:AdministrarHabitacionesComponent, canActivate:[AuthGuard]},
     { path: 'verTipoHabitacion', component:VerTipoHabitacionComponent, canActivate:[AuthGuard]},
     { path: 'login', component: LoginComponent},
     { path: 'homeAdmin', component: HomeAdministradorComponent,canActivate:[AuthGuard]},
-   { path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },
+    {path: 'administrador', component: AdministradorComponent, canActivate:[AuthGuard] },
     {path: 'dispohabitaciones', component: DisponibilidadHabitacionesComponent, canActivate:[AuthGuard]},
     {path: 'crudPulicidad', component: PublicidadCRUDComponent, canActivate:[AuthGuard]},
     {path:'listar-temporadas', component: ListarTemporadasComponent},
@@ -64,13 +64,12 @@ export const routes: Routes = [
     {path:'crear-ofertas', component: CrearOfertasComponent},
     {path:'editar-ofertas/:id', component: ModificarOfertasComponent},
     {path: 'about-crud', component: AboutCrudComponent},
-
     {path:'modificarComoLlegar', component: ModificarComoLlegarComponent},
     {path:'ver-reserva/:id', component: VerReservaComponent},
-    { path: 'modificarContacto', component: ModificarContactComponent, canActivate:[AuthGuard]},
-{path: 'crud-facilidades', component: CrudFacilidadesComponent, canActivate:[AuthGuard]},
+    {path: 'modificarContacto', component: ModificarContactComponent, canActivate:[AuthGuard]},
+    {path: 'crud-facilidades', component: CrudFacilidadesComponent, canActivate:[AuthGuard]},
     {path:'editar-home', component: ModificarHomeComponent, canActivate:[AuthGuard]},
-   { path: '**', component: HomeComponent},
+    {path: '**', component: HomeComponent},
 
 
 
