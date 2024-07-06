@@ -32,6 +32,7 @@ export class TipoHabitacionService {
   }
 
   ActualizarTipoHabitacion(tipoHabitacion: TipoHabitacion): Observable<any> {
+    alert("Actualizando tipo de habitación"+ tipoHabitacion.idTemporada);
     return this.http.put(`${this.url}EditarTipoHabitacion`, tipoHabitacion);
   }
 

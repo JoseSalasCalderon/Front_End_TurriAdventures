@@ -3,13 +3,14 @@ import { LoginService } from '../../Core/LoginService';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from '../../Model/Login';
+import { CommonModule } from '@angular/common';
 
 
 let dataLogin: Login;
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -31,17 +32,18 @@ export class LoginComponent implements OnInit {
 
   buttonInicioSesion(): void {
     if (this.usuario.trim().length === 0 || this.contrasena.trim().length === 0) {
-      this.error = true;
+      this.errorMessage = 'Por favor, completa ambos campos.';
       return;
     }
-
+  
     this.error = false;
-
+    this.errorMessage = ''; // Limpiar mensaje de error previo
+  
     console.log("Nombre" + this.usuario);
     console.log("Contrasennia" + this.contrasena);
     this.buscarUsuario(this.usuario, this.contrasena);
   }
-
+  
   buscarUsuario(usuario: string, contrasena: string) {
     if (usuario.trim().length !== 0 && contrasena.trim().length !== 0) {
       this.loginService.buscarUsuario({ usuario, contrasena }).subscribe((data: any) => {
@@ -51,22 +53,28 @@ export class LoginComponent implements OnInit {
           console.log(dataLogin.ID);
           sessionStorage.setItem('id', dataLogin.ID.toString());
           sessionStorage.setItem('usuario', dataLogin.usuario);
-
-            this.router.navigate(['/homeAdmin']);
-      
+          this.router.navigate(['/homeAdmin']);
         } else {
-          console.log("El nombre de usuario o la contraseña son incorrectos");
+          this.errorMessage = 'El nombre de usuario o la contraseña son incorrectos.';
         }
+      }, error => {
+        console.error('Error en la solicitud:', error);
+        this.errorMessage = 'Hubo un problema al procesar la solicitud.';
       });
     } else {
       console.log("Buscar" + usuario.length);
     }
   }
+  
 
   
   logout(){
     this.loginService.logout();
   }
 
+
+  public errorMessage: string = '';
+
   }
+
 

@@ -240,28 +240,20 @@ export class VerTipoHabitacionComponent implements OnInit {
       this.successMessage = null;
       return;
     }
-  
-    // if (!this.tipoHabitacionSeleccionada.nombre || this.tipoHabitacionSeleccionada.nombre.trim().length < 2) {
-    //   this.errorMessage = 'Error en los datos ingresados.';
-    //   this.successMessage = null;
-    //   return;
-    // }
-  
-    // if (!this.tipoHabitacionSeleccionada.descripcion || this.tipoHabitacionSeleccionada.descripcion.trim().length < 2) {
-    //   this.errorMessage = 'Error en los datos ingresados.';
-    //   this.successMessage = null;
-    //   return;
-    // }
-  
+
     this.uploadImagesService.subirImagen(this.selectedFile).subscribe((res) => {
       if (res) {
         if (this.tipoHabitacionSeleccionada) {
           this.tipoHabitacionSeleccionada.imagenTipoHabitacion = res.url;
           this.tipoHabitacionSeleccionada.idTemporada = this.selectedTemporadaId;
           this.tipoHabitacionSeleccionada.idOferta = this.selectedOfertaId;
+
+          console.log('Actualizando con:', this.tipoHabitacionSeleccionada);
+
           this.tiposHabitacionService.ActualizarTipoHabitacion(this.tipoHabitacionSeleccionada).subscribe(response => {
             if (response) {
               this.imageSrc = res.url;
+              alert('Actualizó correctamente.'+ this.tipoHabitacionSeleccionada?.idTemporada + this.tipoHabitacionSeleccionada?.idOferta);
               this.successMessage = 'Actualización exitosa.';
               this.errorMessage = null;
             } else {
@@ -278,5 +270,6 @@ export class VerTipoHabitacionComponent implements OnInit {
     this.router.navigate(['/administrarHabitaciones']);
   }
 }
+
 
 
