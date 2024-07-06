@@ -29,9 +29,6 @@ export class ReserveComponent implements OnInit {
   esError: boolean = false;
   tipoHabitacionNombre: string = '';
 
-  precio: number = 0;
-  imagen: string = '';
-
   constructor(
     private datosCompartidosService: DatosCompartidosService,
     private ReservationService: ReservationService,
@@ -49,9 +46,6 @@ export class ReserveComponent implements OnInit {
       console.log('Recibir tipo habitacion', params['roomType'])
       if (params['roomType'] && params['price']) {
         this.tipoHabitacionNombre = params['roomType'];
-        this.precio = +params['price']; // Convertir a número
-        this.imagen = params['image'];
-        alert('Se ha seleccionado la habitación ' + this.tipoHabitacionNombre + ' con un precio de ' + this.precio + ' colones por noche.');
       }
     });
 

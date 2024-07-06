@@ -8,6 +8,8 @@ import { ReservationService } from '../../../Core/ReservaService';
 import { Reserva } from '../../../Model/Reserva';
 import { CommonModule } from '@angular/common';
 import { ClienteService } from '../../../Core/ClienteService';
+import { TipoHabitacionService } from '../../../Core/TipoHabitacionService';
+import { TipoHabitacion } from '../../../Model/TipoHabitacion';
 
 @Component({
     selector: 'app-reserva',
@@ -27,71 +29,47 @@ export class ReservaComponent  implements OnInit {
     mensaje: string = '';
     esError: boolean = false;
     nombre: string = '';
-
-    tipoHabitacionNombre: string = '';
-    precio: number = 0;
-  imagen: string = '';
+    habitacion: TipoHabitacion | null = null;
+    imagen: any;
 
     constructor(
         private datosCompartidosService: DatosCompartidosService,
         private clienteService: ClienteService,
         private router: Router,
         private reservaService: ReservationService,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        private tipoHabitacionService: TipoHabitacionService
     ) {}
-
-
 
     ngOnInit(): void {
         this.datosReserve = this.datosCompartidosService.getDatosReserve();
         this.route.queryParams.subscribe(params => {
             this.datosReserva = params;
             this.habitacionId = params['habitacionId']; // Obtener el id de la habitación
-       
-            if (params['roomType'] && params['price']) {
-                this.tipoHabitacionNombre = params['roomType'];
-                this.precio = +params['price']; // Convertir a número
-                this.imagen = params['image'];
-                alert('Se ha seleccionado la habitación ' + this.tipoHabitacionNombre + ' con un precio de ' + this.precio + ' colones por noche.');
-            }
+    
+            // Obtener detalles del tipo de habitación
+            this.tipoHabitacionService.BuscarTipoHabitacionPorId(Number(this.datosReserve.tipoHabitacion))
+                .subscribe(habitacion => {
+                    this.habitacion = habitacion;
+                    this.nombre = habitacion.nombre;
+                    this.imagen = habitacion.imagenTipoHabitacion;
+                });
         });
-
-
+    
         this.datosIngresados = true;
     }
 
-    // monto(): number {
-    //     let fechaLlegada = new Date(this.datosReserve.fechaLlegada);
-    //     let fechaSalida = new Date(this.datosReserve.fechaSalida);
-    //     let total: number = 0;
-    //     let dias = Math.ceil((fechaSalida.getTime() - fechaLlegada.getTime()) / (1000 * 60 * 60 * 24));
-
-    //     switch (Number(this.datosReserve.tipoHabitacion)) { //No se porque lo valida como string
-    //         case 1:
-    //             total = dias * 180;
-    //             this.nombre= 'Suite Ejecutiva';
-    //             break;
-    //         case 2:
-    //             total = dias * 80;
-    //             this.nombre= 'Habitación Estándar';
-    //             break;
-    //         case 3:
-    //             total = dias * 120;
-    //             this.nombre= 'Habitación Doble';
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    //     return total;
-    // }
-
     monto(): number {
-        const fechaLlegada = new Date(this.datosReserve.fechaLlegada);
-        const fechaSalida = new Date(this.datosReserve.fechaSalida);
-        const diffTime = Math.abs(fechaSalida.getTime() - fechaLlegada.getTime());
-        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-        return this.precio * diffDays;
-      }
+        if (!this.habitacion) return 0;
+    
+        let fechaLlegada = new Date(this.datosReserve.fechaLlegada);
+        let fechaSalida = new Date(this.datosReserve.fechaSalida);
+        let dias = Math.ceil((fechaSalida.getTime() - fechaLlegada.getTime()) / (1000 * 60 * 60 * 24));
+    
+        return dias * this.habitacion.precio;
+    }
+    
+
     onInputChange(field: 'nombre' | 'apellidos' | 'email' | 'tarjetaCredito' | 'idCliente' | 'cvv', value: string) {
         this.datosIngresados = true;
         this.datosCliente[field] = value;
