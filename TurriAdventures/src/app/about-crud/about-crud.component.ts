@@ -101,22 +101,21 @@ export class AboutCrudComponent implements OnInit {
 
   confirmarEliminarImagen(idImagen: number): void {
     if (confirm('¿Está seguro de que desea eliminar esta imagen?')) {
-      this.eliminarImagen(idImagen);
+        this.eliminarImagen(idImagen);
     }
-  }
+}
 
-  eliminarImagen(idImagen: number): void {
-    console.log('about ts a eliminar', this.about[idImagen].idNosotros);
-    this.aboutService.EliminarNosotros(this.about[idImagen].idNosotros)
-      .subscribe(() => {
-        this.mostrarMensaje('La imagen se ha eliminado con éxito.', false);
-        this.obtenerNosotros(); 
-      }, error => {
-        console.error('Error al eliminar la imagen:', error);
-        this.mostrarMensaje('Error al eliminar la imagen.', true);
-
-      });
-  }
+eliminarImagen(idImagen: number): void {
+  console.log('about ts a eliminar', this.about[idImagen].idNosotros);
+  this.aboutService.EliminarNosotros(this.about[idImagen].idNosotros)
+    .subscribe(() => {
+      this.mostrarMensaje('La imagen se ha eliminado con éxito.', false);
+      this.obtenerNosotros(); 
+    }, error => {
+      console.error('Error al eliminar la imagen:', error);
+      this.mostrarMensaje('Error al eliminar la imagen.', true);
+    });
+}
 
   cancelarCambios(): void {
     this.router.navigate(['/modificarpaginas']);
@@ -187,12 +186,20 @@ actualizarDescripcion(newDescription: string) {
     }
   }
 
-  imagenesPaginadas(): string[] {
+  // imagenesPaginadas(): string[] {
+  //   const startIndex = (this.currentPage - 1) * this.pageSize;
+  //   const endIndex = startIndex + this.pageSize;
+  //   return this.imagenes.slice(startIndex, endIndex);
+  // }
+  
+  imagenesPaginadas(): {url: string, absoluteIndex: number}[] {
     const startIndex = (this.currentPage - 1) * this.pageSize;
     const endIndex = startIndex + this.pageSize;
-    return this.imagenes.slice(startIndex, endIndex);
-  }
-  
+    return this.imagenes.slice(startIndex, endIndex).map((url, index) => ({
+        url,
+        absoluteIndex: startIndex + index
+    }));
+}
   totalPages(): number[] {
     const total = Math.ceil(this.imagenes.length / this.pageSize);
     return Array(total).fill(0).map((x, i) => i + 1);

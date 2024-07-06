@@ -48,7 +48,7 @@ export class ReservaComponent  implements OnInit {
             this.habitacionId = params['habitacionId']; // Obtener el id de la habitación
     
             // Obtener detalles del tipo de habitación
-            this.tipoHabitacionService.BuscarTipoHabitacionPorId(Number(this.datosReserve.tipoHabitacion))
+            this.tipoHabitacionService.BuscarTipoHabitacionPorIdDescuento(Number(this.datosReserve.tipoHabitacion))
                 .subscribe(habitacion => {
                     this.habitacion = habitacion;
                     this.nombre = habitacion.nombre;

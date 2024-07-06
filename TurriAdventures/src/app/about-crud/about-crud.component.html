@@ -37,12 +37,21 @@
                     </div>
 
                     <div class="gallery">
+                        <div class="image" *ngFor="let imagen of imagenesPaginadas(); let localIndex = index">
+                            <img [src]="imagen.url" alt="Imagen de la galería" (click)="mostrarImagen(imagen.url)">
+                            <button (click)="confirmarEliminarImagen(imagen.absoluteIndex)" 
+                                class="btn btn-danger btn-sm">Eliminar</button>
+                        </div>
+                    </div>
+
+                    
+                    <!-- <div class="gallery">
                         <div class="image" *ngFor="let imagen of imagenesPaginadas(); let idImagen = index">
                             <img [src]="imagen" alt="Imagen de la galería" (click)="mostrarImagen(imagen)">
                             <button (click)="confirmarEliminarImagen(idImagen)"
                                 class="btn btn-danger btn-sm">Eliminar</button>
                         </div>
-                    </div>
+                    </div> -->
 
                     <div class="selected-image" *ngIf="imagenSeleccionada">
                         <img [src]="imagenSeleccionada" alt="Imagen seleccionada">
