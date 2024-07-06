@@ -21,10 +21,10 @@
                 <h1>Reservar en Línea</h1>
                 <h5>Habitación Disponible</h5>
                 <div class="habitacion-disponible">
-                    <img src="assets/Habitaciones/{{ nombre }}.jpg" alt="">
-                    <p>Usted esta reservando en nuestro hotel el tipo de habitacion {{ datosReserve.tipoHabitacion }}
-                        para las fechas entre {{ datosReserve.fechaLlegada }} a {{ datosReserve.fechaSalida }} </p>
-                </div>
+                    <img [src]="imagen" alt="">
+                    <p>Usted está reservando en nuestro hotel el tipo de habitación {{ tipoHabitacionNombre }}
+                        para las fechas entre {{ datosReserve.fechaLlegada }} a {{ datosReserve.fechaSalida }}</p>
+                    </div>
 
                 <div class="formulario-reserva" id="paymentForm">
                     <form>

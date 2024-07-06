@@ -28,32 +28,36 @@
             <h2>Tarifas</h2>
           </div>
 
-          <div class="row room-row" *ngFor="let price of prices">
+          <div class="row room-row" *ngFor="let tipo of tiposHabitacion">
             <div class="col-12 room-card">
-              <a [routerLink]="['/room', price.roomType]"></a>
-              <img src="assets/Habitaciones/{{ price.roomType }}.jpg" alt="" class="room-image">
+              <a [routerLink]="['/room', tipo.idTipoHabitacion]"></a>
+              <img [src]="tipo.imagenTipoHabitacion" alt="" class="room-image">
               <div class="room-details">
-                <h2 class="room-title">{{ price.roomType }}</h2>
-                <p class="room-price">Promoción: ${{ isHighSeason() ? price.priceHighSeason : price.priceLowSeason }}
-                  por
-                  noche en temporada de {{ isHighSeason() ? 'Temporada Alta' : 'Temporada Baja' }}!</p>
-               <!-- <button class="btn custom-btn" [routerLink]="['/reserve']">
-                Reservar ahora
-              </button> -->
-                 <!-- ['/vista', price.roomType] -->
-                 <button class="btn custom-btn" 
-                 [routerLink]="['/reserve']"
-                 [queryParams]="{ roomType: price.roomType, price: isHighSeason() ? price.priceHighSeason : price.priceLowSeason }">
-                 Reservar ahora
-               </button>
+                <h2 class="room-title">{{ tipo.nombreTipoHabitacion }}</h2>
+                <p class="room-price">Promoción: ${{ tipo.precio }} por noche en {{
+                  getTemporadaDescripcion(tipo.idTemporada) }}</p>
+                <p class="room-offer">{{ getOfertaDescripcion(tipo.idOferta) }}</p>
+                <p class="room-description">{{ tipo.descripcionTipoHabitacion }}</p>
+
+
+                <!-- <button class="btn custom-btn" [routerLink]="['/reserve']" [queryParams]="{ roomType: tipo.nombreTipoHabitacion, price: tipo.precio }">
+                  Reservar ahora
+                </button>
+               -->
+
+                <button class="btn custom-btn" [routerLink]="['/reserve']"
+                  [queryParams]="{ roomType: tipo.nombreTipoHabitacion, price: tipo.precio, image: tipo.imagenTipoHabitacion }">
+                  Reservar ahora
+                </button>
+
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
   </div>
-
 
   <!-- Scripts de Bootstrap y jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

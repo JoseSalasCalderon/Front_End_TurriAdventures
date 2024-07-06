@@ -54,6 +54,10 @@
     font-size: 16px;
     color: #007bff; /* Azul para el precio */
   }
+  .room-offer {
+    font-size: 14px;
+    color: #007bff; /* Azul para el precio */
+  }
 
   .room-image {
     width: 100%;

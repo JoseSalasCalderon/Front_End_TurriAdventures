@@ -1,12 +1,13 @@
+
 import { Component, HostListener, OnInit } from '@angular/core';
 import { SidebarComponent } from "../../sidebar/sidebar.component";
 import { DatosCompartidosService } from '../DatosCompartidosService';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ClienteService } from '../../../Core/ClienteService';
 import { Cliente } from '../../../Model/Cliente';
 import { ReservationService } from '../../../Core/ReservaService';
 import { Reserva } from '../../../Model/Reserva';
 import { CommonModule } from '@angular/common';
+import { ClienteService } from '../../../Core/ClienteService';
 
 @Component({
     selector: 'app-reserva',
@@ -15,7 +16,7 @@ import { CommonModule } from '@angular/common';
     styleUrl: './reserva.component.css',
     imports: [CommonModule, SidebarComponent]
 })
-export class ReservaComponent implements OnInit {
+export class ReservaComponent  implements OnInit {
     datosCliente: { idCliente: string, nombre: string, apellidos: string, email: string, tarjetaCredito: string, vencimiento: string, cvv: string } = { idCliente: '', nombre: '', apellidos: '', email: '', tarjetaCredito: '', vencimiento: '', cvv: '' };
     datosReserve: { fechaLlegada: string, fechaSalida: string, tipoHabitacion: number } = { fechaLlegada: '', fechaSalida: '', tipoHabitacion: 0 };
     tarjetaValida: boolean = true;
@@ -27,64 +28,70 @@ export class ReservaComponent implements OnInit {
     esError: boolean = false;
     nombre: string = '';
 
+    tipoHabitacionNombre: string = '';
+    precio: number = 0;
+  imagen: string = '';
+
     constructor(
         private datosCompartidosService: DatosCompartidosService,
-        private ClienteService: ClienteService,
+        private clienteService: ClienteService,
         private router: Router,
         private reservaService: ReservationService,
-        private route: ActivatedRoute,
+        private route: ActivatedRoute
+    ) {}
 
-    ) { }
+
 
     ngOnInit(): void {
         this.datosReserve = this.datosCompartidosService.getDatosReserve();
         this.route.queryParams.subscribe(params => {
             this.datosReserva = params;
             this.habitacionId = params['habitacionId']; // Obtener el id de la habitación
+       
+            if (params['roomType'] && params['price']) {
+                this.tipoHabitacionNombre = params['roomType'];
+                this.precio = +params['price']; // Convertir a número
+                this.imagen = params['image'];
+                alert('Se ha seleccionado la habitación ' + this.tipoHabitacionNombre + ' con un precio de ' + this.precio + ' colones por noche.');
+            }
         });
+
 
         this.datosIngresados = true;
     }
 
+    // monto(): number {
+    //     let fechaLlegada = new Date(this.datosReserve.fechaLlegada);
+    //     let fechaSalida = new Date(this.datosReserve.fechaSalida);
+    //     let total: number = 0;
+    //     let dias = Math.ceil((fechaSalida.getTime() - fechaLlegada.getTime()) / (1000 * 60 * 60 * 24));
 
-    monto(): number {
-        let fechaLlegada = new Date(this.datosReserve.fechaLlegada);
-        let fechaSalida = new Date(this.datosReserve.fechaSalida);
-        let total: number = 0;
-        let dias = Math.ceil((fechaSalida.getTime() - fechaLlegada.getTime()) / (1000 * 60 * 60 * 24));
-
-        switch (Number(this.datosReserve.tipoHabitacion)) { //No se porque lo valida como string
-            case 1:
-                total = dias * 180;
-                this.nombre= 'Suite Ejecutiva';
-                break;
-            case 2:
-                total = dias * 80;
-                this.nombre= 'Habitación Estándar';
-                break;
-            case 3:
-                total = dias * 120;
-                this.nombre= 'Habitación Doble';
-                break;
-            default:
-                break;
-        }
-        return total;
-    }
-
-    // onInputChange(field: 'nombre' | 'apellidos' | 'email' | 'tarjetaCredito' | 'idCliente' | 'cvv', value: string) {
-    //     this.datosIngresados = true;
-    //     this.datosCliente[field] = value;
-        
-    //     if (field === 'tarjetaCredito') {
-    //         this.validarTarjeta();
-    //     } else if (field === 'idCliente') {
-    //         //Agregar el campo de Cedula para que se cargue todo automáticamente
-    //         this.obtenerDatosCliente(value.trim());
+    //     switch (Number(this.datosReserve.tipoHabitacion)) { //No se porque lo valida como string
+    //         case 1:
+    //             total = dias * 180;
+    //             this.nombre= 'Suite Ejecutiva';
+    //             break;
+    //         case 2:
+    //             total = dias * 80;
+    //             this.nombre= 'Habitación Estándar';
+    //             break;
+    //         case 3:
+    //             total = dias * 120;
+    //             this.nombre= 'Habitación Doble';
+    //             break;
+    //         default:
+    //             break;
     //     }
-    //     this.datosCompartidosService.setDatosCliente(this.datosCliente);
+    //     return total;
     // }
 
+    monto(): number {
+        const fechaLlegada = new Date(this.datosReserve.fechaLlegada);
+        const fechaSalida = new Date(this.datosReserve.fechaSalida);
+        const diffTime = Math.abs(fechaSalida.getTime() - fechaLlegada.getTime());
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        return this.precio * diffDays;
+      }
     onInputChange(field: 'nombre' | 'apellidos' | 'email' | 'tarjetaCredito' | 'idCliente' | 'cvv', value: string) {
         this.datosIngresados = true;
         this.datosCliente[field] = value;
@@ -141,7 +148,7 @@ export class ReservaComponent implements OnInit {
                 apellidos: this.datosCliente.apellidos,
                 email: this.datosCliente.email
             };
-            await this.ClienteService.CrearCliente(nuevoCliente).toPromise();
+            await this.clienteService.CrearCliente(nuevoCliente).toPromise();
             const reserva: Reserva = {
                 idCliente: nuevoCliente.idCliente,
                 fechaLlegada: new Date(this.datosReserva.fechaLlegada),
@@ -153,10 +160,7 @@ export class ReservaComponent implements OnInit {
             await this.reservaService.CrearReserva(reserva).toPromise();
             this.router.navigate(['/confirmReserve']);
 
-            // const reservaCreada = await this.reservaService.CrearReserva(reserva).toPromise();
-            // const idReservaCreada = reservaCreada.idReservacion; // Obtiene el ID de la reserva creada
-            // this.router.navigate(['/confirmReserve'], { queryParams: { idReserva: idReservaCreada } });
-
+         
         }
         else {
             this.mensaje = 'Por favor revisa que los datos ingresados sean válidos y completos.';
@@ -229,7 +233,7 @@ export class ReservaComponent implements OnInit {
     obtenerDatosCliente(idCliente: String) {
         this.limpiarCamposCliente();
         if (idCliente != '') {
-            this.ClienteService.BuscarCliente(idCliente).subscribe((data: Cliente) => {
+            this.clienteService.BuscarCliente(idCliente).subscribe((data: Cliente) => {
                 if (data != null) {
                     this.cliente = data;
                     this.datosCliente.nombre = this.cliente.nombre;
@@ -258,9 +262,6 @@ export class ReservaComponent implements OnInit {
             cvv.value = '';
         }
     }
-
-
-
 
     @HostListener('window:beforeunload', ['$event']) unloadNotification($event: any) { //Para mostrar mensaje si se intenta salir o actualizar de la pagina
         if (this.datosIngresados) {

@@ -1,3 +1,4 @@
+
 import { Component, OnInit } from '@angular/core';
 import { SidebarComponent } from "../../sidebar/sidebar.component";
 import { HeaderComponent } from "../../header/header.component";
@@ -28,6 +29,9 @@ export class ReserveComponent implements OnInit {
   esError: boolean = false;
   tipoHabitacionNombre: string = '';
 
+  precio: number = 0;
+  imagen: string = '';
+
   constructor(
     private datosCompartidosService: DatosCompartidosService,
     private ReservationService: ReservationService,
@@ -45,7 +49,9 @@ export class ReserveComponent implements OnInit {
       console.log('Recibir tipo habitacion', params['roomType'])
       if (params['roomType'] && params['price']) {
         this.tipoHabitacionNombre = params['roomType'];
-        // this.datos.price = +params['price'];
+        this.precio = +params['price']; // Convertir a número
+        this.imagen = params['image'];
+        alert('Se ha seleccionado la habitación ' + this.tipoHabitacionNombre + ' con un precio de ' + this.precio + ' colones por noche.');
       }
     });
 
@@ -68,7 +74,11 @@ export class ReserveComponent implements OnInit {
         };
         console.log('habitacionId en reserve', this.habitacion.idHabitacion)
         console.log('queryParams para reserva', queryParams);
-        this.router.navigate(['/reserva'], { queryParams: { ...this.datos, habitacionId: this.habitacion.idHabitacion } });
+        this.router.navigate(['/reserva'], { 
+          queryParams: {
+             ...this.datos, habitacionId: this.habitacion.idHabitacion, 
+            } 
+          });
       }
       else {
         const { disponible, fechaLlegada, fechaSalida } = await this.buscarRangoFechasDisponible();
@@ -193,26 +203,3 @@ export class ReserveComponent implements OnInit {
     }
   }
 }
-
-//   obtenerTiposHabitacion() {
-//     return this.TipoHabitacionService.ListarTiposHabitaciones().subscribe((data: TipoHabitacion[]) => {
-//       const formTiposHabitaciones = document.getElementById("tipoHabitacion");
-//       //Se valida para saber si existe y se genera este select
-//       if (formTiposHabitaciones) {
-
-//         formTiposHabitaciones.innerHTML = '';
-//         formTiposHabitaciones.innerHTML += `
-//         <option value="" disabled selected>Por favor seleccione el tipo de habitación de su preferencia</option>
-//       `;
-//         for (let index = 0; index < data.length; index++) {
-//           formTiposHabitaciones.innerHTML += `
-//             <option value="${data[index].idTipoHabitacion}">${data[index].nombreTipoHabitacion}</option>
-//           `;
-//         }
-//       }
-//       this.listaTiposHabitacion = data;
-//       console.log('listaTiposHabitacion', data);
-
-//     })
-//   }
-// }
